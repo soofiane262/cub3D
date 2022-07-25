@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kid-bouh <kid-bouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 13:04:08 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/07/24 19:36:49 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/07/24 23:51:58 by kid-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+#include <stdio.h>
 
 int	ft_put_error(char *error)
 {
@@ -224,7 +225,6 @@ int	read_map_file(t_cub *cub)
 				{
 					cub->tmp_str = ft_substr(cub->buff, tmp_int, tmp_int2);
 					cub->params.c_blue = ft_atoi(cub->tmp_str);
-					// ft_putendl_fd(cub->tmp_str, 1);
 					free(cub->tmp_str);
 				}
 				for_rgb++;
@@ -259,10 +259,13 @@ int	read_map_file(t_cub *cub)
 	}
 	free(cub->buff);
 
+	
 
-
-
-
+	while (cub->buff)
+	{
+		gnl(cub);
+		printf("%s",cub->buff);
+	}
 
 
 //////////////////////	map  ////////////////////////
