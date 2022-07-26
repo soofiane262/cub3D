@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.c                                            :+:      :+:    :+:   */
+/*   general_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/23 16:13:23 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/07/26 12:42:41 by sel-mars         ###   ########.fr       */
+/*   Created: 2022/07/26 12:04:42 by sel-mars          #+#    #+#             */
+/*   Updated: 2022/07/26 13:05:12 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
-int	cub3d(int ac, char **av)
+int	rgb_to_int(int red, int green, int blue)
 {
-	t_cub	*cub;
+	int	converted;
 
-	cub = parsing(ac, av);
-	if (!cub)
+	converted = 256 * 256 * red + 256 * green + blue;
+	return (converted);
+}
+
+int	ft_put_error(char *error)
+{
+	ft_putendl_fd(error, 2);
 		return (1);
-	if (init_mlx_ptrs(cub) || ft_2d_map(cub))
-		return (1);
-	mlx_loop(cub->mlx.mlx_ptr);
-	return (0);
+}
+
+int	skip_space(char *str, int i)
+{
+	while (str[i] && str[i] != '\n' && (str[i] == 32 || (str[i] > 9 && str[i] < 13)))
+		i++;
+	return (i);
 }
