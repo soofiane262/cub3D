@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sel-mars <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/01 14:01:19 by sel-mars          #+#    #+#              #
-#    Updated: 2021/11/10 14:24:54 by sel-mars         ###   ########.fr        #
+#    Updated: 2022/07/26 15:50:55 by sel-mars         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ BNSSRCS	=	ft_lstnew.c ft_lstadd_front.c ft_lstsize.c ft_lstlast.c ft_lstadd_back
 
 BNSOBJS	=	$(BNSSRCS:%.c=%.o)
 
-CC		=	gcc
+CC		=	cc
 
 AR		=	ar rc
 

@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:11:39 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/07/26 12:14:45 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/07/26 18:48:04 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	ft_map_param_error(t_cub *cub, char *str)
 {
 	int	i;
 
+	free(cub->map_path);
 	if (cub->params.no_param)
 		free(cub->params.no_text);
 	if (cub->params.so_param)
@@ -29,6 +30,11 @@ int	ft_map_param_error(t_cub *cub, char *str)
 	{
 		free(cub->map.map[i]);
 		cub->map.map[i++] = NULL;
+	}
+	if (i)
+	{
+		free(cub->map.map);
+		cub->map.map = NULL;
 	}
 	free(cub);
 	cub = NULL;
@@ -104,9 +110,10 @@ int	check_map_content(t_cub *cub)
 			else if (ft_strchr("NSEW", cub->map.map[i][j]))
 			{
 				x++;
-				cub->player.x_pos = i;
-				cub->player.y_pos = j;
+				cub->player.x_pos = j;
+				cub->player.y_pos = i;
 				cub->player.orient = cub->map.map[i][j];
+				cub->map.map[i][j] = '0';
 			}
 			j++;
 		}

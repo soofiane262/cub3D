@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:25:51 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/07/26 14:23:37 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/07/26 19:23:21 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,43 @@ void	mlx_put_tile(int x_start, int y_start, int color, t_mlx mlx_ptrs)
 	}
 }
 
+void	mlx_put_circle(int x_start, int y_start, int color, t_mlx mlx_ptrs)
+{
+	int	i;
+	int	j;
+	int	x_center;
+	int	y_center;
+	int	rad;
+
+	rad = TILE_SIZE / 2;
+	x_center = x_start + rad;
+	y_center = y_start + rad;
+	i = 0;
+	while (i < TILE_SIZE)
+	{
+		j = 0;
+		while (j < TILE_SIZE)
+		{
+			if (sqrt((x_center - j * TILE_SIZE) * (x_center - j * TILE_SIZE) + (y_center - i * TILE_SIZE) * (y_center - i * TILE_SIZE)) <= rad)
+			{
+				ft_putendl_fd("check", 1);
+				mlx_pixel_put(mlx_ptrs.mlx_ptr, mlx_ptrs.win_ptr,
+					x_start + j, y_start + i, color);
+			}
+			// else
+			// {
+				ft_putnbr_fd(sqrt((x_center - j * TILE_SIZE) * (x_center - j * TILE_SIZE) + (y_center - i * TILE_SIZE) * (y_center - i * TILE_SIZE)), 1);
+				// ft_putnbr_fd(sqrt((x_start / TILE_SIZE + TILE_SIZE / 2 - j) * (x_start / TILE_SIZE + TILE_SIZE / 2 - j) + (y_start / TILE_SIZE + TILE_SIZE / 2 - i) * (y_start / TILE_SIZE + TILE_SIZE / 2 - i)), 1);
+				ft_putendl_fd("", 1);
+			// 	mlx_pixel_put(mlx_ptrs.mlx_ptr, mlx_ptrs.win_ptr,
+			// 		x_start + j, y_start + i, color);
+			// }
+			j++;
+		}
+		i++;
+	}
+}
+
 int	ft_2d_map(t_cub *cub)
 {
 	int	i;
@@ -63,17 +100,23 @@ int	ft_2d_map(t_cub *cub)
 		while (j < cub->map.width)
 		{
 			if (cub->map.map[i][j] == '1')
-				mlx_put_tile(j * TILE_SIZE, i * TILE_SIZE, rgb_to_int(73, 64, 255), cub->mlx);
+				mlx_put_tile(j * TILE_SIZE, i * TILE_SIZE,
+					rgb_to_int(73, 64, 255), cub->mlx);
 			else if (cub->map.map[i][j] == '0')
-				mlx_put_tile(j * TILE_SIZE, i * TILE_SIZE, cub->params.f_color, cub->mlx);
-			else if (ft_strchr("NSEW", cub->map.map[i][j]))
-				mlx_put_tile(j * TILE_SIZE, i * TILE_SIZE, rgb_to_int(217, 56, 62), cub->mlx);
+				mlx_put_tile(j * TILE_SIZE, i * TILE_SIZE,
+					cub->params.f_color, cub->mlx);
 			else
-				mlx_put_tile(j * TILE_SIZE, i * TILE_SIZE, rgb_to_int(0, 0, 0), cub->mlx);
+				mlx_put_tile(j * TILE_SIZE, i * TILE_SIZE,
+					rgb_to_int(0, 0, 0), cub->mlx);
+			if (j == cub->player.x_pos && i == cub->player.y_pos)
+				mlx_put_circle(j * TILE_SIZE, i * TILE_SIZE,
+					rgb_to_int(217, 56, 62), cub->mlx);
 			j++;
 		}
 		i++;
 	}
+	cub->tmp_int = 0;
+	cub->tmp_int2 = 0;
 	return (0);
 }
 

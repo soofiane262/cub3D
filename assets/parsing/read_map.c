@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:23:03 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/07/26 13:08:18 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/07/26 17:00:23 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,15 @@ int	read_map_file(t_cub *cub)
 	cub->tmp_int = 1;
 	tmp_int = 0;
 	cub->buff = get_next_line(cub->map_fd);
+	init_params(cub);
 	if (!cub->buff)
 		return (ft_map_param_error(cub, "Error: Empty map file"));
-	init_params(cub);
 	while (cub->buff && cub->params.nb_params < 6)
 	{
 		cub->tmp_int++;
 		if (ft_strnstr(cub->buff, "\n", 1))
 		{
+			free(cub->buff);
 			cub->buff = get_next_line(cub->map_fd);
 			continue ;
 		}

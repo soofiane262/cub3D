@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:01:56 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/07/26 14:13:37 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/07/26 18:33:19 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,11 @@
 # define	MAX_2D_HEIGHT	200
 # define	WIN_WIDTH		1400
 # define	WIN_HEIGHT		1000
+
+# define	FPS				25
+# define	ROT_SPEED		1
+
+# define	ON_DESTROY		17
 
 typedef struct s_params
 {
@@ -63,7 +68,11 @@ typedef struct s_player
 {
 	int		x_pos;
 	int		y_pos;
-	char	orient;	
+	int		radius;
+	int		turn;
+	int		mvt;
+	double	rotation;
+	char	orient;
 } t_player;
 
 typedef struct s_mlx
@@ -76,6 +85,7 @@ typedef struct s_cub
 {
 	char		*tmp_str;
 	int			tmp_int;
+	int			tmp_int2;
 	bool		error;
 	char		*buff;
 	int			map_fd;
@@ -107,5 +117,11 @@ int	read_map_file(t_cub *cub);
 //	2d_map
 int	init_mlx_ptrs(t_cub *cub);
 int	ft_2d_map(t_cub *cub);
+
+//	hooks
+int	leave(t_cub *cub);
+int	key_hook(int key, t_cub *cub);
+int	render_frame(t_cub *cub);
+
 
 #endif
