@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:01:56 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/07/26 18:33:19 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/07/27 17:31:02 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@
 # define	ROT_SPEED		1
 
 # define	ON_DESTROY		17
+# define	ON_KEYPRESS		2
+# define	ON_KEYRELEASE	3
 
 typedef struct s_params
 {
@@ -118,9 +120,12 @@ int	read_map_file(t_cub *cub);
 int	init_mlx_ptrs(t_cub *cub);
 int	ft_2d_map(t_cub *cub);
 
+void	mlx_put_line(int x_start, int y_start, int x_end, int y_end, int color, t_mlx mlx_ptrs);
+
 //	hooks
 int	leave(t_cub *cub);
-int	key_hook(int key, t_cub *cub);
+int	key_press(int key, t_cub *cub);
+int	key_release(int key, t_cub *cub);
 int	render_frame(t_cub *cub);
 
 

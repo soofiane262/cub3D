@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 13:04:08 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/07/26 18:29:01 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/07/27 17:21:47 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,6 @@ void	init_params(t_cub *cub)
 	cub->player.radius = 3;
 	cub->player.turn = 0;
 	cub->player.mvt = 0;
-	cub->player.rotation = M_PI_2;
-	if (cub->player.orient == 'S')
-		cub->player.rotation = 3 * M_PI_2;
-	else if (cub->player.orient == 'E')
-		cub->player.rotation = 0;
-	else if (cub->player.orient == 'W')
-		cub->player.rotation = 2 * M_PI;
 }
 
 t_cub	*parsing(int ac, char **av)

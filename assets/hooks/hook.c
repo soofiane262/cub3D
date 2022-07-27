@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:28:23 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/07/26 18:37:38 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/07/27 18:23:34 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,62 +38,116 @@ int	leave(t_cub *cub)
 	return (0);
 }
 
-// void	mlx_put_line(int x, int y, int color, t_mlx mlx_ptrs)
+// void	update_player(t_cub *cub)
 // {
-// 	int	i;
-
-// 	i = 0;
-// 	while (i < TILE_SIZE)
-// 	{
-// 		mlx_pixel_put(mlx_ptrs.mlx_ptr, mlx_ptrs.win_ptr,
-// 			x, y + i, color);
-// 		i++;
+// 	if (cub->player.mvt && !(cub->player.mvt % 3))
+// 	{	// W	// S
+// 		cub->player.y_pos += cub->player.mvt / 3;
 // 	}
+// 	if (cub->player.mvt && !(cub->player.mvt % 2))
+// 	{	// A	// D
+// 		cub->player.x_pos += cub->player.mvt / 2;
+// 	}
+// 		// <- (Left)	// -> (Right)
+// 	cub->player.rotation += cub->player.turn * ROT_SPEED;
 // }
 
 int	render_frame(t_cub *cub)
 {
-	(void)cub;
+	if (cub->tmp_int < 10)
+	{
+
+ft_putendl_fd("check", 1);
+
+		mlx_clear_window(cub->mlx.mlx_ptr, cub->mlx.win_ptr);
+		ft_2d_map(cub);
+	}
+	if (cub->tmp_int == 400)
+		cub->tmp_int = 0;
+	cub->tmp_int++;
 	return (0);
 }
 
-int	key_hook(int key, t_cub *cub)
+int	key_press(int key, t_cub *cub)
 {
-	(void)cub;
 	if (key == 53)
 		leave(cub);
 	else if (key == 13)
-	{
-		// W
+	{	// W
+		// cub->player.mvt = -3;
+		cub->player.y_pos--;
 	}
 	else if (key == 0)
-	{
-		// A
+	{	// A
+		// cub->player.mvt = -2;
+		cub->player.x_pos--;
 	}
 	else if (key == 1)
-	{
-		// S
+	{	// S
+		// cub->player.mvt = 3;
+		cub->player.y_pos++;
 	}
 	else if (key == 2)
-	{
-		// D
+	{	// D
+		// cub->player.mvt = 2;
+		cub->player.x_pos++;
 	}
 	else if (key == 123)
-	{
-		// <- (Left)
+	{	// <- (Left)
+		// cub->player.turn = -1;
+		cub->player.rotation -= ROT_SPEED * M_PI / 180;
 	}
 	else if (key == 124)
-	{
-		// -> (Right)
+	{	// -> (Right)
+		// cub->player.turn = 1;
+		cub->player.rotation += ROT_SPEED * M_PI / 180;
 	}
-	else if (key == 125)
-	{
-		// (Down)
+	// update_player(cub);
+	mlx_clear_window(cub->mlx.mlx_ptr, cub->mlx.win_ptr);
+	ft_2d_map(cub);
+	// else if (key == 125)
+	// {	// (Down)
+	// }
+	// else if (key == 126)
+	// {	// ^ (Up)
+	// }
+	// ft_putnbr_fd(key, 1);
+	// ft_putendl_fd("", 1);
+	return (0);
+}
+
+int	key_release(int key, t_cub *cub)
+{
+	if (key == 13)
+	{	// W
+		cub->player.mvt = 0;
 	}
-	else if (key == 126)
-	{
-		// ^ (Up)
+	else if (key == 0)
+	{	// A
+		cub->player.mvt = 0;
 	}
+	else if (key == 1)
+	{	// S
+		cub->player.mvt = 0;
+	}
+	else if (key == 2)
+	{	// D
+		cub->player.mvt = 0;
+	}
+	else if (key == 123)
+	{	// <- (Left)
+		cub->player.turn = 0;
+	}
+	else if (key == 124)
+	{	// -> (Right)
+		cub->player.turn = 0;
+	}
+	// else if (key == 125)
+	// {	// (Down)
+	// }
+	// else if (key == 126)
+	// {	// ^ (Up)
+	// }
 	// ft_putnbr_fd(key, 1);
 	// ft_putendl_fd("", 1);
 	return (0);

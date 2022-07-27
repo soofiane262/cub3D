@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:11:39 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/07/26 18:48:04 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/07/27 17:40:12 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,13 @@ int	check_map_content(t_cub *cub)
 				cub->player.x_pos = j;
 				cub->player.y_pos = i;
 				cub->player.orient = cub->map.map[i][j];
+				cub->player.rotation = 3 * M_PI_2;
+				if (cub->player.orient == 'S')
+					cub->player.rotation = M_PI_2;
+				if (cub->player.orient == 'E')
+					cub->player.rotation = 0;
+				if (cub->player.orient == 'W')
+					cub->player.rotation = M_PI;
 				cub->map.map[i][j] = '0';
 			}
 			j++;
