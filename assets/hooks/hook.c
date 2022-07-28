@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:28:23 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/07/27 18:23:34 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/07/28 18:17:55 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	leave(t_cub *cub)
 	}
 	free(cub->map.map);
 	cub->map.map = NULL;
-	mlx_destroy_window(cub->mlx.mlx_ptr, cub->mlx.win_ptr);
+	mlx_destroy_window(cub->mlx.mlx, cub->mlx.win);
 	free(cub);
 	cub = NULL;
 	exit(0);
@@ -57,9 +57,9 @@ int	render_frame(t_cub *cub)
 	if (cub->tmp_int < 10)
 	{
 
-ft_putendl_fd("check", 1);
+// ft_putendl_fd("check", 1);
 
-		mlx_clear_window(cub->mlx.mlx_ptr, cub->mlx.win_ptr);
+		mlx_clear_window(cub->mlx.mlx, cub->mlx.win);
 		ft_2d_map(cub);
 	}
 	if (cub->tmp_int == 400)
@@ -103,8 +103,8 @@ int	key_press(int key, t_cub *cub)
 		cub->player.rotation += ROT_SPEED * M_PI / 180;
 	}
 	// update_player(cub);
-	mlx_clear_window(cub->mlx.mlx_ptr, cub->mlx.win_ptr);
-	ft_2d_map(cub);
+	// mlx_clear_window(cub->mlx.mlx, cub->mlx.win);
+	// ft_2d_map(cub);
 	// else if (key == 125)
 	// {	// (Down)
 	// }

@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:01:56 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/07/27 17:31:02 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/07/28 18:44:37 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 # define	WIN_HEIGHT		1000
 
 # define	FPS				25
-# define	ROT_SPEED		1
+# define	ROT_SPEED		10
 
 # define	ON_DESTROY		17
 # define	ON_KEYPRESS		2
@@ -79,8 +79,17 @@ typedef struct s_player
 
 typedef struct s_mlx
 {
-	void	*mlx_ptr;
-	void	*win_ptr;
+	void	*mlx;
+	void	*win;
+	void	*north;
+	void	*south;
+	void	*east;
+	void	*west;
+	void	*floor;
+	void	*ceiling;
+	void	*space;
+	void	*player_dot;
+	
 } t_mlx;
 
 typedef struct s_cub
@@ -120,7 +129,7 @@ int	read_map_file(t_cub *cub);
 int	init_mlx_ptrs(t_cub *cub);
 int	ft_2d_map(t_cub *cub);
 
-void	mlx_put_line(int x_start, int y_start, int x_end, int y_end, int color, t_mlx mlx_ptrs);
+void	mlx_put_line(int x_start, int y_start, double x_end, double y_end, int color, t_mlx mlx_ptrs);
 
 //	hooks
 int	leave(t_cub *cub);

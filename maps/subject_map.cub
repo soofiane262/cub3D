@@ -1,11 +1,11 @@
-NO     ./textures/test.xpm
+NO     ./textures/wall40x40.xpm
 
-SO ./textures/test.xpm
+SO ./textures/wall40x40.xpm
 
-WE ./textures/test.xpm
-EA       ./textures/test.xpm
+WE ./textures/wall40x40.xpm
+EA       ./textures/wall40x40.xpm
 
-F 242   , 202 , 174
+F 171  , 205 , 239
 
 C 225,30,0
 
