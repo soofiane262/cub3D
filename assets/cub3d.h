@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:01:56 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/07/28 18:44:37 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/07/28 19:01:45 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define	WIN_WIDTH		1400
 # define	WIN_HEIGHT		1000
 
-# define	FPS				25
+# define	MOVE_SPEED		10
 # define	ROT_SPEED		10
 
 # define	ON_DESTROY		17

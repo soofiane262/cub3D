@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:25:51 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/07/28 18:46:55 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/07/28 19:45:41 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,21 +104,19 @@ int	ft_2d_map(t_cub *cub)
 
 
 	i = 0;
-	while (i < cub->map.height)
+	while (i < cub->map.height * TILE_SIZE)
 	{
 		j = 0;
-		while (j < cub->map.width)
+		while (j < cub->map.width * TILE_SIZE)
 		{
 			if (j == cub->player.x_pos && i == cub->player.y_pos)
 			{
 				mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win, 
-					cub->mlx.player_dot, j * TILE_SIZE, i * TILE_SIZE);
-
-				mlx_put_line(j * TILE_SIZE + TILE_SIZE / 2,
-							i * TILE_SIZE + TILE_SIZE / 2,
-							j * TILE_SIZE + TILE_SIZE / 2 + 2 * TILE_SIZE * (double)cos(cub->player.rotation),
-							i * TILE_SIZE + TILE_SIZE / 2 + 2 * TILE_SIZE * (double)sin(cub->player.rotation),
-						rgb_to_int(217, 56, 62), cub->mlx);
+					cub->mlx.player_dot, j, i);
+				mlx_put_line(j + TILE_SIZE / 2, i + TILE_SIZE / 2,
+					j + TILE_SIZE / 2 + 2 * TILE_SIZE * (double)cos(cub->player.rotation),
+					i + TILE_SIZE / 2 + 2 * TILE_SIZE * (double)sin(cub->player.rotation),
+					rgb_to_int(217, 56, 62), cub->mlx);
 			}
 			j++;
 		}

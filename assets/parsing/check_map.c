@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:11:39 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/07/27 17:40:12 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/07/28 18:59:10 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,8 @@ int	check_map_content(t_cub *cub)
 			else if (ft_strchr("NSEW", cub->map.map[i][j]))
 			{
 				x++;
-				cub->player.x_pos = j;
-				cub->player.y_pos = i;
+				cub->player.x_pos = j * TILE_SIZE;
+				cub->player.y_pos = i * TILE_SIZE;
 				cub->player.orient = cub->map.map[i][j];
 				cub->player.rotation = 3 * M_PI_2;
 				if (cub->player.orient == 'S')
