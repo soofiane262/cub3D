@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:01:56 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/07/28 19:01:45 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/07/29 19:34:13 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,19 @@
 # include <math.h>
 
 # define	TILE_SIZE		40
+# define	RAY_SIZE		100
+# define	PLAYER_SIZE		32
 # define	MARGIN_2D_MAP	200
 # define	MAX_2D_WIDTH	200
 # define	MAX_2D_HEIGHT	200
 # define	WIN_WIDTH		1400
 # define	WIN_HEIGHT		1000
+# define	STRIP_WIDTH		6
+# define	NB_RAYS			WIN_WIDTH / STRIP_WIDTH
 
 # define	MOVE_SPEED		10
-# define	ROT_SPEED		10
+# define	ROT_SPEED		5
+# define	FOV				60
 
 # define	ON_DESTROY		17
 # define	ON_KEYPRESS		2
@@ -92,6 +97,12 @@ typedef struct s_mlx
 	
 } t_mlx;
 
+// typedef struct s_ray
+// {
+// 	double	ray;
+	
+// } t_ray;
+
 typedef struct s_cub
 {
 	char		*tmp_str;
@@ -130,6 +141,10 @@ int	init_mlx_ptrs(t_cub *cub);
 int	ft_2d_map(t_cub *cub);
 
 void	mlx_put_line(int x_start, int y_start, double x_end, double y_end, int color, t_mlx mlx_ptrs);
+
+//	raycast
+// void	raycast(t_cub *cub);
+
 
 //	hooks
 int	leave(t_cub *cub);

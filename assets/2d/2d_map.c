@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:25:51 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/07/28 19:45:41 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/07/29 19:34:43 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,31 @@ void	mlx_put_line(int x_start, int y_start, double x_end, double y_end, int colo
 	}
 }
 
+void	mlx_put_rays(t_cub *cub)
+{
+	// int		i;
+	// double	ray_angle;
+	
+	// i = -1;
+	// ray_angle = cub->player.rotation - (FOV * M_PI / 360);
+	// while (++i < NB_RAYS)
+	// {
+	// 	mlx_put_line(cub->player.x_pos + TILE_SIZE / 2, cub->player.y_pos + TILE_SIZE / 2,
+	// 		cub->player.x_pos + TILE_SIZE / 2 + RAY_SIZE * (double)cos(ray_angle),
+	// 		cub->player.y_pos + TILE_SIZE / 2 + RAY_SIZE * (double)sin(ray_angle),
+	// 		rgb_to_int(217, 56, 62), cub->mlx);
+	// 	ray_angle += ((((double)FOV * M_PI) / (180 * NB_RAYS)));
+	// }
+
+	// 	// ray_angle = fmod(ray_angle, (2 * M_PI));
+
+
+		mlx_put_line(cub->player.x_pos + TILE_SIZE / 2, cub->player.y_pos + TILE_SIZE / 2,
+			cub->player.x_pos + TILE_SIZE / 2 + RAY_SIZE * (double)cos(cub->player.rotation),
+			cub->player.y_pos + TILE_SIZE / 2 + RAY_SIZE * (double)sin(cub->player.rotation),
+			rgb_to_int(217, 56, 62), cub->mlx);
+}
+
 int	ft_2d_map(t_cub *cub)
 {
 	int	i;
@@ -99,29 +124,9 @@ int	ft_2d_map(t_cub *cub)
 		}
 		i++;
 	}
-
-
-
-
-	i = 0;
-	while (i < cub->map.height * TILE_SIZE)
-	{
-		j = 0;
-		while (j < cub->map.width * TILE_SIZE)
-		{
-			if (j == cub->player.x_pos && i == cub->player.y_pos)
-			{
-				mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win, 
-					cub->mlx.player_dot, j, i);
-				mlx_put_line(j + TILE_SIZE / 2, i + TILE_SIZE / 2,
-					j + TILE_SIZE / 2 + 2 * TILE_SIZE * (double)cos(cub->player.rotation),
-					i + TILE_SIZE / 2 + 2 * TILE_SIZE * (double)sin(cub->player.rotation),
-					rgb_to_int(217, 56, 62), cub->mlx);
-			}
-			j++;
-		}
-		i++;
-		}
+	mlx_put_rays(cub);
+	mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win,
+		cub->mlx.player_dot, cub->player.x_pos + 4, cub->player.y_pos + 4);
 	return (0);
 }
 
@@ -194,6 +199,7 @@ int	init_mlx_ptrs(t_cub *cub)
 	cub->mlx.south = mlx_xpm_file_to_image(cub->mlx.mlx, cub->params.so_text, &tmp, &tmp);
 	cub->mlx.east = mlx_xpm_file_to_image(cub->mlx.mlx, cub->params.ea_text, &tmp, &tmp);
 	cub->mlx.west = mlx_xpm_file_to_image(cub->mlx.mlx, cub->params.we_text, &tmp, &tmp);
+	cub->mlx.player_dot = mlx_xpm_file_to_image(cub->mlx.mlx, "./textures/red_dot_32x32.xpm", &tmp, &tmp);
 
 	cub->mlx.floor = mlx_new_image(cub->mlx.mlx, TILE_SIZE, TILE_SIZE);
 	mlx_change_image_color(cub->mlx.floor, cub->params.f_color);
@@ -201,8 +207,8 @@ int	init_mlx_ptrs(t_cub *cub)
 	mlx_change_image_color(cub->mlx.ceiling, cub->params.c_color);
 	// cub->mlx.space = mlx_new_image(cub->mlx.mlx, TILE_SIZE, TILE_SIZE);
 	// mlx_change_image_color(cub->mlx.space, 0x000000);
-	cub->mlx.player_dot = mlx_new_image(cub->mlx.mlx, TILE_SIZE, TILE_SIZE);
-	mlx_change_player_color(cub->mlx.player_dot, rgb_to_int(217, 56, 62), cub->params.f_color);
+	// cub->mlx.player_dot = mlx_new_image(cub->mlx.mlx, TILE_SIZE, TILE_SIZE);
+	// mlx_change_player_color(cub->mlx.player_dot, rgb_to_int(217, 56, 62), cub->params.f_color);
 
 
 	// if (!cub->mlx.north)
