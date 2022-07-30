@@ -97,11 +97,18 @@ typedef struct s_mlx
 	
 } t_mlx;
 
-// typedef struct s_ray
-// {
-// 	double	ray;
-	
-// } t_ray;
+typedef struct s_ray
+{
+	double	ray_angle;
+	int		wall_x;
+	int		wall_y;
+	int		distance;
+	int		x_intersept;
+	int		y_intersept;
+	int		x_step;
+	int		y_step;
+	struct s_ray	*next;
+} t_ray;
 
 typedef struct s_cub
 {
@@ -112,6 +119,7 @@ typedef struct s_cub
 	char		*buff;
 	int			map_fd;
 	char		*map_path;
+	t_ray		*ray;
 	t_params	params;
 	t_map		map;
 	t_player	player;
@@ -143,7 +151,8 @@ int	ft_2d_map(t_cub *cub);
 void	mlx_put_line(int x_start, int y_start, double x_end, double y_end, int color, t_mlx mlx_ptrs);
 
 //	raycast
-// void	raycast(t_cub *cub);
+t_ray	*raycast(t_cub *cub);
+void	ray_free(t_cub *cub);
 
 
 //	hooks

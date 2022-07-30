@@ -80,27 +80,32 @@ void	mlx_put_line(int x_start, int y_start, double x_end, double y_end, int colo
 
 void	mlx_put_rays(t_cub *cub)
 {
-	// int		i;
-	// double	ray_angle;
-	
-	// i = -1;
-	// ray_angle = cub->player.rotation - (FOV * M_PI / 360);
-	// while (++i < NB_RAYS)
-	// {
-	// 	mlx_put_line(cub->player.x_pos + TILE_SIZE / 2, cub->player.y_pos + TILE_SIZE / 2,
-	// 		cub->player.x_pos + TILE_SIZE / 2 + RAY_SIZE * (double)cos(ray_angle),
-	// 		cub->player.y_pos + TILE_SIZE / 2 + RAY_SIZE * (double)sin(ray_angle),
-	// 		rgb_to_int(217, 56, 62), cub->mlx);
-	// 	ray_angle += ((((double)FOV * M_PI) / (180 * NB_RAYS)));
-	// }
+	int		i;
+	t_ray	*ray_head;
 
-	// 	// ray_angle = fmod(ray_angle, (2 * M_PI));
+	cub->ray = raycast(cub);
+	ray_head = cub->ray;
+	i = -1;
 
-
+	// while (cub->ray)
+	while (++i < NB_RAYS)
+	{
 		mlx_put_line(cub->player.x_pos + TILE_SIZE / 2, cub->player.y_pos + TILE_SIZE / 2,
-			cub->player.x_pos + TILE_SIZE / 2 + RAY_SIZE * (double)cos(cub->player.rotation),
-			cub->player.y_pos + TILE_SIZE / 2 + RAY_SIZE * (double)sin(cub->player.rotation),
+			cub->player.x_pos + TILE_SIZE / 2 + RAY_SIZE * (double)cos(cub->ray->ray_angle),
+			cub->player.y_pos + TILE_SIZE / 2 + RAY_SIZE * (double)sin(cub->ray->ray_angle),
 			rgb_to_int(217, 56, 62), cub->mlx);
+		cub->ray = cub->ray->next;
+	}
+	cub->ray = ray_head;
+	ray_free(cub);
+
+
+		// mlx_put_line(cub->player.x_pos + TILE_SIZE / 2, cub->player.y_pos + TILE_SIZE / 2,
+		// 	cub->player.x_pos + TILE_SIZE / 2 + RAY_SIZE * (double)cos(cub->player.rotation),
+		// 	cub->player.y_pos + TILE_SIZE / 2 + RAY_SIZE * (double)sin(cub->player.rotation),
+		// 	rgb_to_int(217, 56, 62), cub->mlx);
+
+
 }
 
 int	ft_2d_map(t_cub *cub)

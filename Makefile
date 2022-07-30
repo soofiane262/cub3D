@@ -30,15 +30,18 @@ HDFL	=	assets/cub3d.h
 
 $(NAME):	$(SRCS) $(HDFL)
 	@make -C libft
-	@$(CC) $(CFLAGS) $(MAIN) $(SRCS) -I $(HDFL) -L./libft -lft -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	@make -C mlx
+	@$(CC) $(CFLAGS) $(MAIN) $(SRCS) -I $(HDFL) -L./libft -lft -L./mlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 all: $(NAME)
 
 clean:
 	@make clean -C libft
+	@make clean -C mlx
 
 fclean:
 	@make fclean -C libft
+	@make clean -C mlx
 	@rm -rf $(NAME)
 
 .PHONY:	all clean fclean
