@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:25:51 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/07/29 19:34:43 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/01 19:01:18 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,16 +88,25 @@ void	mlx_put_rays(t_cub *cub)
 	i = -1;
 
 	// while (cub->ray)
+	// while (++i < 1)
 	while (++i < NB_RAYS)
 	{
+		// mlx_put_line(cub->player.x_pos + TILE_SIZE / 2, cub->player.y_pos + TILE_SIZE / 2,
+		// 	cub->player.x_pos + TILE_SIZE / 2 + RAY_SIZE * (double)cos(cub->ray->ray_angle),
+		// 	cub->player.y_pos + TILE_SIZE / 2 + RAY_SIZE * (double)sin(cub->ray->ray_angle),
+		// 	rgb_to_int(217, 56, 62), cub->mlx);
+
+	
+	// printf("%dº\n%d\n%d\n\n", (int)(cub->ray->ray_angle * 180 / M_PI), cub->ray->wall_x, cub->ray->wall_y);
+
 		mlx_put_line(cub->player.x_pos + TILE_SIZE / 2, cub->player.y_pos + TILE_SIZE / 2,
-			cub->player.x_pos + TILE_SIZE / 2 + RAY_SIZE * (double)cos(cub->ray->ray_angle),
-			cub->player.y_pos + TILE_SIZE / 2 + RAY_SIZE * (double)sin(cub->ray->ray_angle),
-			rgb_to_int(217, 56, 62), cub->mlx);
+			cub->ray->wall_x, cub->ray->wall_y, rgb_to_int(217, 56, 62), cub->mlx);
+
+
 		cub->ray = cub->ray->next;
 	}
 	cub->ray = ray_head;
-	ray_free(cub);
+	// ray_free(cub);
 
 
 		// mlx_put_line(cub->player.x_pos + TILE_SIZE / 2, cub->player.y_pos + TILE_SIZE / 2,

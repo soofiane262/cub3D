@@ -1,0 +1,7 @@
+make --dry-run --always-make --keep-going --print-directory
+make: Entering directory `/Users/sel-mars/Desktop/cub3D'
+make -C libft
+make -C mlx
+cc -Wall -Wextra -Werror assets/main.c gnl/get_next_line.c gnl/get_next_line_utils.c assets/general/general_utils.c assets/cub3d.c assets/parsing/parsing.c assets/parsing/check_map.c assets/parsing/read_map.c assets/2d/2d_map.c assets/hooks/hook.c assets/raycast/raycast.c -I assets/cub3d.h -L./libft -lft -L./mlx -lmlx -framework OpenGL -framework AppKit -o cub3D
+make: Leaving directory `/Users/sel-mars/Desktop/cub3D'
+ 

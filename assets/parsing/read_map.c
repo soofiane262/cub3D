@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:23:03 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/07/26 17:00:23 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/01 19:20:40 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -278,9 +278,10 @@ int	read_map_file(t_cub *cub)
 	i = 0;
 	cub->error = false;
 	tmp_int = 0;
+	tmp_int2 = 0;
 	while (cub->buff)
 	{
-		if ((int)(ft_strlen(cub->buff) - 1) == cub->map.width)
+		if ((int)(ft_strlen(cub->buff) - 1) == cub->map.width && cub->buff[cub->map.width] == '\n')
 		{
 			if (tmp_int == 1)
 				cub->error = true;
@@ -301,7 +302,8 @@ int	read_map_file(t_cub *cub)
 			tmp_int = 0;
 			tmp_str_arr[i] = (char *)malloc(sizeof(char) * (cub->map.width + 1));
 			cub->tmp_int = 0;
-			while (cub->tmp_int < (int)(ft_strlen(cub->buff) - 1))
+			while ((tmp_int2 < cub->map.height - 1 && cub->tmp_int < (int)(ft_strlen(cub->buff) - 1))
+				|| (tmp_int2 == cub->map.height - 1 && cub->tmp_int < (int)(ft_strlen(cub->buff))))
 			{
 				
 				tmp_str_arr[i][cub->tmp_int] = cub->buff[cub->tmp_int];
@@ -311,11 +313,12 @@ int	read_map_file(t_cub *cub)
 				tmp_str_arr[i][cub->tmp_int++] = ' ';
 			tmp_str_arr[i++][cub->tmp_int] = '\0';
 		}
+		tmp_int2++;
 		free(cub->buff);
 		cub->buff = get_next_line(cub->map_fd);
 	}
 	tmp_str_arr[i] = NULL;
-		tmp_int2 = 0;
+	tmp_int2 = 0;
 	if (cub->error)
 	{
 		tmp_int2 = 0;

@@ -1,0 +1,6 @@
+{
+	"makefile.extensionOutputFolder": "./.vscode",
+	"files.associations": {
+		"cub3d.h": "c"
+	}
+}
