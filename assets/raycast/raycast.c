@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 16:50:43 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/01 19:02:38 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/02 11:33:41 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,17 @@ t_ray	*raycast(t_cub *cub)
 	t_ray		*ray;
 	t_ray		*ray_head;
 
-	ray_angle = cub->player.rotation - (FOV * M_PI / 360);
-	// ray_angle = cub->player.rotation;
+	// ray_angle = cub->player.rotation - (FOV * M_PI / 360);
+	ray_angle = cub->player.rotation;
 	ray = NULL;
 	ray_head = NULL;
 	ray = (t_ray *)malloc(sizeof(t_ray));
 	ray_head = ray;
 	i = -1;
+
+puts("Before Rays Loop");
+
+
 	// while (++i < 1)
 	while (++i < NB_RAYS)
 	{
@@ -46,6 +50,7 @@ t_ray	*raycast(t_cub *cub)
 
 		
 printf("Angle == %dº\n\n", (int)round((ray_angle * 180 / M_PI)));
+printf("Player coordinates\t==\t%d x %d\n\n", cub->player.x_pos + TILE_SIZE / 2,  cub->player.y_pos + TILE_SIZE / 2);
 
 
 
@@ -86,29 +91,37 @@ printf("Angle == %dº\n\n", (int)round((ray_angle * 180 / M_PI)));
 			next_y = tmp[0].y_intersept;
 			if (ray_angle > M_PI && ray_angle < 2 * M_PI)
 				next_y--;
-// puts("--Horizontally");
+puts("Horizontally");
 			// puts("Before");
 			while ((int)round((ray_angle * 180 / M_PI))
 				&& (int)round((ray_angle * 180 / M_PI)) != 180
 				&& (int)round((ray_angle * 180 / M_PI)) != 360
-				&& next_y >= 0 && next_y < (cub->map.height - 1) * TILE_SIZE
-				&& next_x >= 0 && next_x < (cub->map.width - 1) * TILE_SIZE)
+				&& next_y >= 0 && next_y < cub->map.height * TILE_SIZE - 1
+				&& next_x >= 0 && next_x < cub->map.width * TILE_SIZE - 1)
 			{
+
+// printf("next_y\t==\t%d\nnext_x\t==\t%d\n\n", next_y, next_x);
+				
 				if (!tmp[0].x_step && !tmp[0].y_step)
 					break ;
 				// printf("Max\t%d - %d\nActual\t%d - %d\n\n", (cub->map.height - 2) * TILE_SIZE, (cub->map.width - 2) * TILE_SIZE, next_y, next_x);
 
 				if (cub->map.map[(int)floor(next_y / TILE_SIZE)][(int)floor(next_x / TILE_SIZE)] != '0')
 				{
+
+puts("Found H Wall");
+
 					wall_found = true;
 					tmp[0].wall_y = next_y;
 					tmp[0].wall_x = next_x;
-					tmp[0].distance = hypot((next_y - cub->player.y_pos + TILE_SIZE / 2), (next_x - cub->player.x_pos + TILE_SIZE / 2));
+					tmp[0].distance = hypot((cub->player.y_pos + TILE_SIZE / 2 - next_y), (cub->player.x_pos + TILE_SIZE / 2 - next_x));
+printf("wall coordinates\t==\t%d x %d\ndistance to wall\t==\t%d\n", tmp[0].wall_x , tmp[0].wall_y, tmp[0].distance);
 					break ;
 				}
 			puts("H Loop");
 				next_x += tmp[0].x_step;
 				next_y += tmp[0].y_step;
+// printf("next_y\t==\t%d\nnext_x\t==\t%d\n\n", next_y, next_x);
 			}
 // puts("--Horizontally");
 			// puts("After");
@@ -154,23 +167,33 @@ printf("Angle == %dº\n\n", (int)round((ray_angle * 180 / M_PI)));
 			next_y = tmp[1].y_intersept;
 			if (ray_angle > M_PI_2 && ray_angle < 3 * M_PI_2)
 				next_x--;
-// puts("--Vertically");
+puts("Vertically");
 			// puts("Before");
 			while ((int)round((ray_angle * 180 / M_PI)) != 90
 				&& (int)round((ray_angle * 180 / M_PI)) != 270
-				&& next_y >= 0 && next_y < (cub->map.height - 1) * TILE_SIZE
-				&& next_x >= 0 && next_x < (cub->map.width - 1) * TILE_SIZE)
+				&& next_y >= 0 && next_y < cub->map.height * TILE_SIZE - 1
+				&& next_x >= 0 && next_x < cub->map.width * TILE_SIZE - 1)
 			{
+
+
+// printf("next_y\t==\t%d\nnext_x\t==\t%d\n\n", next_y, next_x);
+
+
+				
 				if (!tmp[1].x_step && !tmp[1].y_step)
 					break ;
 				// printf("Max\t%d - %d\nActual\t%d - %d\n\n", (cub->map.height - 2) * TILE_SIZE, (cub->map.width - 2) * TILE_SIZE, next_y, next_x);
 
 				if (cub->map.map[(int)floor(next_y / TILE_SIZE)][(int)floor(next_x / TILE_SIZE)] != '0')
 				{
+			puts("Found V Wall");
 					wall_found = true;
 					tmp[1].wall_y = next_y;
 					tmp[1].wall_x = next_x;
-					tmp[1].distance = hypot((next_y - cub->player.y_pos + TILE_SIZE / 2), (next_x - cub->player.x_pos + TILE_SIZE / 2));
+					tmp[1].distance = hypot((cub->player.y_pos + TILE_SIZE / 2 - next_y), (cub->player.x_pos + TILE_SIZE / 2 - next_x));
+
+printf("wall coordinates\t==\t%d x %d\ndistance to wall\t==\t%d\n", tmp[1].wall_x , tmp[1].wall_y, tmp[1].distance);
+					
 					break ;
 				}
 				next_x += tmp[1].x_step;
@@ -178,6 +201,7 @@ printf("Angle == %dº\n\n", (int)round((ray_angle * 180 / M_PI)));
 
 
 			puts("V Loop");
+// printf("next_y\t==\t%d\nnext_x\t==\t%d\n\n", next_y, next_x);
 
 // puts("--Vertically");
 // printf("Vertical next_x = %d\nVertical next_y = %d\n\n", next_x, next_y);
@@ -209,6 +233,11 @@ printf("distance\t==\t%d\nwall_x\t\t==\t%d\nwall_y\t\t==\t%d\n\n", ray->distance
 		ray = ray->next;
 		ray_angle += ((((double)FOV * M_PI) / (180 * NB_RAYS)));
 	}
+
+
+puts("After Rays Loop");
+
+
 	return (ray_head);
 }
 

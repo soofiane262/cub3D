@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:25:51 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/01 19:01:18 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/02 11:33:38 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,8 @@ void	mlx_put_rays(t_cub *cub)
 	ray_head = cub->ray;
 	i = -1;
 
-	// while (cub->ray)
-	// while (++i < 1)
-	while (++i < NB_RAYS)
+	while (++i < 1)
+	// while (++i < NB_RAYS)
 	{
 		// mlx_put_line(cub->player.x_pos + TILE_SIZE / 2, cub->player.y_pos + TILE_SIZE / 2,
 		// 	cub->player.x_pos + TILE_SIZE / 2 + RAY_SIZE * (double)cos(cub->ray->ray_angle),
