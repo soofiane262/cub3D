@@ -7,7 +7,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 
 # This program built for i386-apple-darwin11.3.0
 
-# Make data base, printed on Mon Aug  1 20:02:56 2022
+# Make data base, printed on Tue Aug  2 18:18:26 2022
 
 # Variables
 
@@ -40,15 +40,15 @@ SRCS = gnl/get_next_line.c gnl/get_next_line_utils.c assets/general/general_util
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
-VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n000cd6000339h/T/vscode-ipc-040d5e0c-c0fd-4c7b-8075-86ba4b8b8081.sock
+VSCODE_IPC_HOOK_EXTHOST = /var/folders/zz/zyxvpxvq6csfxvn_n000cd6000339h/T/vscode-ipc-e73bfaad-8e6d-4250-a928-c8a6a68343d7.sock
 # environment
 VSCODE_CWD = /
 # environment
-PATH = /Users/sel-mars/goinfre/.brew/bin:/Users/sel-mars/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki
+PATH = /Users/sel-mars/goinfre/.brew/bin:/Users/sel-mars/.brew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki:/Applications/Visual Studio Code.app/Contents/Resources/app/bin
 # environment
 LSCOLORS = Gxfxcxdxbxegedabagacad
 # environment
-LaunchInstanceID = F65A7D79-9C11-42E8-8443-97249C39A9AF
+LaunchInstanceID = 60BEDECA-58C8-4C14-980F-624C5A2436ED
 # environment
 VSCODE_LOG_STACK = false
 # environment
@@ -56,7 +56,7 @@ ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.zYCi7gAEmZ/Listeners
+SSH_AUTH_SOCK = /private/tmp/com.apple.launchd.ewlodxAnCx/Listeners
 # automatic
 %F = $(notdir $%)
 # environment
@@ -162,7 +162,7 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-VSCODE_PID = 857
+VSCODE_PID = 2024
 # variable set hash-table stats:
 # Load=76/1024=7%, Rehash=0, Collisions=4/112=4%
 
@@ -172,9 +172,9 @@ VSCODE_PID = 857
 
 # Directories
 
-# . (device 16777225, inode 570979): 11 files, no impossibilities.
+# . (device 16777225, inode 570979): 12 files, no impossibilities.
 
-# 11 files, no impossibilities in 1 directories.
+# 12 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -209,7 +209,7 @@ gnl/get_next_line.c:
 cub3D: gnl/get_next_line.c gnl/get_next_line_utils.c assets/general/general_utils.c assets/cub3d.c assets/parsing/parsing.c assets/parsing/check_map.c assets/parsing/read_map.c assets/2d/2d_map.c assets/hooks/hook.c assets/raycast/raycast.c assets/cub3d.h
 #  Implicit rule search has not been done.
 #  Implicit/static pattern stem: `'
-#  File does not exist.
+#  Last modified 2022-08-02 14:54:28
 #  File has been updated.
 #  Needs to be updated (-q is set).
 # automatic
@@ -227,7 +227,7 @@ cub3D: gnl/get_next_line.c gnl/get_next_line_utils.c assets/general/general_util
 # automatic
 # ^ := gnl/get_next_line.c gnl/get_next_line_utils.c assets/general/general_utils.c assets/cub3d.c assets/parsing/parsing.c assets/parsing/check_map.c assets/parsing/read_map.c assets/2d/2d_map.c assets/hooks/hook.c assets/raycast/raycast.c assets/cub3d.h
 # automatic
-# ? := gnl/get_next_line.c gnl/get_next_line_utils.c assets/general/general_utils.c assets/cub3d.c assets/parsing/parsing.c assets/parsing/check_map.c assets/parsing/read_map.c assets/2d/2d_map.c assets/hooks/hook.c assets/raycast/raycast.c assets/cub3d.h
+# ? := assets/2d/2d_map.c assets/raycast/raycast.c assets/cub3d.h
 # variable set hash-table stats:
 # Load=8/32=25%, Rehash=0, Collisions=1/16=6%
 #  commands to execute (from `Makefile', line 32):
@@ -263,7 +263,7 @@ assets/general/general_utils.c:
 # Not a target:
 assets/raycast/raycast.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-01 19:02:38
+#  Last modified 2022-08-02 14:54:49
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -272,7 +272,7 @@ assets/raycast/raycast.c:
 # Not a target:
 assets/2d/2d_map.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-01 19:01:18
+#  Last modified 2022-08-02 15:24:41
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -281,10 +281,10 @@ assets/2d/2d_map.c:
 # Not a target:
 assets/parsing/check_map.c:
 #  Implicit rule search has been done.
- 
 #  Last modified 2022-07-28 18:59:10
 #  File has been updated.
 #  Successfully updated.
+ 
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
@@ -302,7 +302,7 @@ fclean:
 # Not a target:
 assets/hooks/hook.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-29 17:14:19
+#  Last modified 2022-08-02 14:54:08
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -317,7 +317,7 @@ assets/hooks/hook.c:
 # Not a target:
 assets/cub3d.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-01 19:21:05
+#  Last modified 2022-08-02 14:54:25
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -363,7 +363,7 @@ gnl/get_next_line_utils.c:
 # Not a target:
 assets/cub3d.h:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-01 19:03:26
+#  Last modified 2022-08-02 15:23:21
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -382,6 +382,6 @@ assets/cub3d.h:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Mon Aug  1 20:02:56 2022
+# Finished Make data base on Tue Aug  2 18:18:26 2022
 
  

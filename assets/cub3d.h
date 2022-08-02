@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:01:56 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/01 19:03:26 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/02 15:23:21 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,24 +19,27 @@
 # include <stdbool.h>
 # include <math.h>
 
-# define	TILE_SIZE		40
-# define	RAY_SIZE		400
-# define	PLAYER_SIZE		32
-# define	MARGIN_2D_MAP	200
-# define	MAX_2D_WIDTH	200
-# define	MAX_2D_HEIGHT	200
-# define	WIN_WIDTH		1400
-# define	WIN_HEIGHT		1000
-# define	STRIP_WIDTH		50
-# define	NB_RAYS			WIN_WIDTH / STRIP_WIDTH
+# define	TILE_SIZE				40
+# define	PLAYER_SIZE				32
+# define	WIN_WIDTH				1400
+# define	WIN_HEIGHT				1000
 
-# define	MOVE_SPEED		10
-# define	ROT_SPEED		5
-# define	FOV				60
+# define	STRIP_WIDTH				30
+# define	NB_RAYS					WIN_WIDTH / STRIP_WIDTH
 
-# define	ON_DESTROY		17
-# define	ON_KEYPRESS		2
-# define	ON_KEYRELEASE	3
+# define	MINI_MAP_TILE_SIZE		15
+# define	MINI_MAP_PLAYER_SIZE	10
+# define	MINI_MAP_MARGIN			200
+# define	MINI_MAP_WIDTH			300
+# define	MINI_MAP_HEIGHT			200
+
+# define	MOVE_SPEED				10
+# define	ROT_SPEED				5
+# define	FOV						60
+
+# define	ON_DESTROY				17
+# define	ON_KEYPRESS				2
+# define	ON_KEYRELEASE			3
 
 typedef struct s_params
 {
@@ -68,8 +71,18 @@ typedef struct s_map
 	int		tile_size_mini_map;
 	int		mini_map_width;
 	int		mini_map_height;
-	char	**map;	
+	char	**map;
 } t_map;
+
+typedef struct s_mini_map
+{
+	int		width;
+	int		height;
+	void	*background;
+	void	*floor;
+	void	*wall;
+	void	*player;
+} t_mini_map;
 
 typedef struct s_player
 {
@@ -92,9 +105,6 @@ typedef struct s_mlx
 	void	*west;
 	void	*floor;
 	void	*ceiling;
-	void	*space;
-	void	*player_dot;
-	
 } t_mlx;
 
 typedef struct s_ray
@@ -131,6 +141,7 @@ typedef struct s_cub
 	t_ray		*ray;
 	t_params	params;
 	t_map		map;
+	t_mini_map	mini_map;
 	t_player	player;
 	t_mlx		mlx;
 } t_cub;
@@ -155,7 +166,7 @@ int	read_map_file(t_cub *cub);
 
 //	2d_map
 int	init_mlx_ptrs(t_cub *cub);
-int	ft_2d_map(t_cub *cub);
+// int	ft_2d_map(t_cub *cub);
 
 void	mlx_put_line(int x_start, int y_start, double x_end,
 	double y_end, int color, t_mlx mlx_ptrs);

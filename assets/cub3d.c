@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:13:23 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/02 12:27:20 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/02 14:54:25 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	cub3d(int ac, char **av)
 	cub = parsing(ac, av);
 	if (!cub)
 		return (1);
-	if (init_mlx_ptrs(cub) || ft_2d_map(cub))
+	if (init_mlx_ptrs(cub))
 		return (1);
 	cub->tmp_int = 0;
 	cub->tmp_int2 = 0;

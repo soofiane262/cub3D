@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:28:23 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/07/29 17:14:19 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/02 14:54:08 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	render_frame(t_cub *cub)
 	if (cub->tmp_int < 10)
 	{
 		mlx_clear_window(cub->mlx.mlx, cub->mlx.win);
-		ft_2d_map(cub);
+		// ft_2d_map(cub);
 	}
 	if (cub->tmp_int == 400)
 		cub->tmp_int = 0;
