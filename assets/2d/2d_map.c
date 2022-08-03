@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:25:51 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/03 11:10:35 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/03 19:33:29 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,89 @@
 
 #include <stdio.h>
 
-// #include <stdio.h>
-
-int	mini_map(t_cub *cub)
+int	put_mini_map(t_cub *cub)
 {
-	int	i;
-	int	j;
+	int	i[2];
+	int	j[2];
 
-	
-	i = -1;
-	while (++i < cub->map.height)
+	mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win,
+		cub->mini_map.background, MINI_MAP_MARGIN, MINI_MAP_MARGIN);
+	i[0] = cub->player.y_pos / TILE_SIZE;
+	j[0] = MINI_MAP_HEIGHT / 2 + cub->mini_map.diff[0];
+	while (i[0] >= 0 && j[0] >= MINI_MAP_MARGIN + 2)
 	{
-		j = -1;
-		while (++j < cub->map.width)
-		{}
+		i[1] = cub->player.x_pos / TILE_SIZE;
+		j[1] = MINI_MAP_WIDTH / 2 + cub->mini_map.diff[1];
+		while (i[1] >= 0 && j[1] >= MINI_MAP_MARGIN + 2)
+		{
+			if (cub->map.map[i[0]][i[1]] == '0')
+				mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win, cub->mini_map.floor, j[1], j[0]);
+			else if (cub->map.map[i[0]][i[1]] == '1')
+				mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win, cub->mini_map.wall, j[1], j[0]);
+			j[1] -= MINI_MAP_TILE_SIZE;
+			i[1]--;
+		}
+		j[0] -= MINI_MAP_TILE_SIZE;
+		i[0]--;
 	}
+	i[0] = cub->player.y_pos / TILE_SIZE;
+	j[0] = MINI_MAP_HEIGHT / 2 + cub->mini_map.diff[0];
+	while (i[0] >= 0 && j[0] >= MINI_MAP_MARGIN + 2)
+	{
+		i[1] = cub->player.x_pos / TILE_SIZE;
+		j[1] = MINI_MAP_WIDTH / 2 + cub->mini_map.diff[1];
+		while (i[1] < cub->map.width && j[1] < MINI_MAP_WIDTH - 2)
+		{
+			if (cub->map.map[i[0]][i[1]] == '0')
+				mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win, cub->mini_map.floor, j[1], j[0]);
+			else if (cub->map.map[i[0]][i[1]] == '1')
+				mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win, cub->mini_map.wall, j[1], j[0]);
+			j[1] += MINI_MAP_TILE_SIZE;
+			i[1]++;
+		}
+		j[0] -= MINI_MAP_TILE_SIZE;
+		i[0]--;
+	}
+	i[0] = cub->player.y_pos / TILE_SIZE;
+	j[0] = MINI_MAP_HEIGHT / 2 + cub->mini_map.diff[0];
+	while (i[0] < cub->map.height && j[0] < MINI_MAP_HEIGHT - 2)
+	{
+		i[1] = cub->player.x_pos / TILE_SIZE;
+		j[1] = MINI_MAP_WIDTH / 2 + cub->mini_map.diff[1];
+		while (i[1] >= 0 && j[1] >= MINI_MAP_MARGIN + 2)
+		{
+			if (cub->map.map[i[0]][i[1]] == '0')
+				mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win, cub->mini_map.floor, j[1], j[0]);
+			else if (cub->map.map[i[0]][i[1]] == '1')
+				mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win, cub->mini_map.wall, j[1], j[0]);
+			j[1] -= MINI_MAP_TILE_SIZE;
+			i[1]--;
+		}
+		j[0] += MINI_MAP_TILE_SIZE;
+		i[0]++;
+	}
+	i[0] = cub->player.y_pos / TILE_SIZE;
+	j[0] = MINI_MAP_HEIGHT / 2 + cub->mini_map.diff[0];
+	while (i[0] < cub->map.height && j[0] < MINI_MAP_HEIGHT - 2)
+	{
+		i[1] = cub->player.x_pos / TILE_SIZE;
+		j[1] = MINI_MAP_WIDTH / 2 + cub->mini_map.diff[1];
+		while (i[1] < cub->map.width && j[1] < MINI_MAP_WIDTH - 2)
+		{
+			if (cub->map.map[i[0]][i[1]] == '0')
+				mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win, cub->mini_map.floor, j[1], j[0]);
+			else if (cub->map.map[i[0]][i[1]] == '1')
+				mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win, cub->mini_map.wall, j[1], j[0]);
+			j[1] += MINI_MAP_TILE_SIZE;
+			i[1]++;
+		}
+		j[0] += MINI_MAP_TILE_SIZE;
+		i[0]++;
+	}
+	mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win, cub->mini_map.player,
+		MINI_MAP_WIDTH / 2 + MINI_MAP_MARGIN - (MINI_MAP_TILE_SIZE - PLAYER_SIZE) / 2,
+		MINI_MAP_HEIGHT / 2 + MINI_MAP_MARGIN - (MINI_MAP_TILE_SIZE - PLAYER_SIZE) / 2);
+	// mlx_pixel_put(cub->mlx.mlx, cub->mlx.win, MINI_MAP_WIDTH / 2 + MINI_MAP_MARGIN, MINI_MAP_HEIGHT / 2 + MINI_MAP_MARGIN, rgb_to_int(255, 255, 255));
 	return (0);
 }
 
@@ -65,9 +133,6 @@ void	mlx_put_line(int x_start, int y_start, double x_end, double y_end, int colo
 		{
 			if (fabs((m * j + n - i)) <= 1)
 				mlx_pixel_put(mlx_ptrs.mlx, mlx_ptrs.win, j, i, color);
-			// if ((fabs(x_start - x_end) < (double)2 || fabs(y_start - y_end) < (double)2)
-			// 	&& fabs((m * j + n - i)) <= (double)2 && fabs((m * j + n - i)) > (double)1)
-				// mlx_pixel_put(mlx_ptrs.mlx, mlx_ptrs.win, j, i, color);
 			j++;
 		}
 		i++;
@@ -82,34 +147,14 @@ void	mlx_put_rays(t_cub *cub)
 	cub->ray = raycast(cub);
 	ray_head = cub->ray;
 	i = -1;
-
-	// while (++i < 1)
 	while (++i < NB_RAYS)
 	{
-		// mlx_put_line(cub->player.x_pos + TILE_SIZE / 2, cub->player.y_pos + TILE_SIZE / 2,
-		// 	cub->player.x_pos + TILE_SIZE / 2 + RAY_SIZE * (double)cos(cub->ray->ray_angle),
-		// 	cub->player.y_pos + TILE_SIZE / 2 + RAY_SIZE * (double)sin(cub->ray->ray_angle),
-		// 	rgb_to_int(217, 56, 62), cub->mlx);
-
-	
-	// printf("%dº\n%d\n%d\n\n", (int)(cub->ray->ray_angle * 180 / M_PI), cub->ray->wall_x, cub->ray->wall_y);
-
 		mlx_put_line(cub->player.x_pos + TILE_SIZE / 2, cub->player.y_pos + TILE_SIZE / 2,
 			cub->ray->wall_x, cub->ray->wall_y, rgb_to_int(217, 56, 62), cub->mlx);
-
-
 		cub->ray = cub->ray->next;
 	}
 	cub->ray = ray_head;
 	ray_free(cub);
-
-
-		// mlx_put_line(cub->player.x_pos + TILE_SIZE / 2, cub->player.y_pos + TILE_SIZE / 2,
-		// 	cub->player.x_pos + TILE_SIZE / 2 + RAY_SIZE * (double)cos(cub->player.rotation),
-		// 	cub->player.y_pos + TILE_SIZE / 2 + RAY_SIZE * (double)sin(cub->player.rotation),
-		// 	rgb_to_int(217, 56, 62), cub->mlx);
-
-
 }
 
 int	ft_2d_map(t_cub *cub)
@@ -135,13 +180,13 @@ int	ft_2d_map(t_cub *cub)
 	}
 	mlx_put_rays(cub);
 	mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win,
-		cub->mlx.player, cub->player.x_pos + 15, cub->player.y_pos + 15);
+		cub->mlx.player, cub->player.x_pos + (TILE_SIZE - PLAYER_SIZE) / 2,
+		cub->player.y_pos + (TILE_SIZE - PLAYER_SIZE) / 2);
 	return (0);
 }
 
-void	mlx_change_image_color(void *img, int color)
+void	mlx_change_image_color(void *img, int color, int img_size)
 {
-	// int		i;
 	int		idx[2];
 	int		coord[2];
 	int		endian;
@@ -150,10 +195,10 @@ void	mlx_change_image_color(void *img, int color)
 	buff = (int *)mlx_get_data_addr(img, &coord[0], &coord[1], &endian);
 	coord[1] /= 4;
 	idx[0] = 0;
-	while (idx[0] < TILE_SIZE)
+	while (idx[0] < img_size)
 	{
 		idx[1] = 0;
-		while (idx[1] < TILE_SIZE)
+		while (idx[1] < img_size)
 		{
 			buff[idx[0] * coord[1] + idx[1]] = color;
 			idx[1]++;
@@ -162,33 +207,58 @@ void	mlx_change_image_color(void *img, int color)
 	}
 }
 
-void	mlx_change_player_color(void *img, int color, int f_color)
+void	mlx_change_mini_map_bg_color(t_cub *cub)
 {
 	int		idx[2];
 	int		coord[2];
 	int		endian;
 	int		*buff;
-	int		rad;
 
-	rad = TILE_SIZE / 4;
-
-	buff = (int *)mlx_get_data_addr(img, &coord[0], &coord[1], &endian);
+	buff = (int *)mlx_get_data_addr(cub->mini_map.background, &coord[0], &coord[1], &endian);
 	coord[1] /= 4;
 	idx[0] = 0;
-	while (idx[0] < TILE_SIZE)
+	while (idx[0] < MINI_MAP_HEIGHT)
 	{
 		idx[1] = 0;
-		while (idx[1] < TILE_SIZE)
+		while (idx[1] < MINI_MAP_WIDTH)
 		{
-			if (sqrt((TILE_SIZE / 2 - idx[1]) * (TILE_SIZE / 2 - idx[1]) + (TILE_SIZE / 2 - idx[0]) * (TILE_SIZE / 2 - idx[0])) < rad)
-				buff[idx[0] * coord[1] + idx[1]] = color;
+			if (idx[0] == 0 || idx[0] == 1 || idx[0] == MINI_MAP_HEIGHT - 2 || idx[0] == MINI_MAP_HEIGHT - 1
+				|| idx[1] == 0 || idx[1] == 1 || idx[1] == MINI_MAP_WIDTH - 2 || idx[1] == MINI_MAP_WIDTH - 1)
+				buff[idx[0] * coord[1] + idx[1]] = rgb_to_int(255, 255, 255);
 			else
-				buff[idx[0] * coord[1] + idx[1]] = f_color;
+				buff[idx[0] * coord[1] + idx[1]] = rgb_to_int(109, 109, 125);
 			idx[1]++;
 		}
 		idx[0]++;
 	}
 }
+
+// void	mlx_change_player_color(void *img, int color, int f_color)
+// {
+// 	int		idx[2];
+// 	int		coord[2];
+// 	int		endian;
+// 	int		*buff;
+// 	int		rad;
+
+// 	rad = TILE_SIZE / 4;
+// 	buff = (int *)mlx_get_data_addr(img, &coord[0], &coord[1], &endian);
+// 	coord[1] /= 4;
+// 	idx[0] = 0;
+// 	while (idx[0] < TILE_SIZE)
+// 	{
+// 		idx[1] = 0;
+// 		while (idx[1] < TILE_SIZE)
+// 		{
+// 			if (sqrt((TILE_SIZE / 2 - idx[1]) * (TILE_SIZE / 2 - idx[1]) + (TILE_SIZE / 2 - idx[0]) * (TILE_SIZE / 2 - idx[0])) < rad)
+// 				buff[idx[0] * coord[1] + idx[1]] = color;
+// 			else
+// 				buff[idx[0] * coord[1] + idx[1]] = f_color;
+// 			idx[1]++;
+// 		}
+// 		idx[0]++;
+// 	}
+// }
 
 int	init_mlx_ptrs(t_cub *cub)
 {
@@ -209,20 +279,24 @@ int	init_mlx_ptrs(t_cub *cub)
 	cub->mlx.west = mlx_xpm_file_to_image(cub->mlx.mlx, cub->params.we_text, &tmp, &tmp);
 
 	cub->mlx.floor = mlx_new_image(cub->mlx.mlx, TILE_SIZE, TILE_SIZE);
-	mlx_change_image_color(cub->mlx.floor, cub->params.f_color);
+	mlx_change_image_color(cub->mlx.floor, cub->params.f_color, TILE_SIZE);
 	cub->mlx.ceiling = mlx_new_image(cub->mlx.mlx, TILE_SIZE, TILE_SIZE);
-	mlx_change_image_color(cub->mlx.ceiling, cub->params.c_color);
+	mlx_change_image_color(cub->mlx.ceiling, cub->params.c_color, TILE_SIZE);
 	cub->mlx.player = mlx_xpm_file_to_image(cub->mlx.mlx,
 		"./textures/red_dot_10x10.xpm", &tmp, &tmp);
 
-	// cub->mini_map.background = mlx_new_image(cub->mlx.mlx, MINI_MAP_WIDTH, MINI_MAP_HEIGHT);
-	// cub->mini_map.floor = mlx_new_image(cub->mlx.mlx, MINI_MAP_TILE_SIZE, MINI_MAP_TILE_SIZE);
-	// cub->mini_map.wall = mlx_new_image(cub->mlx.mlx, MINI_MAP_TILE_SIZE, MINI_MAP_TILE_SIZE);
-	// cub->mini_map.player = mlx_xpm_file_to_image(cub->mlx.mlx,
-	// 	"./textures/red_dot_10x10.xpm", &tmp, &tmp);
-
-	// mlx_change_image_color(cub->mini_map.floor, cub->params.f_color);
-	// mlx_change_image_color(cub->mini_map.wall, rgb_to_int(32, 35, 214));
+	
+	
+	cub->mini_map.background = mlx_new_image(cub->mlx.mlx, MINI_MAP_WIDTH, MINI_MAP_HEIGHT);
+	mlx_change_mini_map_bg_color(cub);
+	cub->mini_map.floor = mlx_new_image(cub->mlx.mlx, MINI_MAP_TILE_SIZE, MINI_MAP_TILE_SIZE);
+	mlx_change_image_color(cub->mini_map.floor, cub->params.f_color, MINI_MAP_TILE_SIZE);
+	cub->mini_map.wall = mlx_new_image(cub->mlx.mlx, MINI_MAP_TILE_SIZE, MINI_MAP_TILE_SIZE);
+	mlx_change_image_color(cub->mini_map.wall, rgb_to_int(32, 35, 214), MINI_MAP_TILE_SIZE);
+	cub->mini_map.player = mlx_xpm_file_to_image(cub->mlx.mlx,
+		"./textures/red_dot_10x10.xpm", &tmp, &tmp);
+	
+	
 
 	return (0);
 }

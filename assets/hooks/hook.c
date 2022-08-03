@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:28:23 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/03 13:10:10 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/03 20:13:45 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ int	render_frame(t_cub *cub)
 	update(cub);
 	mlx_clear_window(cub->mlx.mlx, cub->mlx.win);
 	ft_2d_map(cub);
+	put_mini_map(cub);
 	return (0);
 }
 
@@ -78,52 +79,57 @@ int	check_wall(int new_x, int new_y, int key, t_cub *cub)
 
 void	update(t_cub *cub)
 {
-	int	new_x;
-	int	new_y;
+	int	new[2];
+	int	new_mini[2];
 
 
-	new_x = -10;
-	new_y = -10;
+	new[0] = -10;
+	new_mini[0] = 0;
+	new_mini[1] = 0;
+
+
+		// ft_putnbr_fd((int)(cub->player.rotation * 180 / M_PI), 1);
+		// ft_putendl_fd("", 1);
+
+
 	if (cub->player.mvt == W)					// W
 	{
-		new_x = cub->player.x_pos + MOVE_SPEED * cos(cub->player.rotation);
-		new_y = cub->player.y_pos + MOVE_SPEED * sin(cub->player.rotation);
+		new[0] = cub->player.y_pos + MOVE_SPEED * sin(cub->player.rotation);
+		new[1] = cub->player.x_pos + MOVE_SPEED * cos(cub->player.rotation);
 	}
 	else if (cub->player.mvt == S)				// S
 	{
-		new_x = cub->player.x_pos - MOVE_SPEED * cos(cub->player.rotation);
-		new_y = cub->player.y_pos - MOVE_SPEED * sin(cub->player.rotation);
+		new[0] = cub->player.y_pos - MOVE_SPEED * sin(cub->player.rotation);
+		new[1] = cub->player.x_pos - MOVE_SPEED * cos(cub->player.rotation);
 	}
 	else if (cub->player.mvt == A)				// A
 	{
-		new_x = cub->player.x_pos + MOVE_SPEED * cos(M_PI_2 - cub->player.rotation);
-		new_y = cub->player.y_pos - MOVE_SPEED * sin(M_PI_2 - cub->player.rotation);
+		new[0] = cub->player.y_pos - MOVE_SPEED * sin(M_PI_2 - cub->player.rotation);
+		new[1] = cub->player.x_pos + MOVE_SPEED * cos(M_PI_2 - cub->player.rotation);
 	}
 	else if (cub->player.mvt == D)				// D
 	{
-		new_x = cub->player.x_pos - MOVE_SPEED * cos(M_PI_2 - cub->player.rotation);
-		new_y = cub->player.y_pos + MOVE_SPEED * sin(M_PI_2 - cub->player.rotation);
+		new[0] = cub->player.y_pos + MOVE_SPEED * sin(M_PI_2 - cub->player.rotation);
+		new[1] = cub->player.x_pos - MOVE_SPEED * cos(M_PI_2 - cub->player.rotation);
 	}
-	if (cub->player.turn == LEFT_ARROW)	// <- (Left)
-		cub->player.rotation -= ROT_SPEED * M_PI / 180;
+	if (cub->player.turn == LEFT_ARROW)			// <- (Left)
+		cub->player.rotation -= ROT_SPEED;
 	else if (cub->player.turn == RIGHT_ARROW)	// -> (Right)
-		cub->player.rotation += ROT_SPEED * M_PI / 180;
-	if (new_x != -10
-		&& !check_wall(new_x + (TILE_SIZE - PLAYER_SIZE) / 2,
-			new_y + (TILE_SIZE - PLAYER_SIZE) / 2,
-			cub->player.mvt, cub))
+		cub->player.rotation += ROT_SPEED;
+	if (new[0] != -10 && !check_wall(new[1] + (TILE_SIZE - PLAYER_SIZE) / 2,
+			new[0] + (TILE_SIZE - PLAYER_SIZE) / 2, cub->player.mvt, cub))
 	{
-		cub->player.x_pos = new_x;
-		cub->player.y_pos = new_y;
+		cub->player.y_pos = new[0];
+		cub->player.x_pos = new[1];
 	}
 }
 
 int	key_press(int key, t_cub *cub)
 {
-	if (key != 53 && key != 13 && key != 1 && key != 0 && key != 2
-		&& key != 123 && key != 124)
+	if (key != ESC && key != W && key != S && key != A && key != D
+		&& key != LEFT_ARROW && key != RIGHT_ARROW)
 		return (0);
-	if (key == 53)
+	if (key == ESC)
 		leave(cub);
 	else if (key == W || key == S || key == A || key == D)	// W • S • A • D
 		cub->player.mvt = key;

@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 13:04:08 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/03 13:00:59 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/03 19:32:10 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,10 @@ void	init_params(t_cub *cub)
 	cub->player.radius = 3;
 	cub->player.turn = -1;
 	cub->player.mvt = -1;
+	cub->mini_map.height = MINI_MAP_HEIGHT / MINI_MAP_TILE_SIZE;
+	cub->mini_map.width = MINI_MAP_WIDTH / MINI_MAP_TILE_SIZE;
+	cub->mini_map.diff[0] = MINI_MAP_TILE_SIZE - (MINI_MAP_TILE_SIZE - PLAYER_SIZE) / 2;
+	cub->mini_map.diff[1] = MINI_MAP_TILE_SIZE - (MINI_MAP_TILE_SIZE - PLAYER_SIZE) / 2;
 }
 
 t_cub	*parsing(int ac, char **av)

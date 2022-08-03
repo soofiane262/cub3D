@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:01:56 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/03 13:09:00 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/03 20:23:29 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,20 @@
 
 # define	MINI_MAP_TILE_SIZE		15
 # define	MINI_MAP_PLAYER_SIZE	10
-# define	MINI_MAP_MARGIN			200
-# define	MINI_MAP_WIDTH			300
-# define	MINI_MAP_HEIGHT			200
+# define	MINI_MAP_MARGIN			20
+# define	MINI_MAP_WIDTH			MINI_MAP_TILE_SIZE * 20
+# define	MINI_MAP_HEIGHT			MINI_MAP_TILE_SIZE * 10
 
 # define	MOVE_SPEED				5
-# define	ROT_SPEED				5
+# define	MINI_MOVE_SPEED			MINI_MAP_TILE_SIZE / MOVE_SPEED
+# define	ROT_SPEED				3 * M_PI / 180
 # define	FOV						60
 
 # define	ON_DESTROY				17
 # define	ON_KEYPRESS				2
 # define	ON_KEYRELEASE			3
 
+# define	ESC						53
 # define	W						13
 # define	S						1
 # define	A						0
@@ -85,6 +87,7 @@ typedef struct s_mini_map
 {
 	int		width;
 	int		height;
+	int		diff[2];
 	void	*background;
 	void	*floor;
 	void	*wall;
@@ -181,6 +184,13 @@ void	update(t_cub *cub);
 
 void	mlx_put_line(int x_start, int y_start, double x_end,
 	double y_end, int color, t_mlx mlx_ptrs);
+
+
+//	mini_map
+int	put_mini_map(t_cub *cub);
+
+
+
 
 //	raycast
 t_ray	*raycast(t_cub *cub);
