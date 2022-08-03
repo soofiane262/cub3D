@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:25:51 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/02 15:24:41 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/03 11:10:35 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	mlx_put_rays(t_cub *cub)
 		cub->ray = cub->ray->next;
 	}
 	cub->ray = ray_head;
-	// ray_free(cub);
+	ray_free(cub);
 
 
 		// mlx_put_line(cub->player.x_pos + TILE_SIZE / 2, cub->player.y_pos + TILE_SIZE / 2,
@@ -112,32 +112,32 @@ void	mlx_put_rays(t_cub *cub)
 
 }
 
-// int	ft_2d_map(t_cub *cub)
-// {
-// 	int	i;
-// 	int	j;
+int	ft_2d_map(t_cub *cub)
+{
+	int	i;
+	int	j;
 
-// 	i = 0;
-// 	while (i < cub->map.height)
-// 	{
-// 		j = 0;
-// 		while (j < cub->map.width)
-// 		{
-// 			if (cub->map.map[i][j] == '0')
-// 				mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win, 
-// 					cub->mlx.floor, j * TILE_SIZE, i * TILE_SIZE);
-// 			else if (cub->map.map[i][j] == '1')
-// 				mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win, 
-// 					cub->mlx.north, j * TILE_SIZE, i * TILE_SIZE);
-// 			j++;
-// 		}
-// 		i++;
-// 	}
-// 	mlx_put_rays(cub);
-// 	mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win,
-// 		cub->mlx.player_dot, cub->player.x_pos + 4, cub->player.y_pos + 4);
-// 	return (0);
-// }
+	i = 0;
+	while (i < cub->map.height)
+	{
+		j = 0;
+		while (j < cub->map.width)
+		{
+			if (cub->map.map[i][j] == '0')
+				mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win, 
+					cub->mlx.floor, j * TILE_SIZE, i * TILE_SIZE);
+			else if (cub->map.map[i][j] == '1')
+				mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win, 
+					cub->mlx.north, j * TILE_SIZE, i * TILE_SIZE);
+			j++;
+		}
+		i++;
+	}
+	mlx_put_rays(cub);
+	mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win,
+		cub->mlx.player, cub->player.x_pos + 15, cub->player.y_pos + 15);
+	return (0);
+}
 
 void	mlx_change_image_color(void *img, int color)
 {
@@ -208,19 +208,21 @@ int	init_mlx_ptrs(t_cub *cub)
 	cub->mlx.east = mlx_xpm_file_to_image(cub->mlx.mlx, cub->params.ea_text, &tmp, &tmp);
 	cub->mlx.west = mlx_xpm_file_to_image(cub->mlx.mlx, cub->params.we_text, &tmp, &tmp);
 
-	// cub->mini_map.floor = mlx_new_image(cub->mlx.mlx, TILE_SIZE, TILE_SIZE);
-	// mlx_change_image_color(cub->mlx.floor, cub->params.f_color);
-	// cub->mlx.ceiling = mlx_new_image(cub->mlx.mlx, TILE_SIZE, TILE_SIZE);
-	// mlx_change_image_color(cub->mlx.ceiling, cub->params.c_color);
-
-	cub->mini_map.background = mlx_new_image(cub->mlx.mlx, MINI_MAP_WIDTH, MINI_MAP_HEIGHT);
-	cub->mini_map.floor = mlx_new_image(cub->mlx.mlx, MINI_MAP_TILE_SIZE, MINI_MAP_TILE_SIZE);
-	cub->mini_map.wall = mlx_new_image(cub->mlx.mlx, MINI_MAP_TILE_SIZE, MINI_MAP_TILE_SIZE);
-	cub->mini_map.player = mlx_xpm_file_to_image(cub->mlx.mlx,
+	cub->mlx.floor = mlx_new_image(cub->mlx.mlx, TILE_SIZE, TILE_SIZE);
+	mlx_change_image_color(cub->mlx.floor, cub->params.f_color);
+	cub->mlx.ceiling = mlx_new_image(cub->mlx.mlx, TILE_SIZE, TILE_SIZE);
+	mlx_change_image_color(cub->mlx.ceiling, cub->params.c_color);
+	cub->mlx.player = mlx_xpm_file_to_image(cub->mlx.mlx,
 		"./textures/red_dot_10x10.xpm", &tmp, &tmp);
 
-	mlx_change_image_color(cub->mini_map.floor, cub->params.f_color);
-	mlx_change_image_color(cub->mini_map.wall, rgb_to_int(32, 35, 214));
+	// cub->mini_map.background = mlx_new_image(cub->mlx.mlx, MINI_MAP_WIDTH, MINI_MAP_HEIGHT);
+	// cub->mini_map.floor = mlx_new_image(cub->mlx.mlx, MINI_MAP_TILE_SIZE, MINI_MAP_TILE_SIZE);
+	// cub->mini_map.wall = mlx_new_image(cub->mlx.mlx, MINI_MAP_TILE_SIZE, MINI_MAP_TILE_SIZE);
+	// cub->mini_map.player = mlx_xpm_file_to_image(cub->mlx.mlx,
+	// 	"./textures/red_dot_10x10.xpm", &tmp, &tmp);
+
+	// mlx_change_image_color(cub->mini_map.floor, cub->params.f_color);
+	// mlx_change_image_color(cub->mini_map.wall, rgb_to_int(32, 35, 214));
 
 	return (0);
 }

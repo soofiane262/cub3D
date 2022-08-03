@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:01:56 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/02 15:23:21 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/03 13:09:00 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <math.h>
 
 # define	TILE_SIZE				40
-# define	PLAYER_SIZE				32
+# define	PLAYER_SIZE				10
 # define	WIN_WIDTH				1400
 # define	WIN_HEIGHT				1000
 
@@ -33,13 +33,20 @@
 # define	MINI_MAP_WIDTH			300
 # define	MINI_MAP_HEIGHT			200
 
-# define	MOVE_SPEED				10
+# define	MOVE_SPEED				5
 # define	ROT_SPEED				5
 # define	FOV						60
 
 # define	ON_DESTROY				17
 # define	ON_KEYPRESS				2
 # define	ON_KEYRELEASE			3
+
+# define	W						13
+# define	S						1
+# define	A						0
+# define	D						2
+# define	LEFT_ARROW				123
+# define	RIGHT_ARROW				124
 
 typedef struct s_params
 {
@@ -105,6 +112,9 @@ typedef struct s_mlx
 	void	*west;
 	void	*floor;
 	void	*ceiling;
+	
+	void	*player;
+	
 } t_mlx;
 
 typedef struct s_ray
@@ -165,8 +175,9 @@ int	ft_map_param_error(t_cub *cub, char *str);
 int	read_map_file(t_cub *cub);
 
 //	2d_map
-int	init_mlx_ptrs(t_cub *cub);
-// int	ft_2d_map(t_cub *cub);
+int		init_mlx_ptrs(t_cub *cub);
+int		ft_2d_map(t_cub *cub);
+void	update(t_cub *cub);
 
 void	mlx_put_line(int x_start, int y_start, double x_end,
 	double y_end, int color, t_mlx mlx_ptrs);
