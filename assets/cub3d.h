@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:01:56 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/04 17:15:04 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/04 18:54:13 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 
 # define	TILE_SIZE				40
 # define	PLAYER_SIZE				10
-# define	WIN_WIDTH				1400
+# define	WIN_WIDTH				1080
 # define	WIN_HEIGHT				1000
 
-# define	STRIP_WIDTH				10
+# define	STRIP_WIDTH				1
 # define	NB_RAYS					WIN_WIDTH / STRIP_WIDTH
 
 # define	MINI_MAP_TILE_SIZE		15
@@ -33,9 +33,9 @@
 # define	MINI_MAP_WIDTH			MINI_MAP_TILE_SIZE * 20
 # define	MINI_MAP_HEIGHT			MINI_MAP_TILE_SIZE * 10
 
-# define	MOVE_SPEED				5
+# define	MOVE_SPEED				20
 # define	MINI_MOVE_SPEED			MINI_MAP_TILE_SIZE / MOVE_SPEED
-# define	ROT_SPEED				3 * M_PI / 180
+# define	ROT_SPEED				20 * M_PI / 180
 # define	FOV						60
 
 # define	ON_DESTROY				17
@@ -115,9 +115,6 @@ typedef struct s_mlx
 	void	*west;
 	void	*floor;
 	void	*ceiling;
-	
-	void	*player;
-	
 } t_mlx;
 
 typedef struct s_ray
@@ -182,8 +179,12 @@ int		init_mlx_ptrs(t_cub *cub);
 int		ft_2d_map(t_cub *cub);
 void	update(t_cub *cub);
 
-void	mlx_put_line(int x_start, int y_start, double x_end,
-	double y_end, int color, t_mlx mlx_ptrs);
+void	mlx_put_line(int x_start, int y_start, double x_end, double y_end, int color,
+	void *mlx, void *win);
+
+
+//	3d
+void	ft_3d(t_cub *cub);
 
 
 //	mini_map
@@ -193,7 +194,7 @@ int	put_mini_map(t_cub *cub);
 
 
 //	raycast
-t_ray	*raycast(t_cub *cub);
+void	raycast(t_cub *cub);
 void	ray_free(t_cub *cub);
 
 

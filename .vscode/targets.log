@@ -6,8 +6,9 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # PARTICULAR PURPOSE.
 
 # This program built for i386-apple-darwin11.3.0
+ 
 
-# Make data base, printed on Thu Aug  4 16:31:19 2022
+# Make data base, printed on Thu Aug  4 18:01:02 2022
 
 # Variables
 
@@ -36,7 +37,7 @@ CFLAGS = -Wall -Wextra -Werror
 # makefile (from `Makefile', line 1)
 MAKEFILE_LIST :=  Makefile
 # makefile (from `Makefile', line 21)
-SRCS = gnl/get_next_line.c gnl/get_next_line_utils.c assets/general/general_utils.c assets/cub3d.c assets/parsing/parsing.c assets/parsing/check_map.c assets/parsing/read_map.c assets/2d/2d_map.c assets/hooks/hook.c assets/raycast/raycast.c
+SRCS = gnl/get_next_line.c gnl/get_next_line_utils.c assets/general/general_utils.c assets/cub3d.c assets/parsing/parsing.c assets/parsing/check_map.c assets/parsing/read_map.c assets/hooks/hook.c assets/2d/2d_map.c assets/2d/mini_map.c assets/3d/3d.c assets/raycast/raycast.c
 # environment
 VSCODE_VERBOSE_LOGGING = true
 # environment
@@ -65,7 +66,7 @@ HOMEBREW_TEMP = /tmp/sel-mars/Homebrew/Temp
 VSCODE_PIPE_LOGGING = true
 # environment
 PWD = /Users/sel-mars/Desktop/cub3D
-# makefile (from `Makefile', line 29)
+# makefile (from `Makefile', line 31)
 HDFL = assets/cub3d.h
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = undefined
@@ -164,7 +165,7 @@ LANG = C
 # environment
 VSCODE_PID = 1444
 # variable set hash-table stats:
-# Load=76/1024=7%, Rehash=0, Collisions=3/104=3%
+# Load=76/1024=7%, Rehash=0, Collisions=4/112=4%
 
 # Pattern-specific Variable Values
 
@@ -172,9 +173,9 @@ VSCODE_PID = 1444
 
 # Directories
 
-# . (device 16777225, inode 570979): 13 files, no impossibilities.
+# . (device 16777225, inode 570979): 12 files, no impossibilities.
 
-# 13 files, no impossibilities in 1 directories.
+# 12 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
@@ -188,9 +189,9 @@ all: cub3D
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has been updated.
-#  Successfully updated.
+#  Needs to be updated (-q is set).
 # variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+# Load=0/32=0%, Rehash=0, Collisions=0/8=0%
 
 # Not a target:
 gnl/get_next_line.c:
@@ -206,14 +207,31 @@ gnl/get_next_line.c:
 #  Modification time never checked.
 #  File has not been updated.
 
-cub3D: gnl/get_next_line.c gnl/get_next_line_utils.c assets/general/general_utils.c assets/cub3d.c assets/parsing/parsing.c assets/parsing/check_map.c assets/parsing/read_map.c assets/2d/2d_map.c assets/hooks/hook.c assets/raycast/raycast.c assets/cub3d.h
+cub3D: gnl/get_next_line.c gnl/get_next_line_utils.c assets/general/general_utils.c assets/cub3d.c assets/parsing/parsing.c assets/parsing/check_map.c assets/parsing/read_map.c assets/hooks/hook.c assets/2d/2d_map.c assets/2d/mini_map.c assets/3d/3d.c assets/raycast/raycast.c assets/cub3d.h
 #  Implicit rule search has not been done.
-#  Last modified 2022-08-04 15:38:20
+#  Implicit/static pattern stem: `'
+#  Last modified 2022-08-04 17:53:11
 #  File has been updated.
-#  Successfully updated.
+#  Needs to be updated (-q is set).
+# automatic
+# @ := cub3D
+# automatic
+# % := 
+# automatic
+# * := 
+# automatic
+# + := gnl/get_next_line.c gnl/get_next_line_utils.c assets/general/general_utils.c assets/cub3d.c assets/parsing/parsing.c assets/parsing/check_map.c assets/parsing/read_map.c assets/hooks/hook.c assets/2d/2d_map.c assets/2d/mini_map.c assets/3d/3d.c assets/raycast/raycast.c assets/cub3d.h
+# automatic
+# | := 
+# automatic
+# < := gnl/get_next_line.c
+# automatic
+# ^ := gnl/get_next_line.c gnl/get_next_line_utils.c assets/general/general_utils.c assets/cub3d.c assets/parsing/parsing.c assets/parsing/check_map.c assets/parsing/read_map.c assets/hooks/hook.c assets/2d/2d_map.c assets/2d/mini_map.c assets/3d/3d.c assets/raycast/raycast.c assets/cub3d.h
+# automatic
+# ? := assets/hooks/hook.c assets/2d/2d_map.c assets/2d/mini_map.c assets/cub3d.h
 # variable set hash-table stats:
-# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
-#  commands to execute (from `Makefile', line 32):
+# Load=8/32=25%, Rehash=0, Collisions=1/16=6%
+#  commands to execute (from `Makefile', line 34):
 	@make -C libft
 	@make -C mlx
 	@$(CC) $(CFLAGS) $(MAIN) $(SRCS) -I $(HDFL) -L./libft -lft -L./mlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
@@ -228,7 +246,7 @@ cub3D: gnl/get_next_line.c gnl/get_next_line_utils.c assets/general/general_util
 # Not a target:
 Makefile:
 #  Implicit rule search has been done.
-#  Last modified 2022-07-31 17:06:33
+#  Last modified 2022-08-04 18:00:58
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -255,7 +273,7 @@ assets/raycast/raycast.c:
 # Not a target:
 assets/2d/2d_map.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-04 15:26:15
+#  Last modified 2022-08-04 18:00:08
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -272,19 +290,29 @@ assets/parsing/check_map.c:
 
 fclean:
 #  Phony target (prerequisite of .PHONY).
+ 
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 43):
+#  commands to execute (from `Makefile', line 45):
 	@make fclean -C libft
 	@make clean -C mlx
 	@rm -rf $(NAME)
 	
 
 # Not a target:
+assets/3d/3d.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-04 17:36:50
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
 assets/hooks/hook.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-03 20:13:45
+#  Last modified 2022-08-04 17:59:15
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -299,7 +327,6 @@ assets/hooks/hook.c:
 # Not a target:
 assets/cub3d.c:
 #  Implicit rule search has been done.
- 
 #  Last modified 2022-08-03 15:05:06
 #  File has been updated.
 #  Successfully updated.
@@ -311,7 +338,7 @@ clean:
 #  Implicit rule search has not been done.
 #  File does not exist.
 #  File has not been updated.
-#  commands to execute (from `Makefile', line 39):
+#  commands to execute (from `Makefile', line 41):
 	@make clean -C libft
 	@make clean -C mlx
 	
@@ -328,7 +355,7 @@ assets/parsing/read_map.c:
 # Not a target:
 assets/parsing/parsing.c:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-04 15:26:24
+#  Last modified 2022-08-04 17:15:11
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -346,14 +373,23 @@ gnl/get_next_line_utils.c:
 # Not a target:
 assets/cub3d.h:
 #  Implicit rule search has been done.
-#  Last modified 2022-08-04 15:17:54
+#  Last modified 2022-08-04 17:59:29
+#  File has been updated.
+#  Successfully updated.
+# variable set hash-table stats:
+# Load=0/32=0%, Rehash=0, Collisions=0/0=0%
+
+# Not a target:
+assets/2d/mini_map.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-04 18:00:39
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
 # Load=0/32=0%, Rehash=0, Collisions=0/0=0%
 
 # files hash-table stats:
-# Load=19/1024=2%, Rehash=0, Collisions=2/47=4%
+# Load=21/1024=2%, Rehash=0, Collisions=2/52=4%
 # VPATH Search Paths
 
 # No `vpath' search paths.
@@ -365,6 +401,6 @@ assets/cub3d.h:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Thu Aug  4 16:31:19 2022
+# Finished Make data base on Thu Aug  4 18:01:02 2022
 
  

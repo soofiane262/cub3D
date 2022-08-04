@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:28:23 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/03 20:13:45 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/04 18:03:12 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ int	render_frame(t_cub *cub)
 {
 	update(cub);
 	mlx_clear_window(cub->mlx.mlx, cub->mlx.win);
-	ft_2d_map(cub);
+	// ft_2d_map(cub);
+	ft_3d(cub);
 	put_mini_map(cub);
 	return (0);
 }
@@ -80,18 +81,8 @@ int	check_wall(int new_x, int new_y, int key, t_cub *cub)
 void	update(t_cub *cub)
 {
 	int	new[2];
-	int	new_mini[2];
-
 
 	new[0] = -10;
-	new_mini[0] = 0;
-	new_mini[1] = 0;
-
-
-		// ft_putnbr_fd((int)(cub->player.rotation * 180 / M_PI), 1);
-		// ft_putendl_fd("", 1);
-
-
 	if (cub->player.mvt == W)					// W
 	{
 		new[0] = cub->player.y_pos + MOVE_SPEED * sin(cub->player.rotation);

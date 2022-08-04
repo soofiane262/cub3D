@@ -6,13 +6,15 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 16:50:43 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/02 14:54:49 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/04 18:26:21 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-t_ray	*raycast(t_cub *cub)
+#include <stdio.h>
+
+void	raycast(t_cub *cub)
 {
 	int			i;
 	int			j;
@@ -119,7 +121,7 @@ t_ray	*raycast(t_cub *cub)
 		ray = ray->next;
 		ray_angle += ((((double)FOV * M_PI) / (180 * NB_RAYS)));
 	}
-	return (ray_head);
+	cub->ray = ray_head;
 }
 
 void	ray_free(t_cub *cub)
