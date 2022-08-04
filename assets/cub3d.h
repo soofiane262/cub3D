@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:01:56 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/04 15:17:54 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/04 17:15:04 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # define	WIN_WIDTH				1400
 # define	WIN_HEIGHT				1000
 
-# define	STRIP_WIDTH				30
+# define	STRIP_WIDTH				10
 # define	NB_RAYS					WIN_WIDTH / STRIP_WIDTH
 
 # define	MINI_MAP_TILE_SIZE		15
@@ -87,7 +87,7 @@ typedef struct s_mini_map
 {
 	int		width;
 	int		height;
-	int		diff[2];
+	int		offset[2];
 	void	*background;
 	void	*floor;
 	void	*wall;
