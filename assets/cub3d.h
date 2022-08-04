@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:01:56 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/03 20:23:29 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/04 15:17:54 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define	NB_RAYS					WIN_WIDTH / STRIP_WIDTH
 
 # define	MINI_MAP_TILE_SIZE		15
-# define	MINI_MAP_PLAYER_SIZE	10
+# define	MINI_MAP_PLAYER_SIZE	4
 # define	MINI_MAP_MARGIN			20
 # define	MINI_MAP_WIDTH			MINI_MAP_TILE_SIZE * 20
 # define	MINI_MAP_HEIGHT			MINI_MAP_TILE_SIZE * 10
