@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:01:56 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/08 12:48:04 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/08 19:42:12 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <stdbool.h>
 # include <math.h>
 
-# define	TILE_SIZE				40
+# define	TILE_SIZE				100
 # define	PLAYER_SIZE				10
 # define	WIN_WIDTH				1080
 # define	WIN_HEIGHT				1000
@@ -33,9 +33,9 @@
 # define	MINI_MAP_WIDTH			MINI_MAP_TILE_SIZE * 20
 # define	MINI_MAP_HEIGHT			MINI_MAP_TILE_SIZE * 10
 
-# define	MOVE_SPEED				20
+# define	MOVE_SPEED				10
 # define	MINI_MOVE_SPEED			MINI_MAP_TILE_SIZE / MOVE_SPEED
-# define	ROT_SPEED				20 * M_PI / 180
+# define	ROT_SPEED				5 * M_PI / 180
 # define	FOV						60
 
 # define	ON_DESTROY				17
@@ -109,12 +109,17 @@ typedef struct s_mlx
 {
 	void	*mlx;
 	void	*win;
-	void	*north;
-	void	*south;
-	void	*east;
-	void	*west;
-	void	*floor;
-	void	*ceiling;
+	void	*master;
+	int		*master_data;
+	int		wall_line_bytes;
+	void	*wall_no;
+	int		*wall_no_data;
+	void	*wall_so;
+	int		*wall_so_data;
+	void	*wall_ea;
+	int		*wall_ea_data;
+	void	*wall_we;
+	int		*wall_we_data;
 } t_mlx;
 
 typedef struct s_ray
@@ -122,7 +127,7 @@ typedef struct s_ray
 	double	ray_angle;
 	int		wall_x;
 	int		wall_y;
-	int		distance;
+	double	distance;
 	char	orientation;
 	struct s_ray	*next;
 } t_ray;
@@ -132,7 +137,7 @@ typedef struct s_tmp_ray
 	double	ray_angle;
 	int		wall_x;
 	int		wall_y;
-	int		distance;
+	double	distance;
 	int		x_intersept;
 	int		y_intersept;
 	int		x_step;

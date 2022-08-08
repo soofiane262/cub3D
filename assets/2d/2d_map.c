@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:25:51 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/08 12:32:56 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/08 19:57:07 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,17 +132,17 @@ int	init_mlx_ptrs(t_cub *cub)
 	if (!cub->mlx.win)
 		return (ft_map_param_error(cub,
 			"Error: Failed to create a new window"));
-	cub->mlx.north = mlx_xpm_file_to_image(cub->mlx.mlx, cub->params.no_text, &tmp, &tmp);
-	cub->mlx.south = mlx_xpm_file_to_image(cub->mlx.mlx, cub->params.so_text, &tmp, &tmp);
-	cub->mlx.east = mlx_xpm_file_to_image(cub->mlx.mlx, cub->params.ea_text, &tmp, &tmp);
-	cub->mlx.west = mlx_xpm_file_to_image(cub->mlx.mlx, cub->params.we_text, &tmp, &tmp);
-
-	cub->mlx.floor = mlx_new_image(cub->mlx.mlx, WIN_WIDTH, WIN_HEIGHT / 2);
-	mlx_change_image_color(cub->mlx.floor, cub->params.f_color, WIN_WIDTH, WIN_HEIGHT / 2);
-	cub->mlx.ceiling = mlx_new_image(cub->mlx.mlx, WIN_WIDTH, WIN_HEIGHT / 2);
-	mlx_change_image_color(cub->mlx.ceiling, cub->params.c_color, WIN_WIDTH, WIN_HEIGHT / 2);
-
-
+	cub->mlx.wall_no = mlx_xpm_file_to_image(cub->mlx.mlx, cub->params.no_text, &tmp, &tmp);
+	cub->mlx.wall_no_data = (int *)mlx_get_data_addr(cub->mlx.wall_no, &tmp, &cub->mlx.wall_line_bytes, &tmp);
+	cub->mlx.wall_line_bytes /= 4;
+	cub->mlx.wall_so = mlx_xpm_file_to_image(cub->mlx.mlx, cub->params.so_text, &tmp, &tmp);
+	cub->mlx.wall_so_data = (int *)mlx_get_data_addr(cub->mlx.wall_so, &tmp, &tmp, &tmp);
+	cub->mlx.wall_ea = mlx_xpm_file_to_image(cub->mlx.mlx, cub->params.ea_text, &tmp, &tmp);
+	cub->mlx.wall_ea_data = (int *)mlx_get_data_addr(cub->mlx.wall_ea, &tmp, &tmp, &tmp);
+	cub->mlx.wall_we = mlx_xpm_file_to_image(cub->mlx.mlx, cub->params.we_text, &tmp, &tmp);
+	cub->mlx.wall_we_data = (int *)mlx_get_data_addr(cub->mlx.wall_we, &tmp, &tmp, &tmp);
+	cub->mlx.master = mlx_new_image(cub->mlx.mlx, WIN_WIDTH, WIN_HEIGHT);
+	// cub->mlx.master_data = (int *)mlx_get_data_addr(cub->mlx.master, &tmp, &tmp, &tmp);
 
 
 	// cub->mini_map.background = mlx_new_image(cub->mlx.mlx, MINI_MAP_WIDTH, MINI_MAP_HEIGHT);

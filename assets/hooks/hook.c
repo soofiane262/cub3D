@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:28:23 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/08 12:04:54 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/08 16:07:40 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	render_frame(t_cub *cub)
 	mlx_clear_window(cub->mlx.mlx, cub->mlx.win);
 	// ft_2d_map(cub);
 	ft_3d(cub);
+	mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win, cub->mlx.master, 0, 0);
+	// mlx_clear_window(cub->mlx.mlx, cub->mlx.win);
 	put_mini_map(cub);
 	return (0);
 }

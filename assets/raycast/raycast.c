@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 16:50:43 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/08 12:51:04 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/08 19:23:17 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,10 @@ void	raycast(t_cub *cub)
 		tmp[0].x_intersept = (cub->player.x_pos + TILE_SIZE / 2) + (tmp[0].y_intersept - (cub->player.y_pos + TILE_SIZE / 2)) / tan(ray->ray_angle);
 		tmp[0].y_step = fma(TILE_SIZE, 1, (ray->ray_angle >= M_PI && ray->ray_angle <= 2 * M_PI) * -2 * TILE_SIZE);
 		tmp[0].x_step = TILE_SIZE / tan(ray->ray_angle);
+
+// tmp[0].y_step;
+// tmp[0].x_step;
+
 		if ((ray->ray_angle > M_PI_2 && ray->ray_angle < 3 * M_PI_2 && tmp[0].x_step > 0) 
 			|| ((ray->ray_angle > 3 * M_PI_2 || ray->ray_angle < M_PI_2) && tmp[0].x_step < 0))
 			tmp[0].x_step *= -1;
@@ -52,8 +56,6 @@ void	raycast(t_cub *cub)
 			next_y = tmp[0].y_intersept;
 			if (ray->ray_angle > M_PI_2 && ray->ray_angle < 3 * M_PI_2)
 				next_x--;
-			else
-				next_x++;
 			if (ray->ray_angle > M_PI && ray->ray_angle < 2 * M_PI)
 				next_y--;
 			while ((int)round((ray->ray_angle * 180 / M_PI))
@@ -64,7 +66,7 @@ void	raycast(t_cub *cub)
 			{
 				if (!tmp[0].x_step && !tmp[0].y_step)
 					break ;
-				if (cub->map.map[(int)floor(next_y / TILE_SIZE)][(int)floor(next_x / TILE_SIZE)] != '0')
+				if (cub->map.map[(next_y / TILE_SIZE)][(next_x / TILE_SIZE)] != '0')
 				{
 					wall_found = true;
 					tmp[0].wall_y = next_y;
@@ -89,8 +91,6 @@ void	raycast(t_cub *cub)
 			next_y = tmp[1].y_intersept;
 			if (ray->ray_angle > M_PI_2 && ray->ray_angle < 3 * M_PI_2)
 				next_x--;
-			else
-				next_x++;
 			if (ray->ray_angle > M_PI && ray->ray_angle < 2 * M_PI)
 				next_y--;
 			while ((int)round((ray->ray_angle * 180 / M_PI)) != 90
@@ -100,7 +100,7 @@ void	raycast(t_cub *cub)
 			{
 				if (!tmp[1].x_step && !tmp[1].y_step)
 					break ;
-				if (cub->map.map[(int)floor(next_y / TILE_SIZE)][(int)floor(next_x / TILE_SIZE)] != '0')
+				if (cub->map.map[(next_y / TILE_SIZE)][(next_x / TILE_SIZE)] != '0')
 				{
 					wall_found = true;
 					tmp[1].wall_y = next_y;
