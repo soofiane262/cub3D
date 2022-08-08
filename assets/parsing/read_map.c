@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:23:03 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/01 19:20:40 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/08 12:33:25 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,7 +174,7 @@ int	read_map_file(t_cub *cub)
 				tmp_int = -1;
 				break ;
 			}
-			cub->params.f_color = rgb_to_int(cub->params.f_red, cub->params.f_green, cub->params.f_blue);
+			cub->params.f_color = argb_to_int(0, cub->params.f_red, cub->params.f_green, cub->params.f_blue);
 		}
 		else if (!ft_strncmp(cub->buff, "C ", 2) && cub->params.nb_params++ >= 0)
 		{
@@ -235,7 +235,7 @@ int	read_map_file(t_cub *cub)
 				tmp_int = -1;
 				break ;
 			}
-			cub->params.c_color = rgb_to_int(cub->params.c_red, cub->params.c_green, cub->params.c_blue);
+			cub->params.c_color = argb_to_int(0, cub->params.c_red, cub->params.c_green, cub->params.c_blue);
 		}
 		else
 		{

@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:25:51 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/04 18:02:24 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/08 12:32:56 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@
 // 	while (++i < NB_RAYS)
 // 	{
 // 		mlx_put_line(cub->player.x_pos + TILE_SIZE / 2, cub->player.y_pos + TILE_SIZE / 2,
-// 			cub->ray->wall_x, cub->ray->wall_y, rgb_to_int(217, 56, 62), cub->mlx.mlx, cub->mlx.win);
+// 			cub->ray->wall_x, cub->ray->wall_y, argb_to_int(0, 217, 56, 62), cub->mlx.mlx, cub->mlx.win);
 // 		cub->ray = cub->ray->next;
 // 	}
 // 	cub->ray = ray_head;
@@ -97,7 +97,7 @@
 // 	return (0);
 // }
 
-void	mlx_change_image_color(void *img, int color, int img_size)
+void	mlx_change_image_color(void *img, int color, int img_width, int img_height)
 {
 	int		idx[2];
 	int		coord[2];
@@ -107,10 +107,10 @@ void	mlx_change_image_color(void *img, int color, int img_size)
 	buff = (int *)mlx_get_data_addr(img, &coord[0], &coord[1], &endian);
 	coord[1] /= 4;
 	idx[0] = 0;
-	while (idx[0] < img_size)
+	while (idx[0] < img_height)
 	{
 		idx[1] = 0;
-		while (idx[1] < img_size)
+		while (idx[1] < img_width)
 		{
 			buff[idx[0] * coord[1] + idx[1]] = color;
 			idx[1]++;
@@ -137,20 +137,11 @@ int	init_mlx_ptrs(t_cub *cub)
 	cub->mlx.east = mlx_xpm_file_to_image(cub->mlx.mlx, cub->params.ea_text, &tmp, &tmp);
 	cub->mlx.west = mlx_xpm_file_to_image(cub->mlx.mlx, cub->params.we_text, &tmp, &tmp);
 
-	cub->mlx.floor = mlx_new_image(cub->mlx.mlx, TILE_SIZE, TILE_SIZE);
-	mlx_change_image_color(cub->mlx.floor, cub->params.f_color, TILE_SIZE);
-	cub->mlx.ceiling = mlx_new_image(cub->mlx.mlx, TILE_SIZE, TILE_SIZE);
-	mlx_change_image_color(cub->mlx.ceiling, cub->params.c_color, TILE_SIZE);
+	cub->mlx.floor = mlx_new_image(cub->mlx.mlx, WIN_WIDTH, WIN_HEIGHT / 2);
+	mlx_change_image_color(cub->mlx.floor, cub->params.f_color, WIN_WIDTH, WIN_HEIGHT / 2);
+	cub->mlx.ceiling = mlx_new_image(cub->mlx.mlx, WIN_WIDTH, WIN_HEIGHT / 2);
+	mlx_change_image_color(cub->mlx.ceiling, cub->params.c_color, WIN_WIDTH, WIN_HEIGHT / 2);
 
-
-	// cub->tmp_2d.win = mlx_new_window(cub->mlx.mlx, cub->map.width * TILE_SIZE, cub->map.height * TILE_SIZE,
-	// 	"cub3D temporary 2d Map");
-	// cub->tmp_2d.floor = mlx_new_image(cub->mlx.mlx, TILE_SIZE, TILE_SIZE);
-	// mlx_change_image_color(cub->tmp_2d.floor, cub->params.f_color, TILE_SIZE);
-	// cub->tmp_2d.wall = mlx_new_image(cub->mlx.mlx, TILE_SIZE, TILE_SIZE);
-	// mlx_change_image_color(cub->tmp_2d.wall, rgb_to_int(32, 35, 214), TILE_SIZE);
-	// cub->tmp_2d.player = mlx_xpm_file_to_image(cub->mlx.mlx,
-	// 	"./textures/red_dot_10x10.xpm", &tmp, &tmp);
 
 
 
@@ -158,9 +149,9 @@ int	init_mlx_ptrs(t_cub *cub)
 	// mlx_change_mini_map_bg_color(cub);
 
 	cub->mini_map.floor = mlx_new_image(cub->mlx.mlx, MINI_MAP_TILE_SIZE, MINI_MAP_TILE_SIZE);
-	mlx_change_image_color(cub->mini_map.floor, cub->params.f_color, MINI_MAP_TILE_SIZE);
+	mlx_change_image_color(cub->mini_map.floor, cub->params.f_color, MINI_MAP_TILE_SIZE, MINI_MAP_TILE_SIZE);
 	cub->mini_map.wall = mlx_new_image(cub->mlx.mlx, MINI_MAP_TILE_SIZE, MINI_MAP_TILE_SIZE);
-	mlx_change_image_color(cub->mini_map.wall, rgb_to_int(32, 35, 214), MINI_MAP_TILE_SIZE);
+	mlx_change_image_color(cub->mini_map.wall, argb_to_int(0, 32, 35, 214), MINI_MAP_TILE_SIZE, MINI_MAP_TILE_SIZE);
 	cub->mini_map.player = mlx_xpm_file_to_image(cub->mlx.mlx,
 		"./textures/red_dot_4x4.xpm", &tmp, &tmp);
 	

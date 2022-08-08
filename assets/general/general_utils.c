@@ -6,18 +6,15 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:04:42 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/07/26 13:05:12 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/08 12:34:08 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	rgb_to_int(int red, int green, int blue)
+int	argb_to_int(int alpha, int red, int green, int blue)
 {
-	int	converted;
-
-	converted = 256 * 256 * red + 256 * green + blue;
-	return (converted);
+	return ((alpha << 24) + (red << 16) + (green << 8) + blue);
 }
 
 int	ft_put_error(char *error)

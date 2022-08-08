@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 16:50:43 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/04 18:26:21 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/08 12:51:04 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ void	raycast(t_cub *cub)
 	t_ray		*ray;
 	t_ray		*ray_head;
 
+	cub->nearest_wall_hit = WIN_HEIGHT * WIN_WIDTH;
+	cub->farthest_wall_hit = 0;
 	ray_angle = cub->player.rotation - (FOV * M_PI / 360);
 	ray = NULL;
 	ray_head = NULL;
@@ -115,7 +117,18 @@ void	raycast(t_cub *cub)
 		ray->distance = tmp[j].distance;
 		ray->wall_x = tmp[j].wall_x;
 		ray->wall_y = tmp[j].wall_y;
-		ray->hit_is_v = (j == 1);
+		if (ray->distance * cos(ray->distance - cub->player.rotation) < cub->nearest_wall_hit)
+			cub->nearest_wall_hit = ray->distance;
+		if (ray->distance * cos(ray->distance - cub->player.rotation) > cub->farthest_wall_hit)
+			cub->farthest_wall_hit = ray->distance;
+		if (!j && ray->ray_angle < M_PI)
+			ray->orientation = 'N';
+		else if (!j && ray->ray_angle > M_PI)
+			ray->orientation = 'S';
+		else if (j == 1 && ray->ray_angle > M_PI_2 && ray->ray_angle < 3 * M_PI_2)
+			ray->orientation = 'E';
+		else
+			ray->orientation = 'W';
 		if (i < NB_RAYS - 1)
 			ray->next = (t_ray *)malloc(sizeof(t_ray));
 		ray = ray->next;

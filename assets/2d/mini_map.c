@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 18:00:15 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/04 18:01:22 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/08 12:33:07 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@
 // 		{
 // 			if (idx[0] == 0 || idx[0] == 1 || idx[0] == MINI_MAP_HEIGHT - 2 || idx[0] == MINI_MAP_HEIGHT - 1
 // 				|| idx[1] == 0 || idx[1] == 1 || idx[1] == MINI_MAP_WIDTH - 2 || idx[1] == MINI_MAP_WIDTH - 1)
-// 				buff[idx[0] * coord[1] + idx[1]] = rgb_to_int(255, 255, 255);
+// 				buff[idx[0] * coord[1] + idx[1]] = argb_to_int(0, 255, 255, 255);
 // 			else
-// 				buff[idx[0] * coord[1] + idx[1]] = rgb_to_int(109, 109, 125);
+// 				buff[idx[0] * coord[1] + idx[1]] = argb_to_int(0, 109, 109, 125);
 // 			idx[1]++;
 // 		}
 // 		idx[0]++;
@@ -122,6 +122,6 @@ int	put_mini_map(t_cub *cub)
 		MINI_MAP_HEIGHT / 2 + MINI_MAP_MARGIN - MINI_MAP_PLAYER_SIZE / 2);
 	cub->mini_map.offset[0] = 0;
 	cub->mini_map.offset[1] = 0;
-	// mlx_pixel_put(cub->mlx.mlx, cub->mlx.win, MINI_MAP_WIDTH / 2 + MINI_MAP_MARGIN, MINI_MAP_HEIGHT / 2 + MINI_MAP_MARGIN, rgb_to_int(0, 0, 0));
+	// mlx_pixel_put(cub->mlx.mlx, cub->mlx.win, MINI_MAP_WIDTH / 2 + MINI_MAP_MARGIN, MINI_MAP_HEIGHT / 2 + MINI_MAP_MARGIN, argb_to_int(0, 0, 0, 0));
 	return (0);
 }

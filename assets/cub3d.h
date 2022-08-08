@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:01:56 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/04 18:54:13 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/08 12:48:04 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ typedef struct s_ray
 	int		wall_x;
 	int		wall_y;
 	int		distance;
-	bool	hit_is_v;
+	char	orientation;
 	struct s_ray	*next;
 } t_ray;
 
@@ -148,6 +148,8 @@ typedef struct s_cub
 	char		*buff;
 	int			map_fd;
 	char		*map_path;
+	int			nearest_wall_hit;
+	int			farthest_wall_hit;
 	t_ray		*ray;
 	t_params	params;
 	t_map		map;
@@ -160,7 +162,7 @@ int		cub3d(int ac, char **av);
 t_cub	*parsing(int ac, char **av);
 
 //	general
-int	rgb_to_int(int red, int green, int blue);
+int	argb_to_int(int alpha, int red, int green, int blue);
 int	ft_put_error(char *error);
 int	skip_space(char *str, int i);
 
