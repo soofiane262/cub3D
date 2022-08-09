@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 16:50:43 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/09 14:33:07 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/09 16:04:10 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,13 +57,9 @@ void	raycast(t_cub *cub)
 		next_x = tmp[0].x_intersept;
 		next_y = tmp[0].y_intersept;
 		if (cos(ray->ray_angle) < 0.0)
-			diff[1] += 0.01;
-		else if (cos(ray->ray_angle) > 0.0)
-			diff[1] -= 0.01;
+			diff[1] += 0.0001;
 		if (sin(ray->ray_angle) < 0.0)
-			diff[0] += 0.01;
-		else if (sin(ray->ray_angle) > 0.0)
-			diff[0] -= 0.01;
+			diff[0] += 0.0001;
 		while (next_y >= 0 && next_y < cub->map.height * TILE_SIZE - 1
 			&& next_x >= 0 && next_x < cub->map.width * TILE_SIZE - 1)
 		{
@@ -102,13 +98,9 @@ void	raycast(t_cub *cub)
 		next_x = tmp[1].x_intersept;
 		next_y = tmp[1].y_intersept;
 		if (cos(ray->ray_angle) < 0.0)
-			diff[1] += 0.01;
-		else if (cos(ray->ray_angle) > 0.0)
-			diff[1] -= 0.01;
+			diff[1] += 0.0001;
 		if (sin(ray->ray_angle) < 0.0)
-			diff[0] += 0.01;
-		else if (sin(ray->ray_angle) > 0.0)
-			diff[0] -= 0.01;
+			diff[0] += 0.0001;
 		while (next_y >= 0 && next_y < cub->map.height * TILE_SIZE - 1
 			&& next_x >= 0 && next_x < cub->map.width * TILE_SIZE - 1)
 		{
@@ -126,11 +118,11 @@ void	raycast(t_cub *cub)
 			next_x += tmp[1].x_step;
 			next_y += tmp[1].y_step;
 		}
-		j = 0;
 		// if (tmp[0].distance == tmp[1].distance && ray->previous && (ray->previous->orientation == 'E' || ray->previous->orientation == 'W'))
 		// {
 			// puts("check\n\n\n");
 		// }
+		j = 0;
 		if (tmp[0].distance > tmp[1].distance)
 			j = 1;
 		ray->distance = tmp[j].distance;

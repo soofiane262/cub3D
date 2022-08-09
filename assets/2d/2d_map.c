@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:25:51 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/09 11:58:34 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/09 16:09:21 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,30 +132,36 @@ int	init_mlx_ptrs(t_cub *cub)
 	if (!cub->mlx.win)
 		return (ft_map_param_error(cub,
 			"Error: Failed to create a new window"));
+			
 	cub->mlx.wall_no = mlx_xpm_file_to_image(cub->mlx.mlx, cub->params.no_text, &tmp, &tmp);
 	cub->mlx.wall_no_data = (int *)mlx_get_data_addr(cub->mlx.wall_no, &tmp, &cub->mlx.wall_line_bytes, &tmp);
+	
 	cub->mlx.wall_line_bytes /= 4;
+	
 	cub->mlx.wall_so = mlx_xpm_file_to_image(cub->mlx.mlx, cub->params.so_text, &tmp, &tmp);
 	cub->mlx.wall_so_data = (int *)mlx_get_data_addr(cub->mlx.wall_so, &tmp, &tmp, &tmp);
+	
 	cub->mlx.wall_ea = mlx_xpm_file_to_image(cub->mlx.mlx, cub->params.ea_text, &tmp, &tmp);
 	cub->mlx.wall_ea_data = (int *)mlx_get_data_addr(cub->mlx.wall_ea, &tmp, &tmp, &tmp);
+	
 	cub->mlx.wall_we = mlx_xpm_file_to_image(cub->mlx.mlx, cub->params.we_text, &tmp, &tmp);
 	cub->mlx.wall_we_data = (int *)mlx_get_data_addr(cub->mlx.wall_we, &tmp, &tmp, &tmp);
+	
 	cub->mlx.master = mlx_new_image(cub->mlx.mlx, WIN_WIDTH, WIN_HEIGHT);
-	// cub->mlx.master_data = (int *)mlx_get_data_addr(cub->mlx.master, &tmp, &tmp, &tmp);
-
-
-	// cub->mini_map.background = mlx_new_image(cub->mlx.mlx, MINI_MAP_WIDTH, MINI_MAP_HEIGHT);
-	// mlx_change_mini_map_bg_color(cub);
-
+	
 	cub->mini_map.floor = mlx_new_image(cub->mlx.mlx, MINI_MAP_TILE_SIZE, MINI_MAP_TILE_SIZE);
 	mlx_change_image_color(cub->mini_map.floor, cub->params.f_color, MINI_MAP_TILE_SIZE, MINI_MAP_TILE_SIZE);
+	
 	cub->mini_map.wall = mlx_new_image(cub->mlx.mlx, MINI_MAP_TILE_SIZE, MINI_MAP_TILE_SIZE);
 	mlx_change_image_color(cub->mini_map.wall, argb_to_int(0, 32, 35, 214), MINI_MAP_TILE_SIZE, MINI_MAP_TILE_SIZE);
+	
 	cub->mini_map.player = mlx_xpm_file_to_image(cub->mlx.mlx,
 		"./textures/red_dot_4x4.xpm", &tmp, &tmp);
-	
-	
+
+// //	TEMPORARY 2D
+// 	cub->tmp_2d.wall = mlx_new_image(cub->mlx.mlx, TILE_SIZE, TILE_SIZE);
+// 	mlx_change_image_color(cub->tmp_2d.wall, cub->params.f_color, TILE_SIZE, TILE_SIZE);
+// 	cub->tmp_2d.floor = mlx_new_image(cub->mlx.mlx, TILE_SIZE, TILE_SIZE);
 
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:28:23 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/08 16:07:40 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/09 15:06:46 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int	check_wall(int new_x, int new_y, int key, t_cub *cub)
 
 void	update(t_cub *cub)
 {
-	int	new[2];
+	float	new[2];
 
 	new[0] = -10;
 	if (cub->player.mvt == W)					// W

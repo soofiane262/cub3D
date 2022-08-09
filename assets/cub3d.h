@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:01:56 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/09 13:06:07 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/09 15:34:17 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,9 +96,8 @@ typedef struct s_mini_map
 
 typedef struct s_player
 {
-	int		x_pos;
-	int		y_pos;
-	int		radius;
+	float	x_pos;
+	float	y_pos;
 	int		turn;
 	int		mvt;
 	double	rotation;
@@ -122,11 +121,17 @@ typedef struct s_mlx
 	int		*wall_we_data;
 } t_mlx;
 
+typedef struct s_tmp_2d
+{
+	void	*wall;
+	void	*floor;
+} t_tmp_2d;
+
 typedef struct s_ray
 {
 	double	ray_angle;
-	int		wall_x;
-	int		wall_y;
+	float	wall_x;
+	float	wall_y;
 	double	distance;
 	char	orientation;
 	struct s_ray	*next;
@@ -135,13 +140,13 @@ typedef struct s_ray
 typedef struct s_tmp_ray
 {
 	double	ray_angle;
-	int		wall_x;
-	int		wall_y;
+	float	wall_x;
+	float	wall_y;
 	double	distance;
-	int		x_intersept;
-	int		y_intersept;
-	int		x_step;
-	int		y_step;
+	float	x_intersept;
+	float	y_intersept;
+	float	x_step;
+	float	y_step;
 } t_tmp_ray;
 
 typedef struct s_cub
@@ -153,6 +158,7 @@ typedef struct s_cub
 	char		*buff;
 	int			map_fd;
 	char		*map_path;
+	t_tmp_2d	tmp_2d;
 	t_ray		*ray;
 	t_params	params;
 	t_map		map;
