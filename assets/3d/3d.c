@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 17:34:13 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/09 16:28:27 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/09 18:01:00 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	mlx_put_strip(float start[2], float end[2], int data[4], t_cub *cub)
 					while (i[0] < WIN_HEIGHT && i[0] <= (int)end[0])
 					{
 						offset_y = (i[0] - start[0]) * ((float)TILE_SIZE / (end[0] - start[0]));
-						cub->mlx.master_data[i[0] * data[1] + i[1]] = cub->mlx.wall_no_data[offset_y * TILE_SIZE + offset_x];
+						cub->mlx.master_data[i[0] * data[1] + i[1]] = cub->mlx.wall_no_data[offset_y * TILE_SIZE + offset_x] + (data[3] << 24);
 						i[0]++;
 					}
 				}
@@ -49,7 +49,7 @@ void	mlx_put_strip(float start[2], float end[2], int data[4], t_cub *cub)
 					while (i[0] < WIN_HEIGHT && i[0] <= (int)end[0])
 					{
 						offset_y = (i[0] - start[0]) * ((float)TILE_SIZE / (end[0] - start[0]));
-						cub->mlx.master_data[i[0] * data[1] + i[1]] = cub->mlx.wall_so_data[offset_y * TILE_SIZE + offset_x];
+						cub->mlx.master_data[i[0] * data[1] + i[1]] = cub->mlx.wall_so_data[offset_y * TILE_SIZE + offset_x] + (data[3] << 24);
 						i[0]++;
 					}
 				}
@@ -59,7 +59,7 @@ void	mlx_put_strip(float start[2], float end[2], int data[4], t_cub *cub)
 					while (i[0] < WIN_HEIGHT && i[0] <= (int)end[0])
 					{
 						offset_y = (i[0] - start[0]) * ((float)TILE_SIZE / (end[0] - start[0]));
-						cub->mlx.master_data[i[0] * data[1] + i[1]] = cub->mlx.wall_ea_data[offset_y * TILE_SIZE + offset_x];
+						cub->mlx.master_data[i[0] * data[1] + i[1]] = cub->mlx.wall_ea_data[offset_y * TILE_SIZE + offset_x] + (data[3] << 24);
 						i[0]++;
 					}
 				}
@@ -69,7 +69,7 @@ void	mlx_put_strip(float start[2], float end[2], int data[4], t_cub *cub)
 					while (i[0] < WIN_HEIGHT && i[0] <= (int)end[0])
 					{
 						offset_y = (i[0] - start[0]) * ((float)TILE_SIZE / (end[0] - start[0]));
-						cub->mlx.master_data[i[0] * data[1] + i[1]] = cub->mlx.wall_we_data[offset_y * TILE_SIZE + offset_x];
+						cub->mlx.master_data[i[0] * data[1] + i[1]] = cub->mlx.wall_we_data[offset_y * TILE_SIZE + offset_x] + (data[3] << 24);
 						i[0]++;
 					}
 				}
@@ -131,9 +131,15 @@ void	mlx_put_strip(float start[2], float end[2], int data[4], t_cub *cub)
 			else if (i[0] <= WIN_HEIGHT / 2)
 				cub->mlx.master_data[i[0] * data[1] + i[1]] = cub->params.c_color;
 			else
-				cub->mlx.master_data[i[0] * data[1] + i[1]] = cub->params.f_color;
+			{
+				data[3] -= 2;
+				if (data[3] < 0)
+					data[3] = 0;
+				cub->mlx.master_data[i[0] * data[1] + i[1]] = cub->params.f_color + (data[3] << 24);
+			}
 			i[1]++;
 		}
+		
 		i[0]++;
 	}
 }
