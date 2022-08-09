@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 17:34:13 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/08 19:59:47 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/09 12:05:21 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,17 @@ void	mlx_put_strip(int start[2], int end[2], int data[4], t_cub *cub)
 		while (i[1] < end[1])
 		{
 			if (i[0] >= start[0] && i[0] <= end[0])
-				cub->mlx.master_data[i[0] * data[1] + i[1]] = argb_to_int(data[3], 255, 187, 69);
+			{
+				// cub->mlx.master_data[i[0] * data[1] + i[1]] = argb_to_int(data[3], 255, 187, 69);
+				if (cub->ray->orientation == 'N')
+					cub->mlx.master_data[i[0] * data[1] + i[1]] = argb_to_int(data[3], 255, 187, 69);
+				else if (cub->ray->orientation == 'S')
+					cub->mlx.master_data[i[0] * data[1] + i[1]] = argb_to_int(data[3], 52, 52, 235);
+				else if (cub->ray->orientation == 'E')
+					cub->mlx.master_data[i[0] * data[1] + i[1]] = argb_to_int(data[3], 192, 57, 196);
+				else if (cub->ray->orientation == 'W')
+					cub->mlx.master_data[i[0] * data[1] + i[1]] = argb_to_int(data[3], 47, 194, 78);
+			}
 
 // ft_putendl_fd("check", 1);
 

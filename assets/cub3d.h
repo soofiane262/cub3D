@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:01:56 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/08 19:42:12 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/09 13:01:09 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <fcntl.h>
 # include <stdbool.h>
 # include <math.h>
-
+ 
 # define	TILE_SIZE				100
 # define	PLAYER_SIZE				10
 # define	WIN_WIDTH				1080
@@ -36,7 +36,7 @@
 # define	MOVE_SPEED				10
 # define	MINI_MOVE_SPEED			MINI_MAP_TILE_SIZE / MOVE_SPEED
 # define	ROT_SPEED				5 * M_PI / 180
-# define	FOV						60
+# define	FOV						70
 
 # define	ON_DESTROY				17
 # define	ON_KEYPRESS				2
@@ -153,8 +153,6 @@ typedef struct s_cub
 	char		*buff;
 	int			map_fd;
 	char		*map_path;
-	int			nearest_wall_hit;
-	int			farthest_wall_hit;
 	t_ray		*ray;
 	t_params	params;
 	t_map		map;
