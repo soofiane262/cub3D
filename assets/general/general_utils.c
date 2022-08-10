@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:04:42 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/08 12:34:08 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/10 20:08:31 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,13 @@ int	argb_to_int(int alpha, int red, int green, int blue)
 int	ft_put_error(char *error)
 {
 	ft_putendl_fd(error, 2);
-		return (1);
+	return (1);
 }
 
 int	skip_space(char *str, int i)
 {
-	while (str[i] && str[i] != '\n' && (str[i] == 32 || (str[i] > 9 && str[i] < 13)))
+	while (str[i] && str[i] != '\n'
+		&& (str[i] == 32 || (str[i] > 9 && str[i] < 13)))
 		i++;
 	return (i);
 }

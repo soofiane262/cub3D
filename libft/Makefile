@@ -6,7 +6,7 @@
 #    By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/01 14:01:19 by sel-mars          #+#    #+#              #
-#    Updated: 2022/07/26 15:50:55 by sel-mars         ###   ########.fr        #
+#    Updated: 2022/08/10 11:49:45 by sel-mars         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,16 +36,16 @@ CFLAGS	=	-Wall -Wextra -Werror
 all:	$(NAME)
 
 $(NAME): $(OBJS)
-	@$(AR) $(NAME) $(OBJS)
+	$(AR) $(NAME) $(OBJS)
 
 bonus: $(OBJS) $(BNSOBJS)
-	@$(AR) $(NAME) $(OBJS) $(BNSOBJS)
+	$(AR) $(NAME) $(OBJS) $(BNSOBJS)
 
 clean:
-	@/bin/rm -f $(OBJS) $(BNSOBJS)
+	rm -f $(OBJS) $(BNSOBJS)
 
 fclean:	clean
-	@/bin/rm -f $(NAME)
+	rm -f $(NAME)
 
 re:	fclean all
 

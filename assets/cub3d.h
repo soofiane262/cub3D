@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:01:56 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/09 15:34:17 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/10 19:38:11 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@
  
 # define	TILE_SIZE				100
 # define	PLAYER_SIZE				10
-# define	WIN_WIDTH				1080
-# define	WIN_HEIGHT				1000
+# define	WIN_WIDTH				1000
+# define	WIN_HEIGHT				700
 
 # define	STRIP_WIDTH				1
 # define	NB_RAYS					WIN_WIDTH / STRIP_WIDTH
@@ -110,22 +110,19 @@ typedef struct s_mlx
 	void	*win;
 	void	*master;
 	int		*master_data;
-	int		wall_line_bytes;
-	void	*wall_no;
+	void	*wall_north;
 	int		*wall_no_data;
-	void	*wall_so;
+	int		wall_no_side;
+	void	*wall_south;
 	int		*wall_so_data;
-	void	*wall_ea;
+	int		wall_so_side;
+	void	*wall_east;
 	int		*wall_ea_data;
-	void	*wall_we;
+	int		wall_ea_side;
+	void	*wall_west;
 	int		*wall_we_data;
+	int		wall_we_side;
 } t_mlx;
-
-typedef struct s_tmp_2d
-{
-	void	*wall;
-	void	*floor;
-} t_tmp_2d;
 
 typedef struct s_ray
 {
@@ -158,7 +155,6 @@ typedef struct s_cub
 	char		*buff;
 	int			map_fd;
 	char		*map_path;
-	t_tmp_2d	tmp_2d;
 	t_ray		*ray;
 	t_params	params;
 	t_map		map;
@@ -185,21 +181,29 @@ int	check_map(t_cub *cub);
 int	ft_map_param_error(t_cub *cub, char *str);
 int	read_map_file(t_cub *cub);
 
-//	2d_map
+
+//	mlx
 int		init_mlx_ptrs(t_cub *cub);
+int		init_north_wall(t_cub *cub);
+int		init_south_wall(t_cub *cub);
+int		init_east_wall(t_cub *cub);
+int		init_west_wall(t_cub *cub);
+int		mlx_img_error(t_cub *cub, char *error, int wall_to_destroy);
+
+//	render
+void	update_all(t_cub *cub);
+
+
+
+//	2d_map
 int		ft_2d_map(t_cub *cub);
-void	update(t_cub *cub);
 
 void	mlx_put_line(int x_start, int y_start, double x_end, double y_end, int color,
 	void *mlx, void *win);
 
 
-//	3d
-void	ft_3d(t_cub *cub);
-
-
 //	mini_map
-int	put_mini_map(t_cub *cub);
+// int	put_mini_map(t_cub *cub);
 
 
 
@@ -209,10 +213,12 @@ void	raycast(t_cub *cub);
 void	ray_free(t_cub *cub);
 
 
-//	hooks
-int	leave(t_cub *cub);
+//	key_hook
 int	key_press(int key, t_cub *cub);
 int	key_release(int key, t_cub *cub);
+
+//	key_hooks
+int	leave(t_cub *cub);
 int	render_frame(t_cub *cub);
 
 

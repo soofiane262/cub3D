@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 16:50:43 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/09 16:04:10 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/10 20:08:52 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,6 @@ void	raycast(t_cub *cub)
 		ray->ray_angle = ray_angle;
 		// Horizontally
 		tmp[0].distance = WIN_WIDTH * WIN_HEIGHT;
-
-		// if (sin(ray->ray_angle) > 0)
-		// 	tmp[0].y_intersept = TILE_SIZE * (int)(cub->player.y_pos / TILE_SIZE);
-		// else
-		// 	tmp[0].y_intersept = TILE_SIZE * (int)(cub->player.y_pos / TILE_SIZE) + TILE_SIZE;
-		// tmp[0].x_intersept = cub->player.x_pos + (cub->player.y_pos - tmp[0].y_intersept) / tan(ray->ray_angle);
-
 		tmp[0].y_intersept = fma(floor((cub->player.y_pos + TILE_SIZE / 2) / TILE_SIZE), TILE_SIZE, 
 			(sin(ray->ray_angle) > 0.0) * TILE_SIZE);
 		tmp[0].x_intersept = (cub->player.x_pos + TILE_SIZE / 2) + (tmp[0].y_intersept - (cub->player.y_pos + TILE_SIZE / 2)) / tan(ray->ray_angle);
@@ -79,13 +72,6 @@ void	raycast(t_cub *cub)
 		}
 		// Vertically
 		tmp[1].distance = WIN_WIDTH * WIN_HEIGHT;
-
-		// if (cos(ray->ray_angle) > 0)
-			// tmp[1].x_intersept = TILE_SIZE * (int)(cub->player.x_pos / TILE_SIZE) + TILE_SIZE;
-		// else
-			// tmp[1].x_intersept = TILE_SIZE * (int)(cub->player.x_pos / TILE_SIZE);
-		// tmp[1].y_intersept = cub->player.y_pos + (tmp[1].x_intersept - cub->player.x_pos) * tan(ray->ray_angle);
-
 		tmp[1].x_intersept = fma(floor((cub->player.x_pos + TILE_SIZE / 2) / TILE_SIZE), TILE_SIZE, 
 			(cos(ray->ray_angle) > 0.0) * TILE_SIZE);
 		tmp[1].y_intersept = (cub->player.y_pos + TILE_SIZE / 2) + (tmp[1].x_intersept - (cub->player.x_pos + TILE_SIZE / 2)) * tan(ray->ray_angle);
@@ -118,10 +104,6 @@ void	raycast(t_cub *cub)
 			next_x += tmp[1].x_step;
 			next_y += tmp[1].y_step;
 		}
-		// if (tmp[0].distance == tmp[1].distance && ray->previous && (ray->previous->orientation == 'E' || ray->previous->orientation == 'W'))
-		// {
-			// puts("check\n\n\n");
-		// }
 		j = 0;
 		if (tmp[0].distance > tmp[1].distance)
 			j = 1;
