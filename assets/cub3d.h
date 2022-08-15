@@ -12,44 +12,53 @@
 
 #ifndef CUB3D_H
 # define CUB3D_H
+/* -------------------------------------------------------------------------- */
+/*                                  Includes                                  */
+/* -------------------------------------------------------------------------- */
+/* ------------------------------------ - ----------------------------------- */
+/* ------------------------------ Header Files ------------------------------ */
 # include "../mlx/mlx.h"
 # include "../libft/libft.h"
 # include "../gnl/get_next_line.h"
+/* -------------------------------- Libraries ------------------------------- */
 # include <fcntl.h>
 # include <stdbool.h>
 # include <math.h>
- 
-# define	TILE_SIZE				100
-# define	PLAYER_SIZE				10
-# define	WIN_WIDTH				1000
-# define	WIN_HEIGHT				700
-
-# define	STRIP_WIDTH				1
-# define	NB_RAYS					WIN_WIDTH / STRIP_WIDTH
-
-# define	MINI_MAP_TILE_SIZE		15
-# define	MINI_MAP_PLAYER_SIZE	4
-# define	MINI_MAP_MARGIN			20
-# define	MINI_MAP_WIDTH			MINI_MAP_TILE_SIZE * 20
-# define	MINI_MAP_HEIGHT			MINI_MAP_TILE_SIZE * 10
-
-# define	MOVE_SPEED				10
-# define	MINI_MOVE_SPEED			MINI_MAP_TILE_SIZE / MOVE_SPEED
-# define	ROT_SPEED				5 * M_PI / 180
-# define	FOV						60
-
-# define	ON_DESTROY				17
-# define	ON_KEYPRESS				2
-# define	ON_KEYRELEASE			3
-
-# define	ESC						53
-# define	W						13
-# define	S						1
-# define	A						0
-# define	D						2
-# define	LEFT_ARROW				123
-# define	RIGHT_ARROW				124
-
+/* -------------------------------------------------------------------------- */
+/*                                   Defines                                  */
+/* -------------------------------------------------------------------------- */
+/* ------------------------------------ - ----------------------------------- */
+/* --------------------------------- General -------------------------------- */
+# define ON_DESTROY				17
+# define ON_KEYPRESS			2
+# define ON_KEYRELEASE			3
+# define ESC					53
+# define W						13
+# define S						1
+# define A						0
+# define D						2
+# define LEFT_ARROW				123
+# define RIGHT_ARROW			124
+/* -------------------------------- Mandatory ------------------------------- */
+# define TILE_SIZE				100
+# define PLAYER_SIZE			10
+# define WIN_WIDTH				1000
+# define WIN_HEIGHT				700
+# define MOVE_SPEED				10
+# define MINI_MOVE_SPEED		MINI_MAP_TILE_SIZE / MOVE_SPEED
+# define ROT_SPEED				5 * M_PI / 180
+# define FOV					60
+# define STRIP_WIDTH			1
+# define NB_RAYS				WIN_WIDTH / STRIP_WIDTH
+/* ---------------------------------- Bonus --------------------------------- */
+# define MINI_MAP_TILE_SIZE		15
+# define MINI_MAP_PLAYER_SIZE	4
+# define MINI_MAP_MARGIN		20
+# define MINI_MAP_WIDTH			MINI_MAP_TILE_SIZE * 20
+# define MINI_MAP_HEIGHT		MINI_MAP_TILE_SIZE * 10
+/* -------------------------------------------------------------------------- */
+/*                                 Structures                                 */
+/* -------------------------------------------------------------------------- */
 typedef struct s_params
 {
 	int		nb_params;
@@ -71,7 +80,7 @@ typedef struct s_params
 	int		c_red;
 	int		c_green;
 	int		c_blue;
-} t_params;
+}	t_params;
 
 typedef struct s_map
 {
@@ -81,7 +90,7 @@ typedef struct s_map
 	int		mini_map_width;
 	int		mini_map_height;
 	char	**map;
-} t_map;
+}	t_map;
 
 typedef struct s_mini_map
 {
@@ -92,7 +101,7 @@ typedef struct s_mini_map
 	void	*floor;
 	void	*wall;
 	void	*player;
-} t_mini_map;
+}	t_mini_map;
 
 typedef struct s_player
 {
@@ -102,7 +111,7 @@ typedef struct s_player
 	int		mvt;
 	double	rotation;
 	char	orient;
-} t_player;
+}	t_player;
 
 typedef struct s_mlx
 {
@@ -122,17 +131,17 @@ typedef struct s_mlx
 	void	*wall_west;
 	int		*wall_we_data;
 	int		wall_we_side;
-} t_mlx;
+}	t_mlx;
 
 typedef struct s_ray
 {
-	double	ray_angle;
-	float	wall_x;
-	float	wall_y;
-	double	distance;
-	char	orientation;
+	double			ray_angle;
+	float			wall_x;
+	float			wall_y;
+	double			distance;
+	char			orientation;
 	struct s_ray	*next;
-} t_ray;
+}	t_ray;
 
 typedef struct s_tmp_ray
 {
@@ -144,7 +153,7 @@ typedef struct s_tmp_ray
 	float	y_intersept;
 	float	x_step;
 	float	y_step;
-} t_tmp_ray;
+}	t_tmp_ray;
 
 typedef struct s_cub
 {
@@ -161,7 +170,7 @@ typedef struct s_cub
 	t_mini_map	mini_map;
 	t_player	player;
 	t_mlx		mlx;
-} t_cub;
+}	t_cub;
 
 int		cub3d(int ac, char **av);
 t_cub	*parsing(int ac, char **av);
