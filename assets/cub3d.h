@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:01:56 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/16 16:45:49 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/16 17:50:56 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@
 # define MOVE_SPEED				10
 # define FOV					60
 # define STRIP_WIDTH			1
-# define ROT_SPEED				5 * M_PI / 180
+# define ROT_SPEED				0.1
 /* ---------------------------------- Bonus --------------------------------- */
 # define MINI_MAP_TILE_SIZE		15
 # define MINI_MAP_PLAYER_SIZE	4
@@ -65,25 +65,12 @@
 /* -------------------------------------------------------------------------- */
 typedef struct s_params
 {
-	int		nb_params;
-	int		no_param;
 	char	*no_text;
-	int		so_param;
 	char	*so_text;
-	int		ea_param;
 	char	*ea_text;
-	int		we_param;
 	char	*we_text;
-	int		f_param;
 	int		f_color;
-	int		f_red;
-	int		f_green;
-	int		f_blue;
-	int		c_param;
 	int		c_color;
-	int		c_red;
-	int		c_green;
-	int		c_blue;
 }	t_params;
 
 typedef struct s_map
@@ -185,14 +172,17 @@ int	ft_put_error(char *error);
 int	skip_space(char *str, int i);
 
 //	parsing
+t_cub	*parsing(int ac, char **av);
+
+
 void	init_params(t_cub *cub);
-int	ft_map_param_error(t_cub *cub, char *str);
-int	check_map_surroundings(t_cub *cub);
-int	check_space_surroundings(t_cub *cub);
-int	check_map_content(t_cub *cub);
-int	check_map(t_cub *cub);
-int	ft_map_param_error(t_cub *cub, char *str);
-int	read_map_file(t_cub *cub);
+void	ft_map_param_error(t_cub *cub, char *str);
+// int	check_map_surroundings(t_cub *cub);
+// int	check_space_surroundings(t_cub *cub);
+// int	check_map_content(t_cub *cub);
+// int	check_map(t_cub *cub);
+// int	ft_map_param_error(t_cub *cub, char *str);
+// int	read_map_file(t_cub *cub);
 
 
 //	mlx
