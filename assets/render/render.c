@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:28:23 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/10 20:04:51 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/16 16:35:06 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ static void	paint_master(t_cub *cub)
 	while (cub->ray)
 	{
 		ray_correct_distance = cub->ray->distance
-			* cos(cub->ray->ray_angle - cub->player.rotation);
+			* cos(cub->ray->angle - cub->player.rotation);
 		end[0] = ((float)TILE_SIZE / ray_correct_distance)
 			* (WIN_WIDTH / 2) / fabs(tan(FOV * M_PI / 360));
 		start[0] = (WIN_HEIGHT / 2) - (end[0] / 2);

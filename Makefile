@@ -6,7 +6,7 @@
 #    By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/23 16:04:18 by sel-mars          #+#    #+#              #
-#    Updated: 2022/08/10 20:06:58 by sel-mars         ###   ########.fr        #
+#    Updated: 2022/08/16 16:29:15 by sel-mars         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,8 @@ SRCS	=	gnl/get_next_line.c gnl/get_next_line_utils.c\
 			assets/mlx/leave.c\
 			assets/render/update.c\
 			assets/render/render.c\
-			assets/raycast/raycast.c
+			assets/raycast/raycast.c\
+			assets/raycast/wall_hit.c
 
 OBJS	=	$(SRCS:%.c=%.o)
 

@@ -1,6 +1,0 @@
-make --dry-run --keep-going --print-directory
-make: Entering directory `/Users/sel-mars/Desktop/cub3D'
-make: `cub3D' is up to date.
- 
-make: Leaving directory `/Users/sel-mars/Desktop/cub3D'
- 

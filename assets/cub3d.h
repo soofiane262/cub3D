@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:01:56 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/10 19:38:11 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/16 16:45:49 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 /* -------------------------------------------------------------------------- */
 /*                                  Includes                                  */
 /* -------------------------------------------------------------------------- */
-/* ------------------------------------ - ----------------------------------- */
 /* ------------------------------ Header Files ------------------------------ */
 # include "../mlx/mlx.h"
 # include "../libft/libft.h"
@@ -27,7 +26,6 @@
 /* -------------------------------------------------------------------------- */
 /*                                   Defines                                  */
 /* -------------------------------------------------------------------------- */
-/* ------------------------------------ - ----------------------------------- */
 /* --------------------------------- General -------------------------------- */
 # define ON_DESTROY				17
 # define ON_KEYPRESS			2
@@ -39,22 +37,28 @@
 # define D						2
 # define LEFT_ARROW				123
 # define RIGHT_ARROW			124
-/* -------------------------------- Mandatory ------------------------------- */
 # define TILE_SIZE				100
 # define PLAYER_SIZE			10
 # define WIN_WIDTH				1000
 # define WIN_HEIGHT				700
 # define MOVE_SPEED				10
-# define MINI_MOVE_SPEED		MINI_MAP_TILE_SIZE / MOVE_SPEED
-# define ROT_SPEED				5 * M_PI / 180
 # define FOV					60
 # define STRIP_WIDTH			1
-# define NB_RAYS				WIN_WIDTH / STRIP_WIDTH
+# define ROT_SPEED				5 * M_PI / 180
 /* ---------------------------------- Bonus --------------------------------- */
 # define MINI_MAP_TILE_SIZE		15
 # define MINI_MAP_PLAYER_SIZE	4
 # define MINI_MAP_MARGIN		20
+/* -------------------------------------------------------------------------- */
+/*                           !! TO BE CALCULATED !!                           */
+/* -------------------------------------------------------------------------- */
+/* -------------------- NB_RAYS = WIN_WIDTH / STRIP_WIDTH ------------------- */
+# define NB_RAYS				1000
+/* ------------ MINI_MOVE_SPEED = MINI_MAP_TILE_SIZE / MOVE_SPEED ----------- */
+# define MINI_MOVE_SPEED		MINI_MAP_TILE_SIZE / MOVE_SPEED
+/* ---------------- MINI_MAP_WIDTH = MINI_MAP_TILE_SIZE * 20 ---------------- */
 # define MINI_MAP_WIDTH			MINI_MAP_TILE_SIZE * 20
+/* ---------------- MINI_MAP_HEIGHT = MINI_MAP_TILE_SIZE * 10 --------------- */
 # define MINI_MAP_HEIGHT		MINI_MAP_TILE_SIZE * 10
 /* -------------------------------------------------------------------------- */
 /*                                 Structures                                 */
@@ -135,7 +139,7 @@ typedef struct s_mlx
 
 typedef struct s_ray
 {
-	double			ray_angle;
+	double			angle;
 	float			wall_x;
 	float			wall_y;
 	double			distance;
@@ -145,7 +149,7 @@ typedef struct s_ray
 
 typedef struct s_tmp_ray
 {
-	double	ray_angle;
+	double	angle;
 	float	wall_x;
 	float	wall_y;
 	double	distance;
@@ -220,6 +224,8 @@ void	mlx_put_line(int x_start, int y_start, double x_end, double y_end, int colo
 //	raycast
 void	raycast(t_cub *cub);
 void	ray_free(t_cub *cub);
+t_tmp_ray	vertical_wall_hit(t_cub *cub, t_ray *ray, float diff[2]);
+t_tmp_ray	horizontal_wall_hit(t_cub *cub, t_ray *ray, float diff[2]);
 
 
 //	key_hook
