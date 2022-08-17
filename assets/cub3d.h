@@ -6,9 +6,10 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:01:56 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/16 17:50:56 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/17 13:17:42 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #ifndef CUB3D_H
 # define CUB3D_H
@@ -186,12 +187,9 @@ void	ft_map_param_error(t_cub *cub, char *str);
 
 
 //	mlx
-int		init_mlx_ptrs(t_cub *cub);
-int		init_north_wall(t_cub *cub);
-int		init_south_wall(t_cub *cub);
-int		init_east_wall(t_cub *cub);
-int		init_west_wall(t_cub *cub);
-int		mlx_img_error(t_cub *cub, char *error, int wall_to_destroy);
+void	init_mlx_ptrs(t_cub *cub);
+void	init_walls(t_cub *cub);
+void	mlx_img_error(t_cub *cub, char *error, int wall_to_destroy);
 
 //	render
 void	update_all(t_cub *cub);

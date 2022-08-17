@@ -6,15 +6,23 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:04:42 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/16 20:21:34 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/17 18:09:18 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
+int	int_in_range(int to_check, int min, int max)
+{
+	if (to_check < min || to_check > max)
+		return (1);
+	return (0);
+}
+
 int	argb_to_int(int alpha, int red, int green, int blue)
 {
-	if (alpha / 255 || red / 255 || green / 255 || blue / 255)
+	if (int_in_range(alpha, 0, 255) || int_in_range(red, 0, 255)
+		|| int_in_range(green, 0, 255) || int_in_range(blue, 0, 255))
 		return (-1);
 	return ((alpha << 24) + (red << 16) + (green << 8) + blue);
 }

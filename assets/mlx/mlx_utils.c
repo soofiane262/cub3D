@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 18:11:02 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/10 18:25:45 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/17 12:37:34 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	mlx_change_image_color(void *img, int color, int width, int height)
 	}
 }
 
-int	mlx_img_error(t_cub *cub, char *error, int wall_to_destroy)
+void	mlx_img_error(t_cub *cub, char *error, int wall_to_destroy)
 {
 	mlx_destroy_window(cub->mlx.mlx, cub->mlx.win);
 	if (wall_to_destroy--)
@@ -45,5 +45,5 @@ int	mlx_img_error(t_cub *cub, char *error, int wall_to_destroy)
 		mlx_destroy_image(cub->mlx.mlx, cub->mlx.wall_east);
 	if (wall_to_destroy)
 		mlx_destroy_image(cub->mlx.mlx, cub->mlx.wall_west);
-	return (ft_map_param_error(cub, error));
+	ft_map_param_error(cub, error);
 }

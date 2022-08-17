@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 13:04:08 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/16 20:19:51 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/17 18:10:25 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,45 +97,59 @@ int	ft_skip_space(char *str, int i)
 
 int	ft_skip_space_rv(char *str, int i)
 {
-	while (str[i] == 32 || str[i] == 9)
+	while (i >= 0 && (str[i] == 32 || str[i] == 9))
 		i--;
 	return (i);
 }
 
 int	get_color(char *str)
 {
-	int	i;
-	int	j;
-	int	color[3];
-	// char **color;
+	int		i;
+	int		j;
+	int		nb;
+	int		color[3];
+	char	*tmp_char;
 
 	i = 0;
-	j = 0;
+	nb = 0;
+	color[0] = -1;
+	color[1] = -1;
+	color[2] = -1;
 	while (str[i])
 	{
-		if (str[i] == ',')
+		if (!ft_isdigit(str[i]) && str[i] != ' ' && str[i] != ',')
+			return (-1);
+		j = i;
+		while (str[j] && str[j] != ',')
 			j++;
-		i++;
+		tmp_char = ft_substr(str, i, j - i);
+		i = j;
+		j = -1;
+		while (tmp_char[++j])
+		{
+			if (ft_isdigit(tmp_char[j]))
+			{
+				while (tmp_char[j] && tmp_char[j] != ' ')
+					j++;
+				while (tmp_char[j] && tmp_char[j] == ' ')
+					j++;
+				if (tmp_char[j])
+					return (-1);
+				else
+					break ;
+			}
+		}
+		j = 0;
+		while (color[j] != -1)
+			j++;
+		color[j] = ft_atoi(tmp_char);
+		free(tmp_char);
+		tmp_char = NULL;
+		if (str[i] && str[i++] == ',')
+			nb++;
+		if (nb > 2)
+			return (-1);
 	}
-	if (str[0] == ',' || str[ft_strlen(str) - 1] == ',' || j != 2)
-		return (-1);
-	// color = ft_split(str, ',');
-	// i = 0;
-	// while (color[i])
-	// {
-	// 	color[i] = ft_strtrim(color[i], " 	");
-	// 	j = 0;
-	// 	while (color[i][j])
-	// 	{
-	// 		if (!(color[i][j] >= 48 && color[i][j] <= 57))
-	// 			return (0);
-	// 		j++;
-	// 	}
-	// 	if (ft_atoi(color[i]) < 0 || ft_atoi(color[i]) > 255)
-	// 		return (0);
-	// 	i++;
-	// }
-	
 	return (argb_to_int(0, color[0], color[1], color[2]));
 }
 
@@ -151,10 +165,10 @@ void	check_map_error(int line_idx, int count, int error, t_cub *cub)
 		ft_map_param_error(cub, "Error: Texture extension has to be `.xpm`");
 	else if (error == 4)
 		ft_map_param_error(cub, "Error: Unable to open texture file");
+	else if (error == 5)
+		ft_map_param_error(cub, "Error: Wrong color syntax");
 	else if (count != 6)
 		ft_map_param_error(cub, "Error: Missing one or multiple parameter·s");
-	else if (cub->params.f_color == -1 || cub->params.c_color == -1)
-		ft_map_param_error(cub, "Error: Wrong color syntax");
 
 }
 
@@ -263,6 +277,8 @@ t_cub	*parsing(int ac, char **av)
 			j = ft_skip_space_rv(cub->buff, ft_strlen(cub->buff) - 2);
 			tmp = ft_substr(cub->buff, i, j - i + 1);
 			cub->params.f_color = get_color(tmp);
+			if (cub->params.f_color == -1)
+				error = 5;
 		}
 		else if (!ft_strncmp(cub->buff, "C ", 2) && cub->params.c_color == -1)
 		{
@@ -271,6 +287,8 @@ t_cub	*parsing(int ac, char **av)
 			j = ft_skip_space_rv(cub->buff, ft_strlen(cub->buff) - 2);
 			tmp = ft_substr(cub->buff, i, j - i + 1);
 			cub->params.c_color = get_color(tmp);
+			if (cub->params.c_color == -1)
+				error = 5;
 		}
 		else if ((!ft_strncmp(cub->buff, "NO ", 3) && cub->params.no_text)
 				|| (!ft_strncmp(cub->buff, "SO ", 3) && cub->params.no_text)
