@@ -6,13 +6,13 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 13:04:08 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/17 18:10:25 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/18 18:30:53 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	init_params(t_cub *cub)
+void	init_params(t_cub *cub, char *map_path)
 {
 	cub->map.width = 0;
 	cub->map.height = 0;
@@ -24,6 +24,8 @@ void	init_params(t_cub *cub)
 	cub->params.so_text = NULL;
 	cub->params.ea_text = NULL;
 	cub->params.we_text = NULL;
+	cub->map_path = ft_strdup(map_path);
+	cub->map_fd = open(cub->map_path, O_RDONLY);
 }
 
 void	ft_map_param_error(t_cub *cub, char *str)
@@ -53,53 +55,6 @@ void	ft_map_param_error(t_cub *cub, char *str)
 	free(cub);
 	cub = NULL;
 	exit(ft_put_error(str));
-}
-
-void ft_perror(char *str)
-{
-	ft_putendl_fd(str, 2);
-	exit(1);
-}
-
-int check_args(int ac, char **av)
-{
-	int	fd;
-
-	if (ac == 1)
-		return (ft_put_error("Error: Missing path to map file"));
-	else if (ac > 2)
-		return (ft_put_error("Error: Too many arguments"));
-	else if (!ft_strnstr(av[1], ".cub", ft_strlen(av[1]))
-			|| ft_strncmp(ft_strnstr(av[1], ".cub", ft_strlen(av[1])), ".cub", 5))
-		return (ft_put_error("Error: Wrong map extension"));
-	fd = open(av[1], O_RDONLY);
-	if (fd == -1)
-		return (ft_put_error("Error: Unable to open map file"));
-	close(fd);
-	return (0);
-}
-
-
-int ft_check_extension(char *str, char *ext)
-{
-	if (!ft_strnstr(str, ext, ft_strlen(str)) 
-		|| ft_strncmp(ft_strnstr(str, ext, ft_strlen(str)), ext, ft_strlen(ext)))
-		return (1);
-	return (0);
-}
-
-int	ft_skip_space(char *str, int i)
-{
-	while (str[i] && (str[i] == 32 || str[i] == 9))
-		i++;
-	return (i);
-}
-
-int	ft_skip_space_rv(char *str, int i)
-{
-	while (i >= 0 && (str[i] == 32 || str[i] == 9))
-		i--;
-	return (i);
 }
 
 int	get_color(char *str)
@@ -153,49 +108,24 @@ int	get_color(char *str)
 	return (argb_to_int(0, color[0], color[1], color[2]));
 }
 
-void	check_map_error(int line_idx, int count, int error, t_cub *cub)
+int	parse_params(t_cub *cub)
 {
-	if (line_idx == 0 || (!cub->buff && count == 0))
-		ft_map_param_error(cub, "Error: Empty map file");
-	else if (error == 1)
-		ft_map_param_error(cub, "Error: Found duplicate parameter");
-	else if (error == 2)
-		ft_map_param_error(cub, "Error: Found unidentified parameter");
-	else if (error == 3)
-		ft_map_param_error(cub, "Error: Texture extension has to be `.xpm`");
-	else if (error == 4)
-		ft_map_param_error(cub, "Error: Unable to open texture file");
-	else if (error == 5)
-		ft_map_param_error(cub, "Error: Wrong color syntax");
-	else if (count != 6)
-		ft_map_param_error(cub, "Error: Missing one or multiple parameter·s");
-
-}
-
-t_cub	*parsing(int ac, char **av)
-{
-	t_cub	*cub;
-	char	*tmp;
 	int 	fd;
 	int 	i;
 	int 	j;
+	int		k;
 	int		error;
 	int		count;
-	int		line_idx = 0;
+	char	*tmp;
 
+	k = 0;
 	count = 0;
 	error = 0;
-	if (check_args(ac, av))
-		return (NULL);
-	cub = (t_cub *)malloc(sizeof(t_cub));
-	init_params(cub);
-	cub->map_path = ft_strdup(av[1]);
-	cub->map_fd = open(cub->map_path, O_RDONLY);
-	cub->buff = get_next_line(cub->map_fd);
 	tmp = NULL;
+	cub->buff = get_next_line(cub->map_fd);
 	while (cub->buff)
 	{
-		line_idx++;
+		k++;
 		if (!ft_strncmp(cub->buff, "\n", 1))
 		{	
 			free(cub->buff);
@@ -205,8 +135,8 @@ t_cub	*parsing(int ac, char **av)
 		else if (!ft_strncmp(cub->buff, "NO ", 3) && !cub->params.no_text)
 		{
 			count++;
-			i = ft_skip_space(cub->buff, 2);
-			j = ft_skip_space_rv(cub->buff, ft_strlen(cub->buff) - 2);			
+			i = skip_space(cub->buff, 2);
+			j = skip_space_rv(cub->buff, ft_strlen(cub->buff) - 2);			
 			cub->params.no_text = ft_substr(cub->buff, i, j - i + 1);
 			if (ft_check_extension(cub->params.no_text, ".xpm"))
 				error = 3;
@@ -222,8 +152,8 @@ t_cub	*parsing(int ac, char **av)
 		else if (!ft_strncmp(cub->buff, "SO ", 3) && !cub->params.so_text)
 		{
 			count++;
-			i = ft_skip_space(cub->buff, 2);
-			j = ft_skip_space_rv(cub->buff, ft_strlen(cub->buff) - 2);
+			i = skip_space(cub->buff, 2);
+			j = skip_space_rv(cub->buff, ft_strlen(cub->buff) - 2);
 			cub->params.so_text = ft_substr(cub->buff, i, j - i + 1);
 			if (ft_check_extension(cub->params.so_text, ".xpm"))
 				error = 3;
@@ -239,8 +169,8 @@ t_cub	*parsing(int ac, char **av)
 		else if (!ft_strncmp(cub->buff, "WE ", 3) && !cub->params.we_text)
 		{
 			count++;
-			i = ft_skip_space(cub->buff, 2);
-			j = ft_skip_space_rv(cub->buff, ft_strlen(cub->buff) - 2);
+			i = skip_space(cub->buff, 2);
+			j = skip_space_rv(cub->buff, ft_strlen(cub->buff) - 2);
 			cub->params.we_text = ft_substr(cub->buff, i, j - i + 1);
 			if (ft_check_extension(cub->params.we_text, ".xpm"))
 				error = 3;
@@ -256,8 +186,8 @@ t_cub	*parsing(int ac, char **av)
 		else if (!ft_strncmp(cub->buff, "EA ", 3) && !cub->params.ea_text)
 		{
 			count++;
-			i = ft_skip_space(cub->buff, 2);
-			j = ft_skip_space_rv(cub->buff, ft_strlen(cub->buff) - 2);
+			i = skip_space(cub->buff, 2);
+			j = skip_space_rv(cub->buff, ft_strlen(cub->buff) - 2);
 			cub->params.ea_text = ft_substr(cub->buff, i, j - i + 1);
 			if (ft_check_extension(cub->params.ea_text, ".xpm"))
 				error = 3;
@@ -273,8 +203,8 @@ t_cub	*parsing(int ac, char **av)
 		else if (!ft_strncmp(cub->buff, "F ", 2) && cub->params.f_color == -1)
 		{
 			count++;
-			i = ft_skip_space(cub->buff, 2);
-			j = ft_skip_space_rv(cub->buff, ft_strlen(cub->buff) - 2);
+			i = skip_space(cub->buff, 2);
+			j = skip_space_rv(cub->buff, ft_strlen(cub->buff) - 2);
 			tmp = ft_substr(cub->buff, i, j - i + 1);
 			cub->params.f_color = get_color(tmp);
 			if (cub->params.f_color == -1)
@@ -283,8 +213,8 @@ t_cub	*parsing(int ac, char **av)
 		else if (!ft_strncmp(cub->buff, "C ", 2) && cub->params.c_color == -1)
 		{
 			count++;
-			i = ft_skip_space(cub->buff, 2);
-			j = ft_skip_space_rv(cub->buff, ft_strlen(cub->buff) - 2);
+			i = skip_space(cub->buff, 2);
+			j = skip_space_rv(cub->buff, ft_strlen(cub->buff) - 2);
 			tmp = ft_substr(cub->buff, i, j - i + 1);
 			cub->params.c_color = get_color(tmp);
 			if (cub->params.c_color == -1)
@@ -306,68 +236,80 @@ t_cub	*parsing(int ac, char **av)
 			free(tmp);
 			tmp = NULL;
 		}
-		if (error > 0)
-		{
+		if (error != -1)
 			free(cub->buff);
-			cub->buff = NULL;
-		}
 		if (error)
 			break ;
 		cub->buff = get_next_line(cub->map_fd);
 	}
-	check_map_error(line_idx, count, error, cub);
+	check_map_error(k, count, error, cub);
+	return (k);
+}
+
+t_cub	*parsing(int ac, char **av)
+{
+	t_cub	*cub;
+	int 	i;
+	int 	j;
+	int		k;
+
+	check_args(ac, av);
+	cub = (t_cub *)malloc(sizeof(t_cub));
+	init_params(cub, av[1]);
+	k = parse_params(cub);
 	while (cub->buff)
 	{
-		if ((int)ft_strlen(cub->buff) > cub->map.width)
-			cub->map.width = ft_strlen(cub->buff);
-			cub->map.height++;
+		if ((int)ft_strlen(cub->buff) > cub->map.width
+			&& cub->buff[(int)ft_strlen(cub->buff) - 1] == '\n')
+			cub->map.width = (int)ft_strlen(cub->buff) - 1;
+		else if ((int)ft_strlen(cub->buff) > cub->map.width
+			&& !cub->buff[(int)ft_strlen(cub->buff) - 1])
+			cub->map.width = (int)ft_strlen(cub->buff);
+		cub->map.height++;
+		free(cub->buff);
 		cub->buff = get_next_line(cub->map_fd);
 	}
-	cub->map.width--;
 	close(cub->map_fd);
+
 	cub->map_fd = open(cub->map_path, O_RDONLY);
 	cub->buff = get_next_line(cub->map_fd);
-	while (cub->buff && line_idx > 1)
+	while (cub->buff && k > 1)
 	{
-		line_idx--;
+		k--;
+		free(cub->buff);
 		cub->buff = get_next_line(cub->map_fd);
 	}
+
 	cub->map.map = (char **)malloc(sizeof(char *) * (cub->map.height + 1));
 	if(!cub->map.map)
-		return (NULL);
+		ft_map_param_error(cub, "Error: Unable to allocate memory");
 	i = 0;
-	while (cub->buff && i < cub->map.height)
+	while (cub->buff)
 	{
 		cub->map.map[i] = malloc(sizeof(char) * (cub->map.width + 1));
 		if(!cub->map.map[i])
-			return (NULL);
-		tmp = ft_substr(cub->buff, 0, ft_strlen(cub->buff) - 1);
-		j = 0;
-		while (j < (int)ft_strlen(tmp))
-		{
-			cub->map.map[i][j] = tmp[j];
-			j++;
-		}
+			ft_map_param_error(cub, "Error: Unable to allocate memory");
+		j = -1;
+		while (cub->buff[++j] && cub->buff[j] != '\n')
+			cub->map.map[i][j] = cub->buff[j];
 		while (j < cub->map.width)
-		{
-			cub->map.map[i][j] = ' ';
-			j++;
-		}
+			cub->map.map[i][j++] = ' ';
 		cub->map.map[i][j] = '\0';
 		i++;
+		free(cub->buff);
 		cub->buff = get_next_line(cub->map_fd);
 	}
 	cub->map.map[i] = NULL;
 
 	i = 0;
-	line_idx = 0;
+	k = 0;
 	while (i < cub->map.height)
 	{
 		j = 0;
 		while (j < cub->map.width)
 		{
-			if (!ft_strchr("01NSWE ", cub->map.map[i][j]) || line_idx > 1)
-				ft_perror("Error in map");
+			if (!ft_strchr("01NSWE ", cub->map.map[i][j]))
+				ft_map_param_error(cub, "Error: Encountered unexpected charachter in map");
 			if (ft_strchr("NSWE", cub->map.map[i][j]))
 			{
 				cub->player.x_pos = j * TILE_SIZE;
@@ -382,20 +324,22 @@ t_cub	*parsing(int ac, char **av)
 				else if (cub->player.orient == 'E')
 					cub->player.rotation = 0;
 				cub->map.map[i][j] = '0';
-				line_idx++;
+				k++;
 			}
 			if (cub->map.map[i][j] == '0'
 				&& ((cub->map.map[i + 1][j] && cub->map.map[i + 1][j] == ' ')
 				|| (cub->map.map[i - 1][j] && cub->map.map[i - 1][j] == ' ' )
 				|| (cub->map.map[i][j + 1] && cub->map.map[i][j + 1] == ' ')
 				|| (cub->map.map[i][j - 1] && cub->map.map[i][j - 1] == ' ')))
-				ft_perror("Error in map");
+				ft_map_param_error(cub, "Error: Map must be surrounded by walls");
 			j++;
 		}
 		i++;
 	}
 
-	if (line_idx == 0)
-		ft_perror("Error in map");
+	if (k == 0)
+		ft_map_param_error(cub, "Error: Missing player's starting pos·dir");
+	else if (k > 1)
+		ft_map_param_error(cub, "Error: Player's starting pos·dir must be unique");
 	return (cub);
 }

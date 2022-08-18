@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:01:56 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/17 13:17:42 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/18 17:16:26 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,15 +168,23 @@ int		cub3d(int ac, char **av);
 t_cub	*parsing(int ac, char **av);
 
 //	general
-int	argb_to_int(int alpha, int red, int green, int blue);
 int	ft_put_error(char *error);
+int ft_check_extension(char *str, char *ext);
+int	argb_to_int(int alpha, int red, int green, int blue);
+int	int_in_range(int to_check, int min, int max);
 int	skip_space(char *str, int i);
+int	skip_space_rv(char *str, int i);
 
 //	parsing
 t_cub	*parsing(int ac, char **av);
 
+//	check
+void	check_args(int ac, char **av);
+void	check_map_error(int line_idx, int count, int error, t_cub *cub);
 
-void	init_params(t_cub *cub);
+
+
+void	init_params(t_cub *cub, char *map_path);
 void	ft_map_param_error(t_cub *cub, char *str);
 // int	check_map_surroundings(t_cub *cub);
 // int	check_space_surroundings(t_cub *cub);

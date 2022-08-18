@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:13:23 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/17 12:32:59 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/18 13:04:17 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,6 @@ int	cub3d(int ac, char **av)
 	t_cub	*cub;
 
 	cub = parsing(ac, av);
-	if (!cub)
-		return (1);
 	init_mlx_ptrs(cub);
 	mlx_hook(cub->mlx.win, ON_KEYPRESS, (1L << 0), key_press, cub);
 	mlx_hook(cub->mlx.win, ON_KEYRELEASE, (1L << 1), key_release, cub);
