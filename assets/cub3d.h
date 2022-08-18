@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:01:56 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/18 17:16:26 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/18 18:54:11 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,11 +56,11 @@
 /* -------------------- NB_RAYS = WIN_WIDTH / STRIP_WIDTH ------------------- */
 # define NB_RAYS				1000
 /* ------------ MINI_MOVE_SPEED = MINI_MAP_TILE_SIZE / MOVE_SPEED ----------- */
-# define MINI_MOVE_SPEED		MINI_MAP_TILE_SIZE / MOVE_SPEED
+# define MINI_MOVE_SPEED		1.5
 /* ---------------- MINI_MAP_WIDTH = MINI_MAP_TILE_SIZE * 20 ---------------- */
-# define MINI_MAP_WIDTH			MINI_MAP_TILE_SIZE * 20
+# define MINI_MAP_WIDTH			300
 /* ---------------- MINI_MAP_HEIGHT = MINI_MAP_TILE_SIZE * 10 --------------- */
-# define MINI_MAP_HEIGHT		MINI_MAP_TILE_SIZE * 10
+# define MINI_MAP_HEIGHT		150
 /* -------------------------------------------------------------------------- */
 /*                                 Structures                                 */
 /* -------------------------------------------------------------------------- */
@@ -164,43 +164,42 @@ typedef struct s_cub
 	t_mlx		mlx;
 }	t_cub;
 
-int		cub3d(int ac, char **av);
-t_cub	*parsing(int ac, char **av);
+int			cub3d(int ac, char **av);
+t_cub		*parsing(int ac, char **av);
+/* --------------------------------- General -------------------------------- */
+int			ft_put_error(char *error);
+int			check_extension(char *str, char *ext);
+int			argb_to_int(int alpha, int red, int green, int blue);
+int			int_in_range(int to_check, int min, int max);
+int			skip_space(char *str, int i);
+int			skip_space_rv(char *str, int i);
+/* ----------------------------------- mlx ---------------------------------- */
+void		init_mlx_ptrs(t_cub *cub);
+void		init_walls(t_cub *cub);
+void		mlx_img_error(t_cub *cub, char *error, int wall_to_destroy);
+int			leave(t_cub *cub);
+int			key_press(int key, t_cub *cub);
+int			key_release(int key, t_cub *cub);
+/* --------------------------------- Raycast -------------------------------- */
+void		raycast(t_cub *cub);
+void		ray_free(t_cub *cub);
+t_tmp_ray	vertical_wall_hit(t_cub *cub, t_ray *ray, float diff[2]);
+t_tmp_ray	horizontal_wall_hit(t_cub *cub, t_ray *ray, float diff[2]);
+/* --------------------------------- Render --------------------------------- */
+void		update_all(t_cub *cub);
+int			render_frame(t_cub *cub);
 
-//	general
-int	ft_put_error(char *error);
-int ft_check_extension(char *str, char *ext);
-int	argb_to_int(int alpha, int red, int green, int blue);
-int	int_in_range(int to_check, int min, int max);
-int	skip_space(char *str, int i);
-int	skip_space_rv(char *str, int i);
+
+
 
 //	parsing
-t_cub	*parsing(int ac, char **av);
-
-//	check
-void	check_args(int ac, char **av);
-void	check_map_error(int line_idx, int count, int error, t_cub *cub);
-
-
-
-void	init_params(t_cub *cub, char *map_path);
-void	ft_map_param_error(t_cub *cub, char *str);
-// int	check_map_surroundings(t_cub *cub);
-// int	check_space_surroundings(t_cub *cub);
-// int	check_map_content(t_cub *cub);
-// int	check_map(t_cub *cub);
-// int	ft_map_param_error(t_cub *cub, char *str);
-// int	read_map_file(t_cub *cub);
+void		init_params(t_cub *cub, char *map_path);
+void		ft_map_param_error(t_cub *cub, char *str);
+t_cub		*parsing(int ac, char **av);
+void		check_args(int ac, char **av);
+void		check_map_error(int line_idx, int count, int error, t_cub *cub);
 
 
-//	mlx
-void	init_mlx_ptrs(t_cub *cub);
-void	init_walls(t_cub *cub);
-void	mlx_img_error(t_cub *cub, char *error, int wall_to_destroy);
-
-//	render
-void	update_all(t_cub *cub);
 
 
 
@@ -213,24 +212,5 @@ void	mlx_put_line(int x_start, int y_start, double x_end, double y_end, int colo
 
 //	mini_map
 // int	put_mini_map(t_cub *cub);
-
-
-
-
-//	raycast
-void	raycast(t_cub *cub);
-void	ray_free(t_cub *cub);
-t_tmp_ray	vertical_wall_hit(t_cub *cub, t_ray *ray, float diff[2]);
-t_tmp_ray	horizontal_wall_hit(t_cub *cub, t_ray *ray, float diff[2]);
-
-
-//	key_hook
-int	key_press(int key, t_cub *cub);
-int	key_release(int key, t_cub *cub);
-
-//	key_hooks
-int	leave(t_cub *cub);
-int	render_frame(t_cub *cub);
-
 
 #endif

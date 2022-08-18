@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/24 13:04:08 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/18 18:30:53 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/18 18:36:44 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ int	parse_params(t_cub *cub)
 			i = skip_space(cub->buff, 2);
 			j = skip_space_rv(cub->buff, ft_strlen(cub->buff) - 2);			
 			cub->params.no_text = ft_substr(cub->buff, i, j - i + 1);
-			if (ft_check_extension(cub->params.no_text, ".xpm"))
+			if (check_extension(cub->params.no_text, ".xpm"))
 				error = 3;
 			else
 			{
@@ -155,7 +155,7 @@ int	parse_params(t_cub *cub)
 			i = skip_space(cub->buff, 2);
 			j = skip_space_rv(cub->buff, ft_strlen(cub->buff) - 2);
 			cub->params.so_text = ft_substr(cub->buff, i, j - i + 1);
-			if (ft_check_extension(cub->params.so_text, ".xpm"))
+			if (check_extension(cub->params.so_text, ".xpm"))
 				error = 3;
 			else
 			{
@@ -172,7 +172,7 @@ int	parse_params(t_cub *cub)
 			i = skip_space(cub->buff, 2);
 			j = skip_space_rv(cub->buff, ft_strlen(cub->buff) - 2);
 			cub->params.we_text = ft_substr(cub->buff, i, j - i + 1);
-			if (ft_check_extension(cub->params.we_text, ".xpm"))
+			if (check_extension(cub->params.we_text, ".xpm"))
 				error = 3;
 			else
 			{
@@ -189,7 +189,7 @@ int	parse_params(t_cub *cub)
 			i = skip_space(cub->buff, 2);
 			j = skip_space_rv(cub->buff, ft_strlen(cub->buff) - 2);
 			cub->params.ea_text = ft_substr(cub->buff, i, j - i + 1);
-			if (ft_check_extension(cub->params.ea_text, ".xpm"))
+			if (check_extension(cub->params.ea_text, ".xpm"))
 				error = 3;
 			else
 			{

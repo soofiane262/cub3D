@@ -1,27 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   general_utils.c                                    :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 12:04:42 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/18 16:54:36 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/18 18:42:49 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	ft_put_error(char *error)
+int	check_extension(char *str, char *ext)
 {
-	ft_putendl_fd(error, 2);
-	return (1);
-}
-
-int ft_check_extension(char *str, char *ext)
-{
-	if (!ft_strnstr(str, ext, ft_strlen(str)) 
-		|| ft_strncmp(ft_strnstr(str, ext, ft_strlen(str)), ext, ft_strlen(ext)))
+	if (!ft_strnstr(str, ext, ft_strlen(str))
+		|| ft_strncmp(ft_strnstr(str, ext,
+				ft_strlen(str)), ext, ft_strlen(ext)))
 		return (1);
 	return (0);
 }
