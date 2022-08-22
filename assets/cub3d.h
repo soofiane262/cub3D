@@ -3,13 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kid-bouh <kid-bouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:01:56 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/18 18:54:11 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/22 02:27:54 by kid-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef CUB3D_H
 # define CUB3D_H
@@ -156,6 +155,8 @@ typedef struct s_cub
 	char		*buff;
 	int			map_fd;
 	char		*map_path;
+	int			error_parse;
+	int			count;
 	t_ray		*ray;
 	t_params	params;
 	t_map		map;
@@ -173,6 +174,12 @@ int			argb_to_int(int alpha, int red, int green, int blue);
 int			int_in_range(int to_check, int min, int max);
 int			skip_space(char *str, int i);
 int			skip_space_rv(char *str, int i);
+void		fill_map(t_cub *cub, int k);
+int			parse_params(t_cub *cub);
+char		*ft_check_path_texture(t_cub *cub);
+int			get_color(char *str, int i, int j);
+int			ft_check_color(t_cub *cub, int color);
+void		ft_check_map(t_cub *cub);
 /* ----------------------------------- mlx ---------------------------------- */
 void		init_mlx_ptrs(t_cub *cub);
 void		init_walls(t_cub *cub);
@@ -188,29 +195,16 @@ t_tmp_ray	horizontal_wall_hit(t_cub *cub, t_ray *ray, float diff[2]);
 /* --------------------------------- Render --------------------------------- */
 void		update_all(t_cub *cub);
 int			render_frame(t_cub *cub);
-
-
-
-
 //	parsing
 void		init_params(t_cub *cub, char *map_path);
 void		ft_map_param_error(t_cub *cub, char *str);
 t_cub		*parsing(int ac, char **av);
 void		check_args(int ac, char **av);
 void		check_map_error(int line_idx, int count, int error, t_cub *cub);
-
-
-
-
-
 //	2d_map
-int		ft_2d_map(t_cub *cub);
-
-void	mlx_put_line(int x_start, int y_start, double x_end, double y_end, int color,
-	void *mlx, void *win);
-
-
+int			ft_2d_map(t_cub *cub);
+// void		mlx_put_line(int x_start, int y_start, double x_end, double y_end,
+// 				int color,void *mlx, void *win);
 //	mini_map
 // int	put_mini_map(t_cub *cub);
-
 #endif
