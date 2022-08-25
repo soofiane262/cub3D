@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kid-bouh <kid-bouh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:01:56 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/22 02:27:54 by kid-bouh         ###   ########.fr       */
+/*   Updated: 2022/08/25 18:20:31 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,21 +45,11 @@
 # define FOV					60
 # define STRIP_WIDTH			1
 # define ROT_SPEED				0.1
-/* ---------------------------------- Bonus --------------------------------- */
-# define MINI_MAP_TILE_SIZE		15
-# define MINI_MAP_PLAYER_SIZE	4
-# define MINI_MAP_MARGIN		20
 /* -------------------------------------------------------------------------- */
 /*                           !! TO BE CALCULATED !!                           */
 /* -------------------------------------------------------------------------- */
 /* -------------------- NB_RAYS = WIN_WIDTH / STRIP_WIDTH ------------------- */
 # define NB_RAYS				1000
-/* ------------ MINI_MOVE_SPEED = MINI_MAP_TILE_SIZE / MOVE_SPEED ----------- */
-# define MINI_MOVE_SPEED		1.5
-/* ---------------- MINI_MAP_WIDTH = MINI_MAP_TILE_SIZE * 20 ---------------- */
-# define MINI_MAP_WIDTH			300
-/* ---------------- MINI_MAP_HEIGHT = MINI_MAP_TILE_SIZE * 10 --------------- */
-# define MINI_MAP_HEIGHT		150
 /* -------------------------------------------------------------------------- */
 /*                                 Structures                                 */
 /* -------------------------------------------------------------------------- */
@@ -82,17 +72,6 @@ typedef struct s_map
 	int		mini_map_height;
 	char	**map;
 }	t_map;
-
-typedef struct s_mini_map
-{
-	int		width;
-	int		height;
-	int		offset[2];
-	void	*background;
-	void	*floor;
-	void	*wall;
-	void	*player;
-}	t_mini_map;
 
 typedef struct s_player
 {
@@ -122,6 +101,9 @@ typedef struct s_mlx
 	void	*wall_west;
 	int		*wall_we_data;
 	int		wall_we_side;
+	void	*floor;
+	void	*wall;
+	void	*player;
 }	t_mlx;
 
 typedef struct s_ray
@@ -160,7 +142,6 @@ typedef struct s_cub
 	t_ray		*ray;
 	t_params	params;
 	t_map		map;
-	t_mini_map	mini_map;
 	t_player	player;
 	t_mlx		mlx;
 }	t_cub;
@@ -175,11 +156,15 @@ int			int_in_range(int to_check, int min, int max);
 int			skip_space(char *str, int i);
 int			skip_space_rv(char *str, int i);
 void		fill_map(t_cub *cub, int k);
-int			parse_params(t_cub *cub);
 char		*ft_check_path_texture(t_cub *cub);
 int			get_color(char *str, int i, int j);
 int			ft_check_color(t_cub *cub, int color);
 void		ft_check_map(t_cub *cub);
+/* --------------------------------- Parsing -------------------------------- */
+void		ft_map_param_error(t_cub *cub, char *str);
+t_cub		*parsing(int ac, char **av);
+void		check_args(int ac, char **av);
+void		check_map_error(int line_idx, int count, int error, t_cub *cub);
 /* ----------------------------------- mlx ---------------------------------- */
 void		init_mlx_ptrs(t_cub *cub);
 void		init_walls(t_cub *cub);
@@ -195,16 +180,4 @@ t_tmp_ray	horizontal_wall_hit(t_cub *cub, t_ray *ray, float diff[2]);
 /* --------------------------------- Render --------------------------------- */
 void		update_all(t_cub *cub);
 int			render_frame(t_cub *cub);
-//	parsing
-void		init_params(t_cub *cub, char *map_path);
-void		ft_map_param_error(t_cub *cub, char *str);
-t_cub		*parsing(int ac, char **av);
-void		check_args(int ac, char **av);
-void		check_map_error(int line_idx, int count, int error, t_cub *cub);
-//	2d_map
-int			ft_2d_map(t_cub *cub);
-// void		mlx_put_line(int x_start, int y_start, double x_end, double y_end,
-// 				int color,void *mlx, void *win);
-//	mini_map
-// int	put_mini_map(t_cub *cub);
 #endif

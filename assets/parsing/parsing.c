@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kid-bouh <kid-bouh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 21:38:05 by kid-bouh          #+#    #+#             */
-/*   Updated: 2022/08/22 02:28:02 by kid-bouh         ###   ########.fr       */
+/*   Updated: 2022/08/25 16:15:37 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	init_params(t_cub *cub, char *map_path)
+static void	init_params(t_cub *cub, char *map_path)
 {
 	cub->count = 0;
 	cub->error_parse = 0;
@@ -59,7 +59,7 @@ void	ft_map_param_error(t_cub *cub, char *str)
 	exit(ft_put_error(str));
 }
 
-void	parse_params_2(t_cub *cub)
+static void	parse_params_2(t_cub *cub)
 {
 	if (!ft_strncmp(cub->buff, "NO ", 3) && !cub->params.no_text)
 		cub->params.no_text = ft_check_path_texture(cub);
@@ -86,7 +86,7 @@ void	parse_params_2(t_cub *cub)
 		cub->error_parse = 2;
 }
 
-int	parse_params(t_cub *cub)
+static int	parse_params(t_cub *cub)
 {
 	int		k;
 

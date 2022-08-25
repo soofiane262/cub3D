@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kid-bouh <kid-bouh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 21:38:10 by kid-bouh          #+#    #+#             */
-/*   Updated: 2022/08/22 02:28:03 by kid-bouh         ###   ########.fr       */
+/*   Updated: 2022/08/25 17:53:02 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,8 @@ void	ft_check_map_2(t_cub *cub, int i, int j, int *k)
 		cub->player.x_pos = j * TILE_SIZE;
 		cub->player.y_pos = i * TILE_SIZE;
 		cub->player.orient = cub->map.map[i][j];
-		if (cub->player.orient == 'N')
-			cub->player.rotation = 3 * M_PI_2;
-		else if (cub->player.orient == 'S')
+		cub->player.rotation = 3 * M_PI_2;
+		if (cub->player.orient == 'S')
 		cub->player.rotation = M_PI_2;
 		else if (cub->player.orient == 'W')
 			cub->player.rotation = M_PI;
@@ -30,11 +29,14 @@ void	ft_check_map_2(t_cub *cub, int i, int j, int *k)
 		cub->map.map[i][j] = '0';
 		(*k) += 1;
 	}
-	if (cub->map.map[i][j] == '0'
+	else if (
+		((i == 0 || j == 0 || i == cub->map.height - 1
+				|| j == cub->map.width - 1) && cub->map.map[i][j] != '1'
+		&& cub->map.map[i][j] != ' ') || (cub->map.map[i][j] == '0'
 		&& ((cub->map.map[i + 1][j] && cub->map.map[i + 1][j] == ' ')
-		|| (cub->map.map[i - 1][j] && cub->map.map[i - 1][j] == ' ' )
+		|| (cub->map.map[i - 1][j] && cub->map.map[i - 1][j] == ' ')
 		|| (cub->map.map[i][j + 1] && cub->map.map[i][j + 1] == ' ')
-		|| (cub->map.map[i][j - 1] && cub->map.map[i][j - 1] == ' ')))
+		|| (cub->map.map[i][j - 1] && cub->map.map[i][j - 1] == ' '))))
 		ft_map_param_error(cub,
 			"Error: Map must be surrounded by walls");
 }
