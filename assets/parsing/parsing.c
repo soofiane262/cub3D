@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 21:38:05 by kid-bouh          #+#    #+#             */
-/*   Updated: 2022/08/25 16:15:37 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/26 15:25:10 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,12 @@ static void	init_params(t_cub *cub, char *map_path)
 	cub->map_fd = open(cub->map_path, O_RDONLY);
 }
 
-void	ft_map_param_error(t_cub *cub, char *str)
+void		ft_map_param_error(t_cub *cub, int error, char *str)
 {
 	int	i;
 
+	if (error == - 1)
+		free(cub->buff);
 	free(cub->map_path);
 	if (cub->params.no_text)
 		free(cub->params.no_text);
@@ -56,6 +58,9 @@ void	ft_map_param_error(t_cub *cub, char *str)
 	}
 	free(cub);
 	cub = NULL;
+	ft_put_error(str);
+	while(1)
+	;
 	exit(ft_put_error(str));
 }
 
@@ -102,7 +107,7 @@ static int	parse_params(t_cub *cub)
 			continue ;
 		}
 		parse_params_2(cub);
-		if (cub->error_parse != -1)
+		if (cub->error_parse != - 1)
 			free(cub->buff);
 		if (cub->error_parse)
 			break ;

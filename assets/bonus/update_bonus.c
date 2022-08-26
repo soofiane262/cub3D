@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 19:35:24 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/25 18:23:40 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/26 12:37:01 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,18 +46,18 @@ static float	update_player_x_pos(t_cub *cub)
 	return (new_pos);
 }
 
-void	update_all_bonus(t_cub *cub)
+void	update_all_bonus(t_cub_bonus *cub_bonus)
 {
 	float	new[2];
+	t_cub	*cub;
 
+	cub = *(cub_bonus->cub);
 	if (cub->player.mvt == W || cub->player.mvt == S
 		|| cub->player.mvt == A || cub->player.mvt == D)
 	{
 		new[0] = update_player_y_pos(cub);
 		new[1] = update_player_x_pos(cub);
-		if (new[0] > TILE_SIZE && new[0] < (cub->map.height - 2) * TILE_SIZE
-			&& new[1] > TILE_SIZE && new[1] < (cub->map.width - 2) * TILE_SIZE
-			&& !check_wall_collision(new[1], new[0], cub))
+		if (!check_wall_collision(new[1], new[0], cub))
 		{
 			cub->player.y_pos = new[0];
 			cub->player.x_pos = new[1];

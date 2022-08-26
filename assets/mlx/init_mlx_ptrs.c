@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 15:23:36 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/18 18:42:39 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/26 15:25:47 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ static void	init_mlx_and_win(t_cub *cub)
 {
 	cub->mlx.mlx = mlx_init();
 	if (!cub->mlx.mlx)
-		ft_map_param_error(cub,
+		ft_map_param_error(cub, 0,
 			"Error: Failed to set up connection to graphical system");
 	cub->mlx.win = mlx_new_window(cub->mlx.mlx, WIN_WIDTH, WIN_HEIGHT,
 			"cub3D");
 	if (!cub->mlx.win)
-		ft_map_param_error(cub,
+		ft_map_param_error(cub, 0,
 			"Error: Failed to create a new window");
 }
 

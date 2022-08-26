@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:01:56 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/25 18:21:12 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/26 12:46:30 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,27 @@
 /* -------------------------------------------------------------------------- */
 /*                                 Structures                                 */
 /* -------------------------------------------------------------------------- */
+typedef struct s_mini_map
+{
+	void	*floor;
+	void	*wall;
+	void	*player;
+} t_mini_map;
+
+typedef struct	s_cub_bonus
+{
+	t_mini_map	mini_map;
+	t_cub		**cub;
+} t_cub_bonus;
 
 int			cub3d_bonus(int ac, char **av);
 /* --------------------------------- Render --------------------------------- */
-void		update_all_bonus(t_cub *cub);
-int			render_frame_bonus(t_cub *cub);
+void		update_all_bonus(t_cub_bonus *cub_bonus);
+int			render_frame_bonus(t_cub_bonus *cub_bonus);
 /* ----------------------------- Wall Collision ----------------------------- */
 int			check_wall_collision(int new_x, int new_y, t_cub *cub);
 /* -------------------------------- Mini Map -------------------------------- */
-void		init_mini_map(t_cub *cub);
-int			put_mini_map(t_cub *cub);
+t_mini_map	init_mini_map(t_cub *cub);
+int			put_mini_map(t_cub_bonus *cub_bonus);
+void		mlx_change_img_color(void *img, int color);
 #endif

@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:01:56 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/25 18:20:31 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/26 15:24:15 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,6 @@ typedef struct s_mlx
 	void	*wall_west;
 	int		*wall_we_data;
 	int		wall_we_side;
-	void	*floor;
-	void	*wall;
-	void	*player;
 }	t_mlx;
 
 typedef struct s_ray
@@ -161,7 +158,7 @@ int			get_color(char *str, int i, int j);
 int			ft_check_color(t_cub *cub, int color);
 void		ft_check_map(t_cub *cub);
 /* --------------------------------- Parsing -------------------------------- */
-void		ft_map_param_error(t_cub *cub, char *str);
+void		ft_map_param_error(t_cub *cub, int error, char *str);
 t_cub		*parsing(int ac, char **av);
 void		check_args(int ac, char **av);
 void		check_map_error(int line_idx, int count, int error, t_cub *cub);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kid-bouh <kid-bouh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 21:37:54 by kid-bouh          #+#    #+#             */
-/*   Updated: 2022/08/22 02:27:57 by kid-bouh         ###   ########.fr       */
+/*   Updated: 2022/08/26 15:24:22 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	check_args(int ac, char **av)
 {
 	int	fd;
 
+	
 	if (ac == 1)
 		exit(ft_put_error("Error: Missing path to map file"));
 	else if (ac > 2)
@@ -32,19 +33,19 @@ void	check_args(int ac, char **av)
 void	check_map_error(int line_idx, int count, int error, t_cub *cub)
 {
 	if (line_idx == 0 || (!cub->buff && count == 0))
-		ft_map_param_error(cub, "Error: Empty map file");
+		ft_map_param_error(cub, error, "Error: Empty map file");
 	else if (error == 1)
-		ft_map_param_error(cub, "Error: Found duplicate parameter");
+		ft_map_param_error(cub, error, "Error: Found duplicate parameter");
 	else if (error == 2)
-		ft_map_param_error(cub, "Error: Found unidentified parameter");
+		ft_map_param_error(cub, error, "Error: Found unidentified parameter");
 	else if (error == 3)
-		ft_map_param_error(cub, "Error: Texture extension has to be `.xpm`");
+		ft_map_param_error(cub, error, "Error: Texture extension has to be `.xpm`");
 	else if (error == 4)
-		ft_map_param_error(cub, "Error: Unable to open texture file");
+		ft_map_param_error(cub, error, "Error: Unable to open texture file");
 	else if (error == 5)
-		ft_map_param_error(cub, "Error: Wrong color syntax");
+		ft_map_param_error(cub, error, "Error: Wrong color syntax");
 	else if (count != 6)
-		ft_map_param_error(cub, "Error: Missing one or multiple parameter·s");
+		ft_map_param_error(cub, error, "Error: Missing one or multiple parameter·s");
 }
 
 int	ft_check_color(t_cub *cub, int color)

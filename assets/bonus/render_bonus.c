@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:28:23 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/25 18:28:37 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/26 12:38:43 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,14 +121,47 @@ static void	paint_master(t_cub *cub)
 	cub->ray = head;
 }
 
-int	render_frame_bonus(t_cub *cub)
+// void	put_2d(t_cub *cub)
+// {
+// 	t_map_2d	map_2d;
+// 	int			i;
+// 	int			j;
+
+// 	map_2d.floor = mlx_new_image(cub->mlx.mlx, TILE_SIZE, TILE_SIZE);
+// 	mlx_change_img_color(map_2d.floor, cub->params.f_color);
+// 	map_2d.wall = mlx_new_image(cub->mlx.mlx, TILE_SIZE, TILE_SIZE);
+// 	mlx_change_img_color(map_2d.wall, cub->params.c_color);
+// 	map_2d.player = mlx_xpm_file_to_image(cub->mlx.mlx, "textures/red_dot_10x10.xpm", &i, &i);
+// 	i = -1;
+// 	while (++i < cub->map.height && i < WIN_HEIGHT)
+// 	{
+// 		j = -1;
+// 		while (++j < cub->map.width && j < WIN_WIDTH)
+// 		{
+// 			if (cub->map.map[i][j] == '1')
+// 				mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win, map_2d.wall, j * TILE_SIZE, i * TILE_SIZE);
+// 			else if (cub->map.map[i][j] == '0')
+// 				mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win, map_2d.floor, j * TILE_SIZE, i * TILE_SIZE);
+// 		}
+// 	}
+// 	ft_putendl_fd("check\n\n", 1);
+// 	// mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win, map_2d.player, cub->player.x_pos, cub->player.y_pos);
+// }
+
+int	render_frame_bonus(t_cub_bonus *cub_bonus)
 {
-	update_all_bonus(cub);
+	t_cub	*cub;
+
+	cub = *(cub_bonus->cub);
+	update_all_bonus(cub_bonus);
 	raycast(cub);
 	paint_master(cub);
 	ray_free(cub);
 	mlx_clear_window(cub->mlx.mlx, cub->mlx.win);
+	// ft_putendl_fd("start\n\n", 1);
+	// put_2d(cub);
+	// ft_putendl_fd("end\n\n", 1);
 	mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win, cub->mlx.master, 0, 0);
-	put_mini_map(cub);
+	put_mini_map(cub_bonus);
 	return (0);
 }
