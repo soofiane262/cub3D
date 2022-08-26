@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   leave.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kid-bouh <kid-bouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 19:06:11 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/26 14:59:46 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/26 16:00:13 by kid-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,6 @@ int	leave(t_cub *cub)
 	destroy_all(cub);
 	free(cub);
 	cub = NULL;
-	while(1)
-	;
 	exit(0);
 	return (0);
 }

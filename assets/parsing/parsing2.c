@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   parsing2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kid-bouh <kid-bouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 21:38:10 by kid-bouh          #+#    #+#             */
-/*   Updated: 2022/08/26 15:27:51 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/26 15:59:48 by kid-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-void	ft_check_map_2(t_cub *cub, int i, int j, int *k)
+static void	ft_check_map_2(t_cub *cub, int i, int j, int *k)
 {
 	if (ft_strchr("NSWE", cub->map.map[i][j]))
 	{
@@ -67,44 +67,4 @@ void	ft_check_map(t_cub *cub)
 	else if (k > 1)
 		ft_map_param_error(cub, 0,
 			"Error: Player's starting pos·dir must be unique");
-}
-
-void	fill_map_2(t_cub *cub)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (cub->buff)
-	{
-		cub->map.map[i] = malloc(sizeof(char) * (cub->map.width + 1));
-		if (!cub->map.map[i])
-			ft_map_param_error(cub, -1, "Error: Unable to allocate memory");
-		j = -1;
-		while (cub->buff[++j] && cub->buff[j] != '\n')
-			cub->map.map[i][j] = cub->buff[j];
-		while (j < cub->map.width)
-			cub->map.map[i][j++] = ' ';
-		cub->map.map[i][j] = '\0';
-		i++;
-		free(cub->buff);
-		cub->buff = get_next_line(cub->map_fd);
-	}
-	cub->map.map[i] = NULL;
-}
-
-void	fill_map(t_cub *cub, int k)
-{
-	cub->map_fd = open(cub->map_path, O_RDONLY);
-	cub->buff = get_next_line(cub->map_fd);
-	while (cub->buff && k > 1)
-	{
-		k--;
-		free(cub->buff);
-		cub->buff = get_next_line(cub->map_fd);
-	}
-	cub->map.map = (char **)malloc(sizeof(char *) * (cub->map.height + 1));
-	if (!cub->map.map)
-		ft_map_param_error(cub, -1, "Error: Unable to allocate memory");
-	fill_map_2(cub);
 }

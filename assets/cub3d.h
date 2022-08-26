@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kid-bouh <kid-bouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:01:56 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/26 15:24:15 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/26 15:58:39 by kid-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,16 +152,14 @@ int			argb_to_int(int alpha, int red, int green, int blue);
 int			int_in_range(int to_check, int min, int max);
 int			skip_space(char *str, int i);
 int			skip_space_rv(char *str, int i);
-void		fill_map(t_cub *cub, int k);
 char		*ft_check_path_texture(t_cub *cub);
 int			get_color(char *str, int i, int j);
 int			ft_check_color(t_cub *cub, int color);
-void		ft_check_map(t_cub *cub);
+void		ft_check_map(t_cub *cub); 
 /* --------------------------------- Parsing -------------------------------- */
 void		ft_map_param_error(t_cub *cub, int error, char *str);
 t_cub		*parsing(int ac, char **av);
-void		check_args(int ac, char **av);
-void		check_map_error(int line_idx, int count, int error, t_cub *cub);
+int		parse_params(t_cub *cub);
 /* ----------------------------------- mlx ---------------------------------- */
 void		init_mlx_ptrs(t_cub *cub);
 void		init_walls(t_cub *cub);

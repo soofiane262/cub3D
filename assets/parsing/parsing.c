@@ -3,14 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kid-bouh <kid-bouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 21:38:05 by kid-bouh          #+#    #+#             */
-/*   Updated: 2022/08/26 15:25:10 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/26 15:59:38 by kid-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+static void	fill_map_2(t_cub *cub)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (cub->buff)
+	{
+		cub->map.map[i] = malloc(sizeof(char) * (cub->map.width + 1));
+		if (!cub->map.map[i])
+			ft_map_param_error(cub, -1, "Error: Unable to allocate memory");
+		j = -1;
+		while (cub->buff[++j] && cub->buff[j] != '\n')
+			cub->map.map[i][j] = cub->buff[j];
+		while (j < cub->map.width)
+			cub->map.map[i][j++] = ' ';
+		cub->map.map[i][j] = '\0';
+		i++;
+		free(cub->buff);
+		cub->buff = get_next_line(cub->map_fd);
+	}
+	cub->map.map[i] = NULL;
+}
+
+static void	fill_map(t_cub *cub, int k)
+{
+	cub->map_fd = open(cub->map_path, O_RDONLY);
+	cub->buff = get_next_line(cub->map_fd);
+	while (cub->buff && k > 1)
+	{
+		k--;
+		free(cub->buff);
+		cub->buff = get_next_line(cub->map_fd);
+	}
+	cub->map.map = (char **)malloc(sizeof(char *) * (cub->map.height + 1));
+	if (!cub->map.map)
+		ft_map_param_error(cub, -1, "Error: Unable to allocate memory");
+	fill_map_2(cub);
+}
 
 static void	init_params(t_cub *cub, char *map_path)
 {
@@ -30,91 +70,21 @@ static void	init_params(t_cub *cub, char *map_path)
 	cub->map_fd = open(cub->map_path, O_RDONLY);
 }
 
-void		ft_map_param_error(t_cub *cub, int error, char *str)
+static void	check_args(int ac, char **av)
 {
-	int	i;
+	int	fd;
 
-	if (error == - 1)
-		free(cub->buff);
-	free(cub->map_path);
-	if (cub->params.no_text)
-		free(cub->params.no_text);
-	if (cub->params.so_text)
-		free(cub->params.so_text);
-	if (cub->params.ea_text)
-		free(cub->params.ea_text);
-	if (cub->params.we_text)
-		free(cub->params.we_text);
-	i = 0;
-	while (i < cub->map.height)
-	{
-		free(cub->map.map[i]);
-		cub->map.map[i++] = NULL;
-	}
-	if (i)
-	{
-		free(cub->map.map);
-		cub->map.map = NULL;
-	}
-	free(cub);
-	cub = NULL;
-	ft_put_error(str);
-	while(1)
-	;
-	exit(ft_put_error(str));
-}
-
-static void	parse_params_2(t_cub *cub)
-{
-	if (!ft_strncmp(cub->buff, "NO ", 3) && !cub->params.no_text)
-		cub->params.no_text = ft_check_path_texture(cub);
-	else if (!ft_strncmp(cub->buff, "SO ", 3) && !cub->params.so_text)
-		cub->params.so_text = ft_check_path_texture(cub);
-	else if (!ft_strncmp(cub->buff, "WE ", 3) && !cub->params.we_text)
-		cub->params.we_text = ft_check_path_texture(cub);
-	else if (!ft_strncmp(cub->buff, "EA ", 3) && !cub->params.ea_text)
-		cub->params.ea_text = ft_check_path_texture(cub);
-	else if (!ft_strncmp(cub->buff, "F ", 2) && cub->params.f_color == -1)
-		cub->params.f_color = ft_check_color(cub, cub->params.f_color);
-	else if (!ft_strncmp(cub->buff, "C ", 2) && cub->params.c_color == -1)
-		cub->params.c_color = ft_check_color(cub, cub->params.c_color);
-	else if ((!ft_strncmp(cub->buff, "NO ", 3) && cub->params.no_text)
-		|| (!ft_strncmp(cub->buff, "SO ", 3) && cub->params.so_text)
-		|| (!ft_strncmp(cub->buff, "EA ", 3) && cub->params.ea_text)
-		|| (!ft_strncmp(cub->buff, "WE ", 3) && cub->params.we_text)
-		|| (!ft_strncmp(cub->buff, "F ", 3) && cub->params.f_color != -1)
-		|| (!ft_strncmp(cub->buff, "C ", 3) && cub->params.c_color != -1))
-		cub->error_parse = 1;
-	else if (ft_strchr("01NSWE ", cub->buff[0]))
-		cub->error_parse = -1;
-	else
-		cub->error_parse = 2;
-}
-
-static int	parse_params(t_cub *cub)
-{
-	int		k;
-
-	k = 0;
-	cub->buff = get_next_line(cub->map_fd);
-	while (cub->buff)
-	{
-		k++;
-		if (!ft_strncmp(cub->buff, "\n", 1))
-		{	
-			free(cub->buff);
-			cub->buff = get_next_line(cub->map_fd);
-			continue ;
-		}
-		parse_params_2(cub);
-		if (cub->error_parse != - 1)
-			free(cub->buff);
-		if (cub->error_parse)
-			break ;
-		cub->buff = get_next_line(cub->map_fd);
-	}
-	check_map_error(k, cub->count, cub->error_parse, cub);
-	return (k);
+	if (ac == 1)
+		exit(ft_put_error("Error: Missing path to map file"));
+	else if (ac > 2)
+		exit(ft_put_error("Error: Too many arguments"));
+	else if (!ft_strnstr(av[1], ".cub", ft_strlen(av[1]))
+		|| ft_strncmp(ft_strnstr(av[1], ".cub", ft_strlen(av[1])), ".cub", 5))
+		exit(ft_put_error("Error: Wrong map extension"));
+	fd = open(av[1], O_RDONLY);
+	if (fd == -1)
+		exit(ft_put_error("Error: Unable to open map file"));
+	close(fd);
 }
 
 t_cub	*parsing(int ac, char **av)
