@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 16:28:15 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/16 16:35:06 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/26 17:26:29 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static t_tmp_ray	init_tmp_ray(t_cub *cub, t_ray *ray, char state)
 	return (ret);
 }
 
-t_tmp_ray	vertical_wall_hit(t_cub *cub, t_ray *ray, float diff[2])
+t_tmp_ray	vertical_hit(t_cub *cub, t_ray *ray, float diff[2])
 {
 	t_tmp_ray	ret;
 
@@ -79,8 +79,13 @@ t_tmp_ray	vertical_wall_hit(t_cub *cub, t_ray *ray, float diff[2])
 		if (cub->map.map[(int)((ret.y_intersept - diff[0]) / TILE_SIZE)]
 			[(int)((ret.x_intersept - diff[1]) / TILE_SIZE)] != '0')
 		{
-			ret.wall_y = ret.y_intersept;
-			ret.wall_x = ret.x_intersept;
+			if (cub->map.map[(int)((ret.y_intersept - diff[0]) / TILE_SIZE)]
+				[(int)((ret.x_intersept - diff[1]) / TILE_SIZE)] == 'D')
+				ret.elt = 'D';
+			else
+				ret.elt = '1';
+			ret.hit_y = ret.y_intersept;
+			ret.hit_x = ret.x_intersept;
 			ret.distance = hypot((cub->player.y_pos + TILE_SIZE / 2
 						- ret.y_intersept), (cub->player.x_pos + TILE_SIZE / 2
 						- ret.x_intersept));
@@ -92,7 +97,7 @@ t_tmp_ray	vertical_wall_hit(t_cub *cub, t_ray *ray, float diff[2])
 	return (ret);
 }
 
-t_tmp_ray	horizontal_wall_hit(t_cub *cub, t_ray *ray, float diff[2])
+t_tmp_ray	horizontal_hit(t_cub *cub, t_ray *ray, float diff[2])
 {
 	t_tmp_ray	ret;
 
@@ -108,8 +113,14 @@ t_tmp_ray	horizontal_wall_hit(t_cub *cub, t_ray *ray, float diff[2])
 		if (cub->map.map[(int)((ret.y_intersept - diff[0]) / TILE_SIZE)]
 				[(int)((ret.x_intersept - diff[1]) / TILE_SIZE)] != '0')
 		{
-			ret.wall_y = ret.y_intersept;
-			ret.wall_x = ret.x_intersept;
+			if (cub->map.map[(int)((ret.y_intersept - diff[0]) / TILE_SIZE)]
+					[(int)((ret.x_intersept - diff[1]) / TILE_SIZE)] == 'D')
+				ret.elt = 'D';
+			else
+				ret.elt = '1';
+
+			ret.hit_y = ret.y_intersept;
+			ret.hit_x = ret.x_intersept;
 			ret.distance = hypot((cub->player.y_pos + TILE_SIZE / 2
 						- ret.y_intersept), (cub->player.x_pos + TILE_SIZE / 2
 						- ret.x_intersept));

@@ -6,19 +6,20 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 16:50:43 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/16 16:46:00 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/26 17:35:16 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static void	choose_nearest_wall(t_ray *ray, t_tmp_ray hor, t_tmp_ray ver)
+static void	choose_nearest_hit(t_ray *ray, t_tmp_ray hor, t_tmp_ray ver)
 {
 	if (hor.distance < ver.distance)
 	{
+		ray->elt = hor.elt;
 		ray->distance = hor.distance;
-		ray->wall_x = hor.wall_x;
-		ray->wall_y = hor.wall_y;
+		ray->hit_x = hor.hit_x;
+		ray->hit_y = hor.hit_y;
 		if (sin(ray->angle) > 0.0)
 			ray->orientation = 'N';
 		else
@@ -26,9 +27,10 @@ static void	choose_nearest_wall(t_ray *ray, t_tmp_ray hor, t_tmp_ray ver)
 	}
 	else
 	{
+		ray->elt = ver.elt;
 		ray->distance = ver.distance;
-		ray->wall_x = ver.wall_x;
-		ray->wall_y = ver.wall_y;
+		ray->hit_x = ver.hit_x;
+		ray->hit_y = ver.hit_y;
 		if (cos(ray->angle) < 0.0)
 			ray->orientation = 'E';
 		else
@@ -67,9 +69,9 @@ void	raycast(t_cub *cub)
 	{
 		ray->next = NULL;
 		get_diff(ray, &diff[1], &diff[0]);
-		tmp[0] = horizontal_wall_hit(cub, ray, diff);
-		tmp[1] = vertical_wall_hit(cub, ray, diff);
-		choose_nearest_wall(ray, tmp[0], tmp[1]);
+		tmp[0] = horizontal_hit(cub, ray, diff);
+		tmp[1] = vertical_hit(cub, ray, diff);
+		choose_nearest_hit(ray, tmp[0], tmp[1]);
 		if (i < NB_RAYS - 1)
 		{
 			ray->next = (t_ray *)malloc(sizeof(t_ray));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kid-bouh <kid-bouh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 21:38:05 by kid-bouh          #+#    #+#             */
-/*   Updated: 2022/08/26 15:59:38 by kid-bouh         ###   ########.fr       */
+/*   Updated: 2022/08/26 16:48:02 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,5 @@ t_cub	*parsing(int ac, char **av)
 	}
 	close(cub->map_fd);
 	fill_map(cub, k);
-	ft_check_map(cub);
 	return (cub);
 }

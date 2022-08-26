@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wall_collision.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kid-bouh <kid-bouh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 18:36:30 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/26 16:28:07 by kid-bouh         ###   ########.fr       */
+/*   Updated: 2022/08/26 18:02:52 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,11 @@ int	check_wall_collision(int new_x, int new_y, t_cub *cub)
 		y = (new_y + TILE_SIZE / 2 + MOVE_SPEED
 			* sin(M_PI_2 - cub->player.rotation)) / TILE_SIZE;
 	}
-	if (cub->map.map[y][x] != '0')
+	if (cub->map.map[y][x] == 'D')
+	{
+		
+	}
+	else if (cub->map.map[y][x] != '0')
 		return (1);
 	return (0);
 }

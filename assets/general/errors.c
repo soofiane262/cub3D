@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kid-bouh <kid-bouh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 18:33:03 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/26 16:00:25 by kid-bouh         ###   ########.fr       */
+/*   Updated: 2022/08/26 16:38:30 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ static void	ft_map_param_error_2(t_cub *cub, char *str)
 	}
 	free(cub);
 	cub = NULL;
-	ft_put_error(str);
 	exit(ft_put_error(str));
 }
 

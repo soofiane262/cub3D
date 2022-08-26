@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kid-bouh <kid-bouh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 18:00:15 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/26 16:34:34 by kid-bouh         ###   ########.fr       */
+/*   Updated: 2022/08/26 16:55:58 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,84 +53,82 @@ int	put_mini_map(t_cub_bonus *cub_bonus)
 {
 	int	i[2];
 	int	j[2];
-	t_cub	*cub;
-	
-	cub = *(cub_bonus->cub);
-	i[0] = (cub->player.y_pos + TILE_SIZE / 2) / TILE_SIZE;
+
+	i[0] = (cub_bonus->cub->player.y_pos + TILE_SIZE / 2) / TILE_SIZE;
 	j[0] = MINI_MAP_HEIGHT / 2 + MINI_MAP_MARGIN + - MINI_MAP_TILE_SIZE / 2;
 	while (i[0] >= 0 && j[0] >= MINI_MAP_MARGIN + 2)
 	{
-		i[1] = (cub->player.x_pos + TILE_SIZE / 2) / TILE_SIZE;
+		i[1] = (cub_bonus->cub->player.x_pos + TILE_SIZE / 2) / TILE_SIZE;
 		j[1] = MINI_MAP_WIDTH / 2 + MINI_MAP_MARGIN + - MINI_MAP_TILE_SIZE / 2;
 		while (i[1] >= 0 && j[1] >= MINI_MAP_MARGIN + 2)
 		{
-			if (cub->map.map[i[0]][i[1]] == '0')
-				mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win, cub_bonus->mini_map.floor, j[1], j[0]);
-			else if (cub->map.map[i[0]][i[1]] == '1')
-				mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win, cub_bonus->mini_map.wall, j[1], j[0]);
+			if (cub_bonus->cub->map.map[i[0]][i[1]] == '0')
+				mlx_put_image_to_window(cub_bonus->cub->mlx.mlx, cub_bonus->cub->mlx.win, cub_bonus->mini_map.floor, j[1], j[0]);
+			else if (cub_bonus->cub->map.map[i[0]][i[1]] == '1')
+				mlx_put_image_to_window(cub_bonus->cub->mlx.mlx, cub_bonus->cub->mlx.win, cub_bonus->mini_map.wall, j[1], j[0]);
 			j[1] -= MINI_MAP_TILE_SIZE;
 			i[1]--;
 		}
 		j[0] -= MINI_MAP_TILE_SIZE;
 		i[0]--;
 	}
-	i[0] = (cub->player.y_pos + TILE_SIZE / 2) / TILE_SIZE;
+	i[0] = (cub_bonus->cub->player.y_pos + TILE_SIZE / 2) / TILE_SIZE;
 	j[0] = MINI_MAP_HEIGHT / 2 + MINI_MAP_MARGIN + - MINI_MAP_TILE_SIZE / 2;
 	while (i[0] >= 0 && j[0] >= MINI_MAP_MARGIN + 2)
 	{
-		i[1] = (cub->player.x_pos + TILE_SIZE / 2) / TILE_SIZE;
+		i[1] = (cub_bonus->cub->player.x_pos + TILE_SIZE / 2) / TILE_SIZE;
 		j[1] = MINI_MAP_WIDTH / 2 + MINI_MAP_MARGIN + - MINI_MAP_TILE_SIZE / 2;
-		while (i[1] < cub->map.width && j[1] < MINI_MAP_WIDTH - 2)
+		while (i[1] < cub_bonus->cub->map.width && j[1] < MINI_MAP_WIDTH - 2)
 		{
-			if (cub->map.map[i[0]][i[1]] == '0')
-				mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win, cub_bonus->mini_map.floor, j[1], j[0]);
-			else if (cub->map.map[i[0]][i[1]] == '1')
-				mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win, cub_bonus->mini_map.wall, j[1], j[0]);
+			if (cub_bonus->cub->map.map[i[0]][i[1]] == '0')
+				mlx_put_image_to_window(cub_bonus->cub->mlx.mlx, cub_bonus->cub->mlx.win, cub_bonus->mini_map.floor, j[1], j[0]);
+			else if (cub_bonus->cub->map.map[i[0]][i[1]] == '1')
+				mlx_put_image_to_window(cub_bonus->cub->mlx.mlx, cub_bonus->cub->mlx.win, cub_bonus->mini_map.wall, j[1], j[0]);
 			j[1] += MINI_MAP_TILE_SIZE;
 			i[1]++;
 		}
 		j[0] -= MINI_MAP_TILE_SIZE;
 		i[0]--;
 	}
-	i[0] = (cub->player.y_pos + TILE_SIZE / 2) / TILE_SIZE;
+	i[0] = (cub_bonus->cub->player.y_pos + TILE_SIZE / 2) / TILE_SIZE;
 	j[0] = MINI_MAP_HEIGHT / 2 + MINI_MAP_MARGIN + - MINI_MAP_TILE_SIZE / 2;
-	while (i[0] < cub->map.height && j[0] < MINI_MAP_HEIGHT - 2)
+	while (i[0] < cub_bonus->cub->map.height && j[0] < MINI_MAP_HEIGHT - 2)
 	{
-		i[1] = (cub->player.x_pos + TILE_SIZE / 2) / TILE_SIZE;
+		i[1] = (cub_bonus->cub->player.x_pos + TILE_SIZE / 2) / TILE_SIZE;
 		j[1] = MINI_MAP_WIDTH / 2 + MINI_MAP_MARGIN + - MINI_MAP_TILE_SIZE / 2;
 		while (i[1] >= 0 && j[1] >= MINI_MAP_MARGIN + 2)
 		{
-			if (cub->map.map[i[0]][i[1]] == '0')
-				mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win, cub_bonus->mini_map.floor, j[1], j[0]);
-			else if (cub->map.map[i[0]][i[1]] == '1')
-				mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win, cub_bonus->mini_map.wall, j[1], j[0]);
+			if (cub_bonus->cub->map.map[i[0]][i[1]] == '0')
+				mlx_put_image_to_window(cub_bonus->cub->mlx.mlx, cub_bonus->cub->mlx.win, cub_bonus->mini_map.floor, j[1], j[0]);
+			else if (cub_bonus->cub->map.map[i[0]][i[1]] == '1')
+				mlx_put_image_to_window(cub_bonus->cub->mlx.mlx, cub_bonus->cub->mlx.win, cub_bonus->mini_map.wall, j[1], j[0]);
 			j[1] -= MINI_MAP_TILE_SIZE;
 			i[1]--;
 		}
 		j[0] += MINI_MAP_TILE_SIZE;
 		i[0]++;
 	}
-	i[0] = (cub->player.y_pos + TILE_SIZE / 2) / TILE_SIZE;
+	i[0] = (cub_bonus->cub->player.y_pos + TILE_SIZE / 2) / TILE_SIZE;
 	j[0] = MINI_MAP_HEIGHT / 2 + MINI_MAP_MARGIN + - MINI_MAP_TILE_SIZE / 2;
-	while (i[0] < cub->map.height && j[0] < MINI_MAP_HEIGHT - 2)
+	while (i[0] < cub_bonus->cub->map.height && j[0] < MINI_MAP_HEIGHT - 2)
 	{
-		i[1] = (cub->player.x_pos + TILE_SIZE / 2) / TILE_SIZE;
+		i[1] = (cub_bonus->cub->player.x_pos + TILE_SIZE / 2) / TILE_SIZE;
 		j[1] = MINI_MAP_WIDTH / 2 + MINI_MAP_MARGIN + - MINI_MAP_TILE_SIZE / 2;
-		while (i[1] < cub->map.width && j[1] < MINI_MAP_WIDTH - 2)
+		while (i[1] < cub_bonus->cub->map.width && j[1] < MINI_MAP_WIDTH - 2)
 		{
-			if (cub->map.map[i[0]][i[1]] == '0')
-				mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win, cub_bonus->mini_map.floor, j[1], j[0]);
-			else if (cub->map.map[i[0]][i[1]] == '1')
-				mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win, cub_bonus->mini_map.wall, j[1], j[0]);
+			if (cub_bonus->cub->map.map[i[0]][i[1]] == '0')
+				mlx_put_image_to_window(cub_bonus->cub->mlx.mlx, cub_bonus->cub->mlx.win, cub_bonus->mini_map.floor, j[1], j[0]);
+			else if (cub_bonus->cub->map.map[i[0]][i[1]] == '1')
+				mlx_put_image_to_window(cub_bonus->cub->mlx.mlx, cub_bonus->cub->mlx.win, cub_bonus->mini_map.wall, j[1], j[0]);
 			j[1] += MINI_MAP_TILE_SIZE;
 			i[1]++;
 		}
 		j[0] += MINI_MAP_TILE_SIZE;
 		i[0]++;
 	}
-	mlx_put_image_to_window(cub->mlx.mlx, cub->mlx.win, cub_bonus->mini_map.player,
+	mlx_put_image_to_window(cub_bonus->cub->mlx.mlx, cub_bonus->cub->mlx.win, cub_bonus->mini_map.player,
 		MINI_MAP_WIDTH / 2 + MINI_MAP_MARGIN - (MINI_MAP_PLAYER_SIZE / 2) - 2,
 		MINI_MAP_HEIGHT / 2 + MINI_MAP_MARGIN - (MINI_MAP_PLAYER_SIZE / 2) - 2);
-	// mlx_pixel_put(cub->mlx.mlx, cub->mlx.win, MINI_MAP_WIDTH / 2 + MINI_MAP_MARGIN, MINI_MAP_HEIGHT / 2 + MINI_MAP_MARGIN, argb_to_int(0, 0, 0, 0));
+	// mlx_pixel_put(cub_bonus->cub->mlx.mlx, cub_bonus->cub->mlx.win, MINI_MAP_WIDTH / 2 + MINI_MAP_MARGIN, MINI_MAP_HEIGHT / 2 + MINI_MAP_MARGIN, argb_to_int(0, 0, 0, 0));
 	return (0);
 }

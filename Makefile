@@ -6,7 +6,7 @@
 #    By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/23 16:04:18 by sel-mars          #+#    #+#              #
-#    Updated: 2022/08/25 18:19:00 by sel-mars         ###   ########.fr        #
+#    Updated: 2022/08/26 16:55:01 by sel-mars         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ SRCS	=	gnl/get_next_line.c\
 			assets/general/utils.c\
 			assets/general/errors.c\
 			assets/parsing/parsing.c\
-			assets/parsing/parsing2.c\
+			assets/parsing/check_map.c\
 			assets/parsing/get_color.c\
 			assets/parsing/check.c\
 			assets/mlx/init_mlx_ptrs.c\
@@ -55,7 +55,6 @@ BNSSRCS	=	gnl/get_next_line.c\
 			assets/general/utils.c\
 			assets/general/errors.c\
 			assets/parsing/parsing.c\
-			assets/parsing/parsing2.c\
 			assets/parsing/get_color.c\
 			assets/parsing/check.c\
 			assets/mlx/init_mlx_ptrs.c\
@@ -65,6 +64,7 @@ BNSSRCS	=	gnl/get_next_line.c\
 			assets/mlx/leave.c\
 			assets/raycast/raycast.c\
 			assets/raycast/wall_hit.c\
+			assets/bonus/check_map_bonus.c\
 			assets/bonus/update_bonus.c\
 			assets/bonus/render_bonus.c\
 			assets/bonus/wall_col/wall_collision.c\

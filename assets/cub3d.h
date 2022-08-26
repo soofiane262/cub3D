@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kid-bouh <kid-bouh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:01:56 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/26 15:58:39 by kid-bouh         ###   ########.fr       */
+/*   Updated: 2022/08/26 17:02:12 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,10 @@ typedef struct s_mlx
 
 typedef struct s_ray
 {
+	char			elt;
 	double			angle;
-	float			wall_x;
-	float			wall_y;
+	float			hit_x;
+	float			hit_y;
 	double			distance;
 	char			orientation;
 	struct s_ray	*next;
@@ -115,9 +116,10 @@ typedef struct s_ray
 
 typedef struct s_tmp_ray
 {
+	char	elt;
 	double	angle;
-	float	wall_x;
-	float	wall_y;
+	float	hit_x;
+	float	hit_y;
 	double	distance;
 	float	x_intersept;
 	float	y_intersept;
@@ -170,8 +172,8 @@ int			key_release(int key, t_cub *cub);
 /* --------------------------------- Raycast -------------------------------- */
 void		raycast(t_cub *cub);
 void		ray_free(t_cub *cub);
-t_tmp_ray	vertical_wall_hit(t_cub *cub, t_ray *ray, float diff[2]);
-t_tmp_ray	horizontal_wall_hit(t_cub *cub, t_ray *ray, float diff[2]);
+t_tmp_ray	vertical_hit(t_cub *cub, t_ray *ray, float diff[2]);
+t_tmp_ray	horizontal_hit(t_cub *cub, t_ray *ray, float diff[2]);
 /* --------------------------------- Render --------------------------------- */
 void		update_all(t_cub *cub);
 int			render_frame(t_cub *cub);

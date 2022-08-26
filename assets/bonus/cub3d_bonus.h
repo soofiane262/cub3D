@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:01:56 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/26 12:46:30 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/26 17:54:21 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,22 @@ typedef struct s_mini_map
 	void	*player;
 } t_mini_map;
 
+typedef struct s_door
+{
+	void	**door;
+	int		**door_data;
+	int		door_side;
+} t_door;
+
 typedef struct	s_cub_bonus
 {
+	t_cub		*cub;
+	t_door		door;
 	t_mini_map	mini_map;
-	t_cub		**cub;
 } t_cub_bonus;
 
 int			cub3d_bonus(int ac, char **av);
+void		ft_check_map_bonus(t_cub *cub);
 /* --------------------------------- Render --------------------------------- */
 void		update_all_bonus(t_cub_bonus *cub_bonus);
 int			render_frame_bonus(t_cub_bonus *cub_bonus);

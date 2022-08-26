@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:28:23 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/16 16:35:06 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/26 16:57:15 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	paint_horizontal_wall_pixel(t_cub *cub, float start[2],
 
 	if (cub->ray->orientation == 'N')
 	{
-		dx = ((int)cub->ray->wall_x % TILE_SIZE)
+		dx = ((int)cub->ray->hit_x % TILE_SIZE)
 			* ((float)cub->mlx.wall_no_side / TILE_SIZE);
 		dy = (idx[0] - start[0])
 			* ((float)cub->mlx.wall_no_side / (end[0] - start[0]));
@@ -29,7 +29,7 @@ static void	paint_horizontal_wall_pixel(t_cub *cub, float start[2],
 	}
 	else
 	{
-		dx = ((int)cub->ray->wall_x % TILE_SIZE)
+		dx = ((int)cub->ray->hit_x % TILE_SIZE)
 			* ((float)cub->mlx.wall_so_side / TILE_SIZE);
 		dy = (idx[0] - start[0])
 			* ((float)cub->mlx.wall_so_side / (end[0] - start[0]));
@@ -46,7 +46,7 @@ static void	paint_vertical_wall_pixel(t_cub *cub, float start[2],
 
 	if (cub->ray->orientation == 'E')
 	{
-		dx = ((int)cub->ray->wall_y % TILE_SIZE)
+		dx = ((int)cub->ray->hit_y % TILE_SIZE)
 			* ((float)cub->mlx.wall_ea_side / TILE_SIZE);
 		dy = (idx[0] - start[0])
 			* ((float)cub->mlx.wall_ea_side / (end[0] - start[0]));
@@ -55,7 +55,7 @@ static void	paint_vertical_wall_pixel(t_cub *cub, float start[2],
 	}
 	else
 	{
-		dx = ((int)cub->ray->wall_y % TILE_SIZE)
+		dx = ((int)cub->ray->hit_y % TILE_SIZE)
 			* ((float)cub->mlx.wall_we_side / TILE_SIZE);
 		dy = (idx[0] - start[0])
 			* ((float)cub->mlx.wall_we_side / (end[0] - start[0]));
