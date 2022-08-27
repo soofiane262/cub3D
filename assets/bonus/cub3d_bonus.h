@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:01:56 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/26 17:54:21 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/27 12:57:17 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 /* -------------------------------------------------------------------------- */
 /*                                   Defines                                  */
 /* -------------------------------------------------------------------------- */
+# define ON_BUTTONPRESS			4
+# define ON_BUTTONRELEASE		5
+# define ON_MOUSEMOVE			6
 # define MINI_MAP_TILE_SIZE		15
 # define MINI_MAP_PLAYER_SIZE	4
 # define MINI_MAP_MARGIN		20
@@ -49,8 +52,15 @@ typedef struct s_door
 	int		door_side;
 } t_door;
 
+typedef struct s_mouse
+{
+	bool	clicked;
+	float	angle;
+} t_mouse;
+
 typedef struct	s_cub_bonus
 {
+	t_mouse		mouse;
 	t_cub		*cub;
 	t_door		door;
 	t_mini_map	mini_map;

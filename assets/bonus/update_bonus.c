@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 19:35:24 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/26 17:28:03 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/27 12:56:32 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,7 @@ void	update_all_bonus(t_cub_bonus *cub_bonus)
 		cub_bonus->cub->player.rotation -= ROT_SPEED;
 	else if (cub_bonus->cub->player.turn == RIGHT_ARROW)
 		cub_bonus->cub->player.rotation += ROT_SPEED;
+	if (cub_bonus->mouse.clicked)
+		cub_bonus->cub->player.rotation += cub_bonus->mouse.angle;
+	cub_bonus->mouse.angle = 0;
 }

@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 16:28:15 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/26 17:26:29 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/27 11:23:29 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,6 @@ t_tmp_ray	horizontal_hit(t_cub *cub, t_ray *ray, float diff[2])
 				ret.elt = 'D';
 			else
 				ret.elt = '1';
-
 			ret.hit_y = ret.y_intersept;
 			ret.hit_x = ret.x_intersept;
 			ret.distance = hypot((cub->player.y_pos + TILE_SIZE / 2

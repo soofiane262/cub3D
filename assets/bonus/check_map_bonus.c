@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 21:38:10 by kid-bouh          #+#    #+#             */
-/*   Updated: 2022/08/26 18:06:31 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/27 11:45:26 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,17 @@ static void	ft_check_map_2(t_cub *cub, int i, int j, int *k)
 	else if (
 		((i == 0 || j == 0 || i == cub->map.height - 1
 				|| j == cub->map.width - 1) && cub->map.map[i][j] != '1'
-		&& cub->map.map[i][j] != ' ') || (cub->map.map[i][j] == '0'
-		&& ((cub->map.map[i + 1][j] && cub->map.map[i + 1][j] == ' ')
-		|| (cub->map.map[i - 1][j] && cub->map.map[i - 1][j] == ' ')
-		|| (cub->map.map[i][j + 1] && cub->map.map[i][j + 1] == ' ')
-		|| (cub->map.map[i][j - 1] && cub->map.map[i][j - 1] == ' '))))
+		&& cub->map.map[i][j] != ' ') || (cub->map.map[i][j] == ' '
+		&& (
+			(int_in_range(i + 1, 0, cub->map.height - 1) && int_in_range(j, 0, cub->map.width - 1)
+			&& !ft_strchr("1 ", cub->map.map[i + 1][j]))
+		|| (int_in_range(i - 1, 0, cub->map.height - 1) && int_in_range(j, 0, cub->map.width - 1)
+			&& !ft_strchr("1 ", cub->map.map[i - 1][j]))
+		|| (int_in_range(i, 0, cub->map.height - 1) && int_in_range(j + 1, 0, cub->map.width - 1)
+			&& !ft_strchr("1 ", cub->map.map[i][j + 1]))
+		|| (int_in_range(i, 0, cub->map.height - 1) && int_in_range(j - 1, 0, cub->map.width - 1)
+			&& !ft_strchr("1 ", cub->map.map[i][j - 1]))
+		)))
 		ft_map_param_error(cub, 0,
 			"Error: Map must be surrounded by walls");
 }

@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:28:23 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/26 18:09:37 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/27 11:26:16 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	paint_horizontal_pixel(t_cub_bonus *cub_bonus, float start[2],
 		paint_horizontal_wall_pixel(cub_bonus, start, end, idx);
 	else
 	{
-		if (cub_bonus->cub->ray->distance < 2 * TILE_SIZE)
+		if (cub_bonus->cub->ray->distance < TILE_SIZE)
 			i = 1;
 		else
 			i = 0;
@@ -99,7 +99,7 @@ static void	paint_vertical_pixel(t_cub_bonus *cub_bonus, float start[2],
 		paint_vertical_wall_pixel(cub_bonus, start, end, idx);
 	else
 	{
-		if (cub_bonus->cub->ray->distance < 2 * TILE_SIZE)
+		if (cub_bonus->cub->ray->distance < TILE_SIZE)
 			i = 1;
 		else
 			i = 0;
