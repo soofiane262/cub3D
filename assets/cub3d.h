@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:01:56 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/27 12:56:12 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/27 18:16:31 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,22 +105,29 @@ typedef struct s_mlx
 
 typedef struct s_ray
 {
-	char			elt;
+	bool			door_exists;
 	double			angle;
-	float			hit_x;
-	float			hit_y;
-	double			distance;
-	char			orientation;
+	float			wall_hit_x;
+	float			wall_hit_y;
+	double			wall_distance;
+	float			door_hit_x;
+	float			door_hit_y;
+	double			door_distance;
+	char			wall_orientation;
+	char			door_orientation;
 	struct s_ray	*next;
 }	t_ray;
 
 typedef struct s_tmp_ray
 {
-	char	elt;
+	bool	door_exists;
 	double	angle;
-	float	hit_x;
-	float	hit_y;
-	double	distance;
+	float	wall_hit_x;
+	float	wall_hit_y;
+	double	wall_distance;
+	float	door_hit_x;
+	float	door_hit_y;
+	double	door_distance;
 	float	x_intersept;
 	float	y_intersept;
 	float	x_step;

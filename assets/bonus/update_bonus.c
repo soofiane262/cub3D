@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 19:35:24 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/27 12:56:32 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/27 18:22:56 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,22 @@ void	update_all_bonus(t_cub_bonus *cub_bonus)
 		cub_bonus->cub->player.rotation -= ROT_SPEED;
 	else if (cub_bonus->cub->player.turn == RIGHT_ARROW)
 		cub_bonus->cub->player.rotation += ROT_SPEED;
-	if (cub_bonus->mouse.clicked)
+	if (cub_bonus->mouse.clicked_left)
 		cub_bonus->cub->player.rotation += cub_bonus->mouse.angle;
 	cub_bonus->mouse.angle = 0;
+	if (cub_bonus->mouse.clicked_right)
+		cub_bonus->gun.counter++;
+	if (cub_bonus->gun.counter)
+	{
+		if (cub_bonus->gun.counter > (cub_bonus->gun.idx + 1) * 10
+			&& cub_bonus->gun.idx < 11)
+			cub_bonus->gun.idx++;
+		cub_bonus->gun.counter++;
+		if (cub_bonus->gun.counter >= 130)
+		{
+			cub_bonus->gun.idx = 0;
+			cub_bonus->gun.counter = 0;
+			cub_bonus->mouse.clicked_right = false;
+		}
+	}
 }

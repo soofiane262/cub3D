@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 16:50:43 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/26 17:35:16 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/27 18:18:45 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,28 +14,42 @@
 
 static void	choose_nearest_hit(t_ray *ray, t_tmp_ray hor, t_tmp_ray ver)
 {
-	if (hor.distance < ver.distance)
+	if (hor.door_exists || ver.door_exists)
 	{
-		ray->elt = hor.elt;
-		ray->distance = hor.distance;
-		ray->hit_x = hor.hit_x;
-		ray->hit_y = hor.hit_y;
-		if (sin(ray->angle) > 0.0)
-			ray->orientation = 'N';
+		ray->door_exists = true;
+		ray->door_distance = fmin(ver.door_distance, hor.door_distance);
+		ray->door_hit_x = fma(ver.door_hit_x,
+			(ver.door_distance < hor.door_distance),
+			(ver.door_distance >= hor.door_distance) * hor.door_hit_x);
+		ray->door_hit_y = fma(ver.door_hit_y,
+			(ver.door_distance < hor.door_distance),
+			(ver.door_distance >= hor.door_distance) * hor.door_hit_y);
+			if (hor.door_distance < ver.door_distance && sin(ray->angle) > 0.0)
+		ray->door_orientation = 'N';
+		else if (hor.door_distance < ver.door_distance && sin(ray->angle) < 0.0)
+			ray->door_orientation = 'S';
+		else if (hor.door_distance >= ver.door_distance && cos(ray->angle) < 0.0)
+			ray->door_orientation = 'E';
 		else
-			ray->orientation = 'S';
+			ray->door_orientation = 'W';
 	}
 	else
-	{
-		ray->elt = ver.elt;
-		ray->distance = ver.distance;
-		ray->hit_x = ver.hit_x;
-		ray->hit_y = ver.hit_y;
-		if (cos(ray->angle) < 0.0)
-			ray->orientation = 'E';
-		else
-			ray->orientation = 'W';
-	}
+		ray->door_exists = false;
+	ray->wall_distance = fmin(ver.wall_distance, hor.wall_distance);
+	ray->wall_hit_x = fma(ver.wall_hit_x,
+		(ver.wall_distance < hor.wall_distance),
+		(ver.wall_distance >= hor.wall_distance) * hor.wall_hit_x);
+	ray->wall_hit_y = fma(ver.wall_hit_y,
+		(ver.wall_distance < hor.wall_distance),
+		(ver.wall_distance >= hor.wall_distance) * hor.wall_hit_y);
+	if (hor.wall_distance < ver.wall_distance && sin(ray->angle) > 0.0)
+		ray->wall_orientation = 'N';
+	else if (hor.wall_distance < ver.wall_distance && sin(ray->angle) < 0.0)
+		ray->wall_orientation = 'S';
+	else if (hor.wall_distance >= ver.wall_distance && cos(ray->angle) < 0.0)
+		ray->wall_orientation = 'E';
+	else
+		ray->wall_orientation = 'W';
 }
 
 static void	get_diff(t_ray *ray, float *diff_x, float *diff_y)

@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:01:56 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/27 12:57:17 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/27 16:28:52 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,14 @@
 # define ON_MOUSEMOVE			6
 # define MINI_MAP_TILE_SIZE		15
 # define MINI_MAP_PLAYER_SIZE	4
-# define MINI_MAP_MARGIN		20
+# define MINI_MAP_MARGIN		10
 /* -------------------------------------------------------------------------- */
 /*                           !! TO BE CALCULATED !!                           */
 /* -------------------------------------------------------------------------- */
 /* ------------ MINI_MOVE_SPEED = MINI_MAP_TILE_SIZE / MOVE_SPEED ----------- */
 # define MINI_MOVE_SPEED		1.5
-/* ---------------- MINI_MAP_WIDTH = MINI_MAP_TILE_SIZE * 20 ---------------- */
-# define MINI_MAP_WIDTH			300
+/* ---------------- MINI_MAP_WIDTH = MINI_MAP_TILE_SIZE * 10 ---------------- */
+# define MINI_MAP_WIDTH			200
 /* ---------------- MINI_MAP_HEIGHT = MINI_MAP_TILE_SIZE * 10 --------------- */
 # define MINI_MAP_HEIGHT		150
 /* -------------------------------------------------------------------------- */
@@ -54,12 +54,24 @@ typedef struct s_door
 
 typedef struct s_mouse
 {
-	bool	clicked;
+	bool	clicked_left;
+	bool	clicked_right;
 	float	angle;
 } t_mouse;
 
+typedef struct s_gun
+{
+	int		idx;
+	int		counter;
+	void	**gun;
+	int		**gun_data;
+	int		gun_side;
+	int		gun_height;
+} t_gun;
+
 typedef struct	s_cub_bonus
 {
+	t_gun		gun;
 	t_mouse		mouse;
 	t_cub		*cub;
 	t_door		door;
@@ -74,7 +86,8 @@ int			render_frame_bonus(t_cub_bonus *cub_bonus);
 /* ----------------------------- Wall Collision ----------------------------- */
 int			check_wall_collision(int new_x, int new_y, t_cub *cub);
 /* -------------------------------- Mini Map -------------------------------- */
-t_mini_map	init_mini_map(t_cub *cub);
-int			put_mini_map(t_cub_bonus *cub_bonus);
+void		init_mini_map(t_cub_bonus *cub_bonus);
+void		paint_mini_map(t_cub_bonus *cub_bonus);
 void		mlx_change_img_color(void *img, int color);
+void	paint_square_to_master(t_cub_bonus *cub_bonus, int coord[2], int size, int color);
 #endif

@@ -6,13 +6,17 @@
 #    By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/23 16:04:18 by sel-mars          #+#    #+#              #
-#    Updated: 2022/08/27 12:58:18 by sel-mars         ###   ########.fr        #
+#    Updated: 2022/08/27 14:50:05 by sel-mars         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	=	cub3D
 
+MLX		=	-L./mlx -lmlx -framework OpenGL -framework AppKit
+
 HDFL	=	assets/cub3d.h
+
+BNSHDFL	=	assets/bonus/cub3d_bonus.h
 
 CC		=	cc
 
@@ -79,13 +83,13 @@ $(NAME):	$(HDFL) $(OBJS)
 	make -C libft
 	make -C mlx
 	$(AR) $(LIB) $(OBJS)
-	$(CC) $(CFLAGS) $(MAIN) -L. -lcub3d -L./libft -lft -L./mlx -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+	$(CC) $(CFLAGS) $(MAIN) $(MLX) -L. -lcub3d -L./libft -lft -o $(NAME)
 
 bonus:	$(BNSHDFL) $(BNSOBJS)
 	make -C libft
 	make -C mlx
 	$(AR) $(BNSLIB) $(BNSOBJS)
-	$(CC) $(CFLAGS) $(BNSMAIN) -L. -lcub3dbonus -L./libft -lft -L./mlx -lmlx -framework OpenGL -framework AppKit -o cub3D_bonus
+	$(CC) $(CFLAGS) $(BNSMAIN) $(MLX) -L. -lcub3dbonus -L./libft -lft -o cub3D_bonus
 
 all:	$(NAME)
 

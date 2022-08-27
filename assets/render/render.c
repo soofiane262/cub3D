@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:28:23 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/26 16:57:15 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/08/27 18:18:58 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ static void	paint_horizontal_wall_pixel(t_cub *cub, float start[2],
 	int	dx;
 	int	dy;
 
-	if (cub->ray->orientation == 'N')
+	if (cub->ray->wall_orientation == 'N')
 	{
-		dx = ((int)cub->ray->hit_x % TILE_SIZE)
+		dx = ((int)cub->ray->wall_hit_x % TILE_SIZE)
 			* ((float)cub->mlx.wall_no_side / TILE_SIZE);
 		dy = (idx[0] - start[0])
 			* ((float)cub->mlx.wall_no_side / (end[0] - start[0]));
@@ -29,7 +29,7 @@ static void	paint_horizontal_wall_pixel(t_cub *cub, float start[2],
 	}
 	else
 	{
-		dx = ((int)cub->ray->hit_x % TILE_SIZE)
+		dx = ((int)cub->ray->wall_hit_x % TILE_SIZE)
 			* ((float)cub->mlx.wall_so_side / TILE_SIZE);
 		dy = (idx[0] - start[0])
 			* ((float)cub->mlx.wall_so_side / (end[0] - start[0]));
@@ -44,9 +44,9 @@ static void	paint_vertical_wall_pixel(t_cub *cub, float start[2],
 	int	dx;
 	int	dy;
 
-	if (cub->ray->orientation == 'E')
+	if (cub->ray->wall_orientation == 'E')
 	{
-		dx = ((int)cub->ray->hit_y % TILE_SIZE)
+		dx = ((int)cub->ray->wall_hit_y % TILE_SIZE)
 			* ((float)cub->mlx.wall_ea_side / TILE_SIZE);
 		dy = (idx[0] - start[0])
 			* ((float)cub->mlx.wall_ea_side / (end[0] - start[0]));
@@ -55,7 +55,7 @@ static void	paint_vertical_wall_pixel(t_cub *cub, float start[2],
 	}
 	else
 	{
-		dx = ((int)cub->ray->hit_y % TILE_SIZE)
+		dx = ((int)cub->ray->wall_hit_y % TILE_SIZE)
 			* ((float)cub->mlx.wall_we_side / TILE_SIZE);
 		dy = (idx[0] - start[0])
 			* ((float)cub->mlx.wall_we_side / (end[0] - start[0]));
@@ -75,8 +75,8 @@ static void	paint_master_strip(t_cub *cub, float start[2], float end[2])
 		while (i[1] < (int)end[1])
 		{
 			if (i[0] >= (int)start[0] && i[0] <= (int)end[0]
-				&& (cub->ray->orientation == 'N'
-					|| cub->ray->orientation == 'S'))
+				&& (cub->ray->wall_orientation == 'N'
+					|| cub->ray->wall_orientation == 'S'))
 				paint_horizontal_wall_pixel(cub, start, end, i);
 			else if (i[0] >= (int)start[0] && i[0] <= (int)end[0])
 				paint_vertical_wall_pixel(cub, start, end, i);
@@ -106,7 +106,7 @@ static void	paint_master(t_cub *cub)
 	head = cub->ray;
 	while (cub->ray)
 	{
-		ray_correct_distance = cub->ray->distance
+		ray_correct_distance = cub->ray->wall_distance
 			* cos(cub->ray->angle - cub->player.rotation);
 		end[0] = ((float)TILE_SIZE / ray_correct_distance)
 			* (WIN_WIDTH / 2) / fabs(tan(FOV * M_PI / 360));
