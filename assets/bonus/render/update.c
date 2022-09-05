@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   update_bonus.c                                     :+:      :+:    :+:   */
+/*   update.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 19:35:24 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/27 18:22:56 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/09/05 12:46:20 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d_bonus.h"
+#include "../cub3d_bonus.h"
 
 static float	update_player_y_pos(t_cub *cub)
 {
@@ -46,7 +46,7 @@ static float	update_player_x_pos(t_cub *cub)
 	return (new_pos);
 }
 
-void	update_all_bonus(t_cub_bonus *cub_bonus)
+static void	update_if_ok(t_cub_bonus *cub_bonus)
 {
 	float	new[2];
 
@@ -61,6 +61,11 @@ void	update_all_bonus(t_cub_bonus *cub_bonus)
 			cub_bonus->cub->player.x_pos = new[1];
 		}
 	}
+}
+
+void	update_all_bonus(t_cub_bonus *cub_bonus)
+{
+	update_if_ok(cub_bonus);
 	if (cub_bonus->cub->player.turn == LEFT_ARROW)
 		cub_bonus->cub->player.rotation -= ROT_SPEED;
 	else if (cub_bonus->cub->player.turn == RIGHT_ARROW)
@@ -72,11 +77,11 @@ void	update_all_bonus(t_cub_bonus *cub_bonus)
 		cub_bonus->gun.counter++;
 	if (cub_bonus->gun.counter)
 	{
-		if (cub_bonus->gun.counter > (cub_bonus->gun.idx + 1) * 10
+		if (cub_bonus->gun.counter > (cub_bonus->gun.idx + 1) * 6
 			&& cub_bonus->gun.idx < 11)
 			cub_bonus->gun.idx++;
 		cub_bonus->gun.counter++;
-		if (cub_bonus->gun.counter >= 130)
+		if (cub_bonus->gun.counter >= 78)
 		{
 			cub_bonus->gun.idx = 0;
 			cub_bonus->gun.counter = 0;

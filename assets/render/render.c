@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 15:28:23 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/27 18:18:58 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/09/05 12:21:49 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,8 @@ static void	paint_master(t_cub *cub)
 
 int	render_frame(t_cub *cub)
 {
+	if (cub->player.mvt == ESC)
+		leave(cub);
 	update_all(cub);
 	raycast(cub);
 	paint_master(cub);

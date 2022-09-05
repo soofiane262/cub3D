@@ -6,7 +6,7 @@
 #    By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/23 16:04:18 by sel-mars          #+#    #+#              #
-#    Updated: 2022/08/27 14:50:05 by sel-mars         ###   ########.fr        #
+#    Updated: 2022/09/05 12:33:34 by sel-mars         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,9 +68,11 @@ BNSSRCS	=	gnl/get_next_line.c\
 			assets/mlx/leave.c\
 			assets/raycast/raycast.c\
 			assets/raycast/wall_hit.c\
-			assets/bonus/check_map_bonus.c\
-			assets/bonus/update_bonus.c\
-			assets/bonus/render_bonus.c\
+			assets/bonus/utils/check_map.c\
+			assets/bonus/utils/leave.c\
+			assets/bonus/render/update.c\
+			assets/bonus/render/render.c\
+			assets/bonus/render/paint_master.c\
 			assets/bonus/wall_col/wall_collision.c\
 			assets/bonus/mini_map/mini_map.c\
 

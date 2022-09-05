@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 18:33:22 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/25 16:17:23 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/09/05 12:20:19 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,7 @@ int	key_press(int key, t_cub *cub)
 	if (key != ESC && key != W && key != S && key != A && key != D
 		&& key != LEFT_ARROW && key != RIGHT_ARROW)
 		return (0);
-	if (key == ESC)
-		leave(cub);
-	else if (key == W || key == S || key == A || key == D)
+	else if (key == W || key == S || key == A || key == D || key == ESC)
 		cub->player.mvt = key;
 	else if (key == LEFT_ARROW || key == RIGHT_ARROW)
 		cub->player.turn = key;

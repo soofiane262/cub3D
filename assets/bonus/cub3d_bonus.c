@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:13:23 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/27 16:58:58 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/09/05 12:46:20 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static void	init_door(t_cub_bonus *cub_bonus)
 	cub_bonus->door.door_side /= 4;
 	cub_bonus->door.door[2] = NULL;
 	cub_bonus->door.door_data[2] = NULL;
+	cub_bonus->door.door_open = false;
 }
 
 static t_cub_bonus	*init_cub_bonus(t_cub *cub)
@@ -124,7 +125,7 @@ int	cub3d_bonus(int ac, char **av)
 	mlx_hook(cub->mlx.win, ON_BUTTONPRESS, (1L << 4), button_press, cub_bonus);
 	mlx_hook(cub->mlx.win, ON_BUTTONRELEASE, (1L << 5), button_release, cub_bonus);
 	mlx_hook(cub->mlx.win, ON_MOUSEMOVE, (1L << 6), mouse_move, cub_bonus);
-	mlx_hook(cub->mlx.win, ON_DESTROY, 0L, leave, cub);
+	mlx_hook(cub->mlx.win, ON_DESTROY, 0L, leave_bonus, cub_bonus);
 	mlx_loop_hook(cub->mlx.mlx, render_frame_bonus, cub_bonus);
 	mlx_loop(cub->mlx.mlx);
 	return (0);

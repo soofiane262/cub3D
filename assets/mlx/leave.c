@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   leave.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kid-bouh <kid-bouh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 19:06:11 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/26 16:00:13 by kid-bouh         ###   ########.fr       */
+/*   Updated: 2022/09/05 12:48:20 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-#include <stdio.h>
 
 static void	free_all(t_cub *cub)
 {
@@ -31,6 +29,8 @@ static void	free_all(t_cub *cub)
 	}
 	free(cub->map.map);
 	cub->map.map = NULL;
+	free(cub);
+	cub = NULL;
 }
 
 static void	destroy_all(t_cub *cub)
@@ -46,10 +46,8 @@ static void	destroy_all(t_cub *cub)
 
 int	leave(t_cub *cub)
 {
-	free_all(cub);
 	destroy_all(cub);
-	free(cub);
-	cub = NULL;
+	free_all(cub);
 	exit(0);
 	return (0);
 }

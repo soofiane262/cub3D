@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:01:56 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/27 16:28:52 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/09/05 12:45:43 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,12 @@
 /* -------------------------------------------------------------------------- */
 typedef struct s_mini_map
 {
-	void	*floor;
-	void	*wall;
 	void	*player;
 } t_mini_map;
 
 typedef struct s_door
 {
+	bool	door_open;
 	void	**door;
 	int		**door_data;
 	int		door_side;
@@ -71,23 +70,26 @@ typedef struct s_gun
 
 typedef struct	s_cub_bonus
 {
-	t_gun		gun;
-	t_mouse		mouse;
 	t_cub		*cub;
+	t_mouse		mouse;
+	t_gun		gun;
 	t_door		door;
 	t_mini_map	mini_map;
 } t_cub_bonus;
 
-int			cub3d_bonus(int ac, char **av);
-void		ft_check_map_bonus(t_cub *cub);
+int		cub3d_bonus(int ac, char **av);
+void	ft_check_map_bonus(t_cub *cub);
+int		leave_bonus(t_cub_bonus *cub_bonus);
 /* --------------------------------- Render --------------------------------- */
-void		update_all_bonus(t_cub_bonus *cub_bonus);
-int			render_frame_bonus(t_cub_bonus *cub_bonus);
+void	update_all_bonus(t_cub_bonus *cub_bonus);
+int		render_frame_bonus(t_cub_bonus *cub_bonus);
+void	paint_master_bonus(t_cub_bonus *cub_bonus);
 /* ----------------------------- Wall Collision ----------------------------- */
-int			check_wall_collision(int new_x, int new_y, t_cub *cub);
+int		check_wall_collision(int new_x, int new_y, t_cub *cub);
 /* -------------------------------- Mini Map -------------------------------- */
-void		init_mini_map(t_cub_bonus *cub_bonus);
-void		paint_mini_map(t_cub_bonus *cub_bonus);
-void		mlx_change_img_color(void *img, int color);
-void	paint_square_to_master(t_cub_bonus *cub_bonus, int coord[2], int size, int color);
+void	init_mini_map(t_cub_bonus *cub_bonus);
+void	paint_mini_map(t_cub_bonus *cub_bonus);
+void	mlx_change_img_color(void *img, int color);
+void	paint_square_to_master(t_cub_bonus *cub_bonus, int coord[2],
+	int size, int color);
 #endif
