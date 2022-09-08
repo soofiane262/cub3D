@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+         #
+#    By: kid-bouh <kid-bouh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/23 16:04:18 by sel-mars          #+#    #+#              #
-#    Updated: 2022/09/05 12:33:34 by sel-mars         ###   ########.fr        #
+#    Updated: 2022/09/08 19:52:13 by kid-bouh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -56,6 +56,7 @@ OBJS	=	$(SRCS:%.c=%.o)
 BNSSRCS	=	gnl/get_next_line.c\
 			gnl/get_next_line_utils.c\
 			assets/bonus/cub3d_bonus.c\
+			assets/bonus/cub3d_bonus_2.c\
 			assets/general/utils.c\
 			assets/general/errors.c\
 			assets/parsing/parsing.c\

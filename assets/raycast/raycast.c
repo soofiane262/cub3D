@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kid-bouh <kid-bouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 16:50:43 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/09/05 11:12:02 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/09/08 20:11:30 by kid-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,17 @@ static void	choose_nearest_hit(t_ray *ray, t_tmp_ray hor, t_tmp_ray ver)
 		ray->door_exists = true;
 		ray->door_distance = fmin(ver.door_distance, hor.door_distance);
 		ray->door_hit_x = fma(ver.door_hit_x,
-			(ver.door_distance < hor.door_distance),
-			(ver.door_distance >= hor.door_distance) * hor.door_hit_x);
+				(ver.door_distance < hor.door_distance),
+				(ver.door_distance >= hor.door_distance) * hor.door_hit_x);
 		ray->door_hit_y = fma(ver.door_hit_y,
-			(ver.door_distance < hor.door_distance),
-			(ver.door_distance >= hor.door_distance) * hor.door_hit_y);
-			if (hor.door_distance < ver.door_distance && sin(ray->angle) > 0.0)
+				(ver.door_distance < hor.door_distance),
+				(ver.door_distance >= hor.door_distance) * hor.door_hit_y);
+		if (hor.door_distance < ver.door_distance && sin(ray->angle) > 0.0)
 		ray->door_orientation = 'N';
 		else if (hor.door_distance < ver.door_distance && sin(ray->angle) < 0.0)
 			ray->door_orientation = 'S';
-		else if (hor.door_distance >= ver.door_distance && cos(ray->angle) < 0.0)
+		else if (hor.door_distance >= ver.door_distance
+			&& cos(ray->angle) < 0.0)
 			ray->door_orientation = 'E';
 		else
 			ray->door_orientation = 'W';
@@ -37,11 +38,11 @@ static void	choose_nearest_hit(t_ray *ray, t_tmp_ray hor, t_tmp_ray ver)
 		ray->door_exists = false;
 	ray->wall_distance = fmin(ver.wall_distance, hor.wall_distance);
 	ray->wall_hit_x = fma(ver.wall_hit_x,
-		(ver.wall_distance < hor.wall_distance),
-		(ver.wall_distance >= hor.wall_distance) * hor.wall_hit_x);
+			(ver.wall_distance < hor.wall_distance),
+			(ver.wall_distance >= hor.wall_distance) * hor.wall_hit_x);
 	ray->wall_hit_y = fma(ver.wall_hit_y,
-		(ver.wall_distance < hor.wall_distance),
-		(ver.wall_distance >= hor.wall_distance) * hor.wall_hit_y);
+			(ver.wall_distance < hor.wall_distance),
+			(ver.wall_distance >= hor.wall_distance) * hor.wall_hit_y);
 	if (hor.wall_distance < ver.wall_distance && sin(ray->angle) > 0.0)
 		ray->wall_orientation = 'N';
 	else if (hor.wall_distance < ver.wall_distance && sin(ray->angle) < 0.0)

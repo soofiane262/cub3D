@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kid-bouh <kid-bouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:01:56 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/09/05 12:45:43 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/09/08 19:48:56 by kid-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,4 +92,9 @@ void	paint_mini_map(t_cub_bonus *cub_bonus);
 void	mlx_change_img_color(void *img, int color);
 void	paint_square_to_master(t_cub_bonus *cub_bonus, int coord[2],
 	int size, int color);
+
+int	button_press(int button, int x, int y, t_cub_bonus *cub_bonus);
+int	button_release(int button, int x, int y, t_cub_bonus *cub_bonus);
+int	mouse_move(int x, int y, t_cub_bonus *cub_bonus);
+
 #endif

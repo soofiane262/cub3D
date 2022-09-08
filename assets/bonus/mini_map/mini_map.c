@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kid-bouh <kid-bouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 18:00:15 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/09/05 12:44:46 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/09/08 19:56:28 by kid-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	init_mini_map(t_cub_bonus *cub_bonus)
 {
 	int	tmp;
 
-	cub_bonus->mini_map.player = mlx_xpm_file_to_image(cub_bonus->cub->mlx.mlx,
-		"textures/red_dot_10x10.xpm", &tmp, &tmp);
+	cub_bonus->mini_map.player = mlx_xpm_file_to_image(
+			cub_bonus->cub->mlx.mlx, "textures/red_dot_10x10.xpm", &tmp, &tmp);
 }
 
 void	paint_mini_map(t_cub_bonus *cub_bonus)
