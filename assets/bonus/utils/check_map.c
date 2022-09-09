@@ -3,45 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   check_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kid-bouh <kid-bouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/20 21:38:10 by kid-bouh          #+#    #+#             */
-/*   Updated: 2022/09/05 11:16:29 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/09/09 01:50:49 by kid-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d_bonus.h"
 
+static void	pos_orient_player(t_cub *cub, int i, int j, int *k)
+{
+	cub->player.x_pos = j * TILE_SIZE;
+	cub->player.y_pos = i * TILE_SIZE;
+	cub->player.orient = cub->map.map[i][j];
+	cub->player.rotation = 3 * M_PI_2;
+	if (cub->player.orient == 'S')
+	cub->player.rotation = M_PI_2;
+	else if (cub->player.orient == 'W')
+		cub->player.rotation = M_PI;
+	else if (cub->player.orient == 'E')
+		cub->player.rotation = 0;
+	cub->map.map[i][j] = '0';
+	(*k) += 1;
+}
+
 static void	ft_check_map_2(t_cub *cub, int i, int j, int *k)
 {
 	if (ft_strchr("NSWE", cub->map.map[i][j]))
-	{
-		cub->player.x_pos = j * TILE_SIZE;
-		cub->player.y_pos = i * TILE_SIZE;
-		cub->player.orient = cub->map.map[i][j];
-		cub->player.rotation = 3 * M_PI_2;
-		if (cub->player.orient == 'S')
-		cub->player.rotation = M_PI_2;
-		else if (cub->player.orient == 'W')
-			cub->player.rotation = M_PI;
-		else if (cub->player.orient == 'E')
-			cub->player.rotation = 0;
-		cub->map.map[i][j] = '0';
-		(*k) += 1;
-	}
+		pos_orient_player(cub, i, j, k);
 	else if (
 		((i == 0 || j == 0 || i == cub->map.height - 1
 				|| j == cub->map.width - 1) && cub->map.map[i][j] != '1'
 		&& cub->map.map[i][j] != ' ') || (cub->map.map[i][j] == ' '
 		&& (
-			(int_in_range(i + 1, 0, cub->map.height - 1) && int_in_range(j, 0, cub->map.width - 1)
-			&& !ft_strchr("1 ", cub->map.map[i + 1][j]))
-		|| (int_in_range(i - 1, 0, cub->map.height - 1) && int_in_range(j, 0, cub->map.width - 1)
-			&& !ft_strchr("1 ", cub->map.map[i - 1][j]))
-		|| (int_in_range(i, 0, cub->map.height - 1) && int_in_range(j + 1, 0, cub->map.width - 1)
-			&& !ft_strchr("1 ", cub->map.map[i][j + 1]))
-		|| (int_in_range(i, 0, cub->map.height - 1) && int_in_range(j - 1, 0, cub->map.width - 1)
-			&& !ft_strchr("1 ", cub->map.map[i][j - 1]))
+			(int_in_range(i + 1, 0, cub->map.height - 1)
+				&& int_in_range(j, 0, cub->map.width - 1)
+					&& !ft_strchr("1 ", cub->map.map[i + 1][j]))
+		|| (int_in_range(i - 1, 0, cub->map.height - 1)
+			&& int_in_range(j, 0, cub->map.width - 1)
+				&& !ft_strchr("1 ", cub->map.map[i - 1][j]))
+		|| (int_in_range(i, 0, cub->map.height - 1)
+				&& int_in_range(j + 1, 0, cub->map.width - 1)
+					&& !ft_strchr("1 ", cub->map.map[i][j + 1]))
+		|| (int_in_range(i, 0, cub->map.height - 1)
+			&& int_in_range(j - 1, 0, cub->map.width - 1)
+				&& !ft_strchr("1 ", cub->map.map[i][j - 1]))
 		)))
 		ft_map_param_error(cub, 0,
 			"Error: Map must be surrounded by walls");

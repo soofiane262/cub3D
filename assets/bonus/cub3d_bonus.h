@@ -6,7 +6,7 @@
 /*   By: kid-bouh <kid-bouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:01:56 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/09/08 19:48:56 by kid-bouh         ###   ########.fr       */
+/*   Updated: 2022/09/09 01:32:28 by kid-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 typedef struct s_mini_map
 {
 	void	*player;
-} t_mini_map;
+}	t_mini_map;
 
 typedef struct s_door
 {
@@ -49,14 +49,14 @@ typedef struct s_door
 	void	**door;
 	int		**door_data;
 	int		door_side;
-} t_door;
+}	t_door;
 
 typedef struct s_mouse
 {
 	bool	clicked_left;
 	bool	clicked_right;
 	float	angle;
-} t_mouse;
+}	t_mouse;
 
 typedef struct s_gun
 {
@@ -66,16 +66,16 @@ typedef struct s_gun
 	int		**gun_data;
 	int		gun_side;
 	int		gun_height;
-} t_gun;
+}	t_gun;
 
-typedef struct	s_cub_bonus
+typedef struct s_cub_bonus
 {
 	t_cub		*cub;
 	t_mouse		mouse;
 	t_gun		gun;
 	t_door		door;
 	t_mini_map	mini_map;
-} t_cub_bonus;
+}	t_cub_bonus;
 
 int		cub3d_bonus(int ac, char **av);
 void	ft_check_map_bonus(t_cub *cub);
@@ -84,6 +84,14 @@ int		leave_bonus(t_cub_bonus *cub_bonus);
 void	update_all_bonus(t_cub_bonus *cub_bonus);
 int		render_frame_bonus(t_cub_bonus *cub_bonus);
 void	paint_master_bonus(t_cub_bonus *cub_bonus);
+void	paint_horizontal_wall_pixel(t_cub_bonus *cub_bonus,
+			float start[3], float end[3], int idx[2]);
+void	paint_vertical_wall_pixel(t_cub_bonus *cub_bonus,
+			float start[3], float end[3], int idx[2]);
+void	paint_horizontal_door_pixel(t_cub_bonus *cub_bonus,
+			float start, float end, int idx[2]);
+void	paint_vertical_door_pixel(t_cub_bonus *cub_bonus,
+			float start, float end, int idx[2]);
 /* ----------------------------- Wall Collision ----------------------------- */
 int		check_wall_collision(int new_x, int new_y, t_cub *cub);
 /* -------------------------------- Mini Map -------------------------------- */
@@ -91,10 +99,9 @@ void	init_mini_map(t_cub_bonus *cub_bonus);
 void	paint_mini_map(t_cub_bonus *cub_bonus);
 void	mlx_change_img_color(void *img, int color);
 void	paint_square_to_master(t_cub_bonus *cub_bonus, int coord[2],
-	int size, int color);
-
-int	button_press(int button, int x, int y, t_cub_bonus *cub_bonus);
-int	button_release(int button, int x, int y, t_cub_bonus *cub_bonus);
-int	mouse_move(int x, int y, t_cub_bonus *cub_bonus);
+			int size, int color);
+int		button_press(int button, int x, int y, t_cub_bonus *cub_bonus);
+int		button_release(int button, int x, int y, t_cub_bonus *cub_bonus);
+int		mouse_move(int x, int y, t_cub_bonus *cub_bonus);
 
 #endif

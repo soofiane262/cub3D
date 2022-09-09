@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kid-bouh <kid-bouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:01:56 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/08/27 18:16:31 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/09/09 01:42:49 by kid-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,11 +164,11 @@ int			skip_space_rv(char *str, int i);
 char		*ft_check_path_texture(t_cub *cub);
 int			get_color(char *str, int i, int j);
 int			ft_check_color(t_cub *cub, int color);
-void		ft_check_map(t_cub *cub); 
+void		ft_check_map(t_cub *cub);
 /* --------------------------------- Parsing -------------------------------- */
 void		ft_map_param_error(t_cub *cub, int error, char *str);
 t_cub		*parsing(int ac, char **av);
-int		parse_params(t_cub *cub);
+int			parse_params(t_cub *cub);
 /* ----------------------------------- mlx ---------------------------------- */
 void		init_mlx_ptrs(t_cub *cub);
 void		init_walls(t_cub *cub);
@@ -179,8 +179,13 @@ int			key_release(int key, t_cub *cub);
 /* --------------------------------- Raycast -------------------------------- */
 void		raycast(t_cub *cub);
 void		ray_free(t_cub *cub);
+void		choose_nearest_hit(t_ray *ray, t_tmp_ray hor, t_tmp_ray ver);
 t_tmp_ray	vertical_hit(t_cub *cub, t_ray *ray, float diff[2]);
 t_tmp_ray	horizontal_hit(t_cub *cub, t_ray *ray, float diff[2]);
+t_tmp_ray	vertical_hit_wall(t_tmp_ray ret, t_cub *cub);
+t_tmp_ray	vertical_hit_door(t_tmp_ray ret, t_cub *cub);
+t_tmp_ray	horizontal_hit_wall(t_tmp_ray ret, t_cub *cub);
+t_tmp_ray	horizontal_hit_door(t_tmp_ray ret, t_cub *cub);
 /* --------------------------------- Render --------------------------------- */
 void		update_all(t_cub *cub);
 int			render_frame(t_cub *cub);

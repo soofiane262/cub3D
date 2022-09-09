@@ -3,14 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   leave.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
+/*   By: kid-bouh <kid-bouh@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/05 12:18:28 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/09/05 12:48:06 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/09/09 01:14:33 by kid-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d_bonus.h"
+
+static void	free_all_2(t_cub_bonus *cub_bonus)
+{
+	free(cub_bonus->cub->map.map);
+	cub_bonus->cub->map.map = NULL;
+	free(cub_bonus->cub);
+	cub_bonus->cub = NULL;
+	free(cub_bonus->gun.gun);
+	cub_bonus->gun.gun = NULL;
+	free(cub_bonus->gun.gun_data);
+	cub_bonus->gun.gun_data = NULL;
+	free(cub_bonus->door.door);
+	cub_bonus->door.door = NULL;
+	free(cub_bonus->door.door_data);
+	cub_bonus->door.door_data = NULL;
+	free(cub_bonus);
+	cub_bonus = NULL;
+}
 
 static void	free_all(t_cub_bonus *cub_bonus)
 {
@@ -27,20 +45,7 @@ static void	free_all(t_cub_bonus *cub_bonus)
 		free(cub_bonus->cub->map.map[i]);
 		cub_bonus->cub->map.map[i++] = NULL;
 	}
-	free(cub_bonus->cub->map.map);
-	cub_bonus->cub->map.map = NULL;
-	free(cub_bonus->cub);
-	cub_bonus->cub = NULL;
-	free(cub_bonus->gun.gun);
-	cub_bonus->gun.gun = NULL;
-	free(cub_bonus->gun.gun_data);
-	cub_bonus->gun.gun_data = NULL;
-	free(cub_bonus->door.door);
-	cub_bonus->door.door = NULL;
-	free(cub_bonus->door.door_data);
-	cub_bonus->door.door_data = NULL;
-	free(cub_bonus);
-	cub_bonus = NULL;
+	free_all_2(cub_bonus);
 }
 
 static void	destroy_all(t_cub_bonus *cub_bonus)

@@ -6,7 +6,7 @@
 #    By: kid-bouh <kid-bouh@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/23 16:04:18 by sel-mars          #+#    #+#              #
-#    Updated: 2022/09/08 19:52:13 by kid-bouh         ###   ########.fr        #
+#    Updated: 2022/09/09 01:27:52 by kid-bouh         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,7 +49,9 @@ SRCS	=	gnl/get_next_line.c\
 			assets/render/update.c\
 			assets/render/render.c\
 			assets/raycast/raycast.c\
-			assets/raycast/wall_hit.c
+			assets/raycast/raycast_2.c\
+			assets/raycast/wall_hit.c\
+			assets/raycast/wall_hit_2.c\
 
 OBJS	=	$(SRCS:%.c=%.o)
 
@@ -68,12 +70,15 @@ BNSSRCS	=	gnl/get_next_line.c\
 			assets/mlx/key_hook.c\
 			assets/mlx/leave.c\
 			assets/raycast/raycast.c\
+			assets/raycast/raycast_2.c\
 			assets/raycast/wall_hit.c\
+			assets/raycast/wall_hit_2.c\
 			assets/bonus/utils/check_map.c\
 			assets/bonus/utils/leave.c\
 			assets/bonus/render/update.c\
 			assets/bonus/render/render.c\
 			assets/bonus/render/paint_master.c\
+			assets/bonus/render/paint_wall_door_pixel.c\
 			assets/bonus/wall_col/wall_collision.c\
 			assets/bonus/mini_map/mini_map.c\
 
