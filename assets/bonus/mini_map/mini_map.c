@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mini_map.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: kid-bouh <kid-bouh@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 18:00:15 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/09/09 00:20:37 by kid-bouh         ###   ########.fr       */
+/*   Updated: 2022/09/09 18:23:34 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,20 @@ void	init_mini_map(t_cub_bonus *cub_bonus)
 			cub_bonus->cub->mlx.mlx, "textures/red_dot_10x10.xpm", &tmp, &tmp);
 }
 
-void	paint_mini_map(t_cub_bonus *cub_bonus)
+void	paint_mini_map_section(t_cub_bonus *cub_bonus, int incr0, int incr1)
 {
 	int	i[2];
 	int	j[2];
 
 	i[0] = (cub_bonus->cub->player.y_pos + TILE_SIZE / 2) / TILE_SIZE;
 	j[0] = MINI_MAP_HEIGHT / 2 + MINI_MAP_MARGIN + -MINI_MAP_TILE_SIZE / 2;
-	while (i[0] >= 0 && j[0] >= MINI_MAP_MARGIN + 2)
+	while (i[0] >= 0 && j[0] >= MINI_MAP_MARGIN + 2
+		&& i[0] < cub_bonus->cub->map.height && j[0] < MINI_MAP_HEIGHT - 2)
 	{
 		i[1] = (cub_bonus->cub->player.x_pos + TILE_SIZE / 2) / TILE_SIZE;
 		j[1] = MINI_MAP_WIDTH / 2 + MINI_MAP_MARGIN + -MINI_MAP_TILE_SIZE / 2;
-		while (i[1] >= 0 && j[1] >= MINI_MAP_MARGIN + 2)
+		while (i[1] >= 0 && j[1] >= MINI_MAP_MARGIN + 2
+			&& i[1] < cub_bonus->cub->map.width && j[1] < MINI_MAP_WIDTH - 2)
 		{
 			if (cub_bonus->cub->map.map[i[0]][i[1]] == '0')
 				paint_square_to_master(cub_bonus, j, MINI_MAP_TILE_SIZE,
@@ -61,72 +63,20 @@ void	paint_mini_map(t_cub_bonus *cub_bonus)
 			else if (cub_bonus->cub->map.map[i[0]][i[1]] == '1')
 				paint_square_to_master(cub_bonus, j, MINI_MAP_TILE_SIZE,
 					argb_to_int(0, 40, 89, 202));
-			j[1] -= MINI_MAP_TILE_SIZE;
-			i[1]--;
+			j[1] += incr1 * MINI_MAP_TILE_SIZE;
+			i[1] += incr1;
 		}
-		j[0] -= MINI_MAP_TILE_SIZE;
-		i[0]--;
+		j[0] += incr0 * MINI_MAP_TILE_SIZE;
+		i[0] += incr0;
 	}
-	i[0] = (cub_bonus->cub->player.y_pos + TILE_SIZE / 2) / TILE_SIZE;
-	j[0] = MINI_MAP_HEIGHT / 2 + MINI_MAP_MARGIN + -MINI_MAP_TILE_SIZE / 2;
-	while (i[0] >= 0 && j[0] >= MINI_MAP_MARGIN + 2)
-	{
-		i[1] = (cub_bonus->cub->player.x_pos + TILE_SIZE / 2) / TILE_SIZE;
-		j[1] = MINI_MAP_WIDTH / 2 + MINI_MAP_MARGIN + -MINI_MAP_TILE_SIZE / 2;
-		while (i[1] < cub_bonus->cub->map.width && j[1] < MINI_MAP_WIDTH - 2)
-		{
-			if (cub_bonus->cub->map.map[i[0]][i[1]] == '0')
-				paint_square_to_master(cub_bonus, j, MINI_MAP_TILE_SIZE,
-					cub_bonus->cub->params.f_color);
-			else if (cub_bonus->cub->map.map[i[0]][i[1]] == '1')
-				paint_square_to_master(cub_bonus, j, MINI_MAP_TILE_SIZE,
-					argb_to_int(0, 40, 89, 202));
-			j[1] += MINI_MAP_TILE_SIZE;
-			i[1]++;
-		}
-		j[0] -= MINI_MAP_TILE_SIZE;
-		i[0]--;
-	}
-	i[0] = (cub_bonus->cub->player.y_pos + TILE_SIZE / 2) / TILE_SIZE;
-	j[0] = MINI_MAP_HEIGHT / 2 + MINI_MAP_MARGIN + -MINI_MAP_TILE_SIZE / 2;
-	while (i[0] < cub_bonus->cub->map.height && j[0] < MINI_MAP_HEIGHT - 2)
-	{
-		i[1] = (cub_bonus->cub->player.x_pos + TILE_SIZE / 2) / TILE_SIZE;
-		j[1] = MINI_MAP_WIDTH / 2 + MINI_MAP_MARGIN + -MINI_MAP_TILE_SIZE / 2;
-		while (i[1] >= 0 && j[1] >= MINI_MAP_MARGIN + 2)
-		{
-			if (cub_bonus->cub->map.map[i[0]][i[1]] == '0')
-				paint_square_to_master(cub_bonus, j, MINI_MAP_TILE_SIZE,
-					cub_bonus->cub->params.f_color);
-			else if (cub_bonus->cub->map.map[i[0]][i[1]] == '1')
-				paint_square_to_master(cub_bonus, j, MINI_MAP_TILE_SIZE,
-					argb_to_int(0, 40, 89, 202));
-			j[1] -= MINI_MAP_TILE_SIZE;
-			i[1]--;
-		}
-		j[0] += MINI_MAP_TILE_SIZE;
-		i[0]++;
-	}
-	i[0] = (cub_bonus->cub->player.y_pos + TILE_SIZE / 2) / TILE_SIZE;
-	j[0] = MINI_MAP_HEIGHT / 2 + MINI_MAP_MARGIN + -MINI_MAP_TILE_SIZE / 2;
-	while (i[0] < cub_bonus->cub->map.height && j[0] < MINI_MAP_HEIGHT - 2)
-	{
-		i[1] = (cub_bonus->cub->player.x_pos + TILE_SIZE / 2) / TILE_SIZE;
-		j[1] = MINI_MAP_WIDTH / 2 + MINI_MAP_MARGIN + -MINI_MAP_TILE_SIZE / 2;
-		while (i[1] < cub_bonus->cub->map.width && j[1] < MINI_MAP_WIDTH - 2)
-		{
-			if (cub_bonus->cub->map.map[i[0]][i[1]] == '0')
-				paint_square_to_master(cub_bonus, j, MINI_MAP_TILE_SIZE,
-					cub_bonus->cub->params.f_color);
-			else if (cub_bonus->cub->map.map[i[0]][i[1]] == '1')
-				paint_square_to_master(cub_bonus, j, MINI_MAP_TILE_SIZE,
-					argb_to_int(0, 40, 89, 202));
-			j[1] += MINI_MAP_TILE_SIZE;
-			i[1]++;
-		}
-		j[0] += MINI_MAP_TILE_SIZE;
-		i[0]++;
-	}
+}
+
+void	paint_mini_map(t_cub_bonus *cub_bonus)
+{
+	paint_mini_map_section(cub_bonus, -1, -1);
+	paint_mini_map_section(cub_bonus, 1, -1);
+	paint_mini_map_section(cub_bonus, -1, 1);
+	paint_mini_map_section(cub_bonus, 1, 1);
 	mlx_put_image_to_window(cub_bonus->cub->mlx.mlx,
 		cub_bonus->cub->mlx.win, cub_bonus->mini_map.player,
 		MINI_MAP_WIDTH / 2 + MINI_MAP_MARGIN - (MINI_MAP_PLAYER_SIZE / 2) - 2,
