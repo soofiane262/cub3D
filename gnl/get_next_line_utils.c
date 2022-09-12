@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/13 21:27:08 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/07/24 12:58:24 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/09/12 18:13:49 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ char	*ft_strjoin_gnl(const char *s1, const char *s2)
 	int		j;
 	char	*newstr;
 
-	newstr = (char *)malloc((ft_strlen_gnl(s1) + ft_strlen_gnl(s2) + 1) * sizeof(char));
+	newstr = (char *)malloc((ft_strlen_gnl(s1)
+				+ ft_strlen_gnl(s2) + 1) * sizeof(char));
 	if (!s1 || !s2 || !newstr)
 	{
 		free(newstr);

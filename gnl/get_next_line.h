@@ -6,7 +6,7 @@
 /*   By: sel-mars <sel-mars@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 11:11:59 by sel-mars          #+#    #+#             */
-/*   Updated: 2022/07/24 13:01:27 by sel-mars         ###   ########.fr       */
+/*   Updated: 2022/09/12 18:13:40 by sel-mars         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,6 @@ void			ft_free_gnl(char **str);
 size_t			ft_strlen_gnl(const char *str);
 char			*ft_strdup_gnl(const char *str);
 char			*ft_strjoin_gnl(const char *s1, const char *s2);
-char			*ft_substr_gnl(char const *s, unsigned int start, unsigned int len);
+char			*ft_substr_gnl(char const *s, unsigned int start,
+					unsigned int len);
 #endif
